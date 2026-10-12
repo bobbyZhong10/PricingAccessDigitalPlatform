@@ -3,6 +3,7 @@
 #     placebo RDs on L1 and Bitcoin; randomization inference; elasticities
 #  B  Base vs Arbitrum before Arbitrum's own drop
 #  C  RD by transaction type
+#  Summary table: hourly activity before and after each drop (mean and SD across hours)
 source(here::here("code", "00_setup.R"))
 new_log("04 main analysis")
 load_panel(c("l2_hourly", "l2_hourly_type", "l2_newsenders", "control_hourly", "eth_usd_daily"))
@@ -17,6 +18,17 @@ D <- rbindlist(lapply(CHAINS, hourly))[hr >= as.POSIXct("2024-03-01", tz = "UTC"
 D <- merge(D, control_hourly[, .(hr, n_eth, y_l1 = log(n_eth), y_btc = log(n_btc))], by = "hr", all.x = TRUE)
 D[, `:=`(hod = hour(hr), day = as.IDate(hr, tz = "UTC"))]; check_unique(D, c("chain", "hr"), "hourly panel")
 say(sprintf("Hourly panel: %d chain-hours, %s..%s UTC", nrow(D), min(D$hr), max(D$hr)))
+
+# ---- summary statistics: 7 days before / after each chain's drops (Arbitrum also between its two steps) ----
+# Senders are counted separately for successful and failed txs, so a sender with both in the same hour counts twice.
+d7 <- 7 * 86400; t_b <- EVENTS$t0[1]; t_a1 <- EVENTS$t0[2]; t_a2 <- EVENTS$t0[3]
+SP <- data.table(chain = c("base", "base", "arbitrum", "arbitrum", "arbitrum"), period = c("7 days before", "7 days after", "7 days before step 1", "between steps 1 and 2", "7 days after step 2"),
+                 from = c(t_b - d7, t_b, t_a1 - d7, t_a1, t_a2), to = c(t_b, t_b + d7, t_a1, t_a2, t_a2 + d7))
+SUM <- rbindlist(lapply(seq_len(nrow(SP)), function(i) { s <- SP[i]
+  merge(D[chain == s$chain & hr >= s$from & hr < s$to], eth_usd_daily[, .(day, usd = close)], by = "day")[, .(chain = s$chain, period = s$period, hours = .N,
+    txs_mean = mean(n), txs_sd = sd(n), fee_usd_mean = mean(fpt * usd), fee_usd_sd = sd(fpt * usd), senders_mean = mean(senders), senders_sd = sd(senders))] }))
+say("## Summary: hourly transactions, fee per transaction (US$) and active senders, mean and SD across hours"); logp(rnd(SUM))
+fwrite(SUM, res("tables", "summary_hourly.csv"))
 
 # ---- A. RD in time, market controls, RI ----
 ys <- c(lfpt = "log fee per tx (first stage)", y_all = "log txs", y_snd = "log distinct senders", y_new = "log new senders", y_fail = "log failed txs",

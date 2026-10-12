@@ -58,6 +58,18 @@ All sources are public and need no keys:
 
 Protocol system transactions are removed: one per block, about 3% of Base and 22% of Arbitrum raw transactions. Daily counts then match growthepie within 0.0–0.9%.
 
+**Table 1. Hourly activity before and after the fee drops** (mean across hours, standard deviation in parentheses)
+
+| Chain | Period | Hours | Transactions per hour | Fee per transaction (US$) | Active senders per hour |
+|---|---|---:|---:|---:|---:|
+| Base | 7 days before the drop | 168 | 18,109 (10,452) | 0.99 (0.28) | 6,299 (845) |
+| Base | 7 days after the drop | 168 | 57,241 (20,028) | 0.26 (0.40) | 19,142 (12,987) |
+| Arbitrum | 7 days before step 1 | 168 | 30,555 (8,101) | 0.87 (0.22) | 10,046 (2,598) |
+| Arbitrum | Between steps 1 and 2 | 113 | 49,230 (13,277) | 0.13 (0.07) | 12,816 (2,862) |
+| Arbitrum | 7 days after step 2 | 168 | 64,475 (14,564) | 0.015 (0.011) | 16,677 (4,405) |
+
+*Notes:* Protocol system transactions are excluded. Fees are converted at the daily ETH/USD close. Senders are counted separately for successful and failed transactions, so a sender with both in the same hour counts twice. Base's mean fee after the drop is pulled up by 20 March, when congestion pushed fees back to about $1 per transaction; the hourly median over that week is $0.12. Source: `results/tables/summary_hourly.csv`.
+
 ## 5. Measurement
 
 - **Price:** fee per transaction (ETH and US$).
