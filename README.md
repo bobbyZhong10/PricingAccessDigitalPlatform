@@ -4,8 +4,6 @@ When a digital platform cuts the price of each use, how much does usage respond,
 
 The setting is the March 2024 Ethereum Dencun upgrade (EIP-4844), which cut transaction fees on Layer-2 rollups by about 85% within an hour. The project studies three fee drops at hourly resolution: Base (Ecotone), and Arbitrum's two steps (ArbOS 20, then a lower minimum base fee). It replicates the result across rollups with daily data and measures who enters after each drop.
 
-The research design and preliminary results are in [`proposal/`](proposal/) (Markdown and PDF).
-
 ## Repository layout
 
 ```
