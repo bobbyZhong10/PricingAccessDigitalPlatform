@@ -44,8 +44,6 @@ All public, no API keys:
 - **growthepie** public exports: daily transactions, active addresses, and median fee for Layer-2s.
 - **Coinbase Exchange** public candles: ETH/USD daily.
 
-Only aggregates are stored; the transaction-level tables are hundreds of GB. Protocol system transactions are removed in `02`. All times are UTC.
-
 ## Software
 
 Tested with R 4.5.3 and data.table 1.18.2, fixest 0.14.2, did 2.3.0, ggplot2 4.0.2, duckdb 1.5.0, nanoparquet 0.5.2, here 1.0.2 (full list in `00_setup.R`; versions in each log's sessionInfo).
