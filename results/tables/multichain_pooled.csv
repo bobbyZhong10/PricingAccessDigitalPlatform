@@ -1,0 +1,18 @@
+set,n_events,n_chains,term,est,se,first_stage_F
+detected blob-adoption dates,9,12,RF log cost,-3.07624434487362,0.447040639282976,
+detected blob-adoption dates,9,12,RF log txs,0.503078040758517,0.20108883039504,
+detected blob-adoption dates,9,12,RF log DAA,0.229281008650416,0.200055370384999,
+detected blob-adoption dates,9,12,2SLS elasticity txs,-0.163536437408444,0.0570955334692131,47.3530160511263
+detected blob-adoption dates,9,12,2SLS elasticity DAA,-0.0745327688395411,0.0613708060864841,47.3530160511263
+"documented dates, 6 rollups",6,11,RF log cost,-3.27155009764654,0.60243961390007,
+"documented dates, 6 rollups",6,11,RF log txs,0.661926660139986,0.231892171540191,
+"documented dates, 6 rollups",6,11,RF log DAA,0.361402491775339,0.256656806390981,
+"documented dates, 6 rollups",6,11,2SLS elasticity txs,-0.202328144269032,0.0637585860474286,29.4903622388548
+"documented dates, 6 rollups",6,11,2SLS elasticity DAA,-0.110468273750516,0.0741361205285402,29.4903622388548
+detected dates excluding Linea/Manta/Mantle,6,11,RF log cost,-3.13196817381927,0.583482089821596,
+detected dates excluding Linea/Manta/Mantle,6,11,RF log txs,0.591984808846992,0.236136597135279,
+detected dates excluding Linea/Manta/Mantle,6,11,RF log DAA,0.307735107432932,0.250930989889231,
+detected dates excluding Linea/Manta/Mantle,6,11,2SLS elasticity txs,-0.189013673189757,0.0660624797629848,28.8124123065492
+detected dates excluding Linea/Manta/Mantle,6,11,2SLS elasticity DAA,-0.0982561412996949,0.0751491934378511,28.8124123065492
+level test,13,14,log cost,-0.156689486581447,0.0656572548794241,
+level test,13,14,log cost x log(pre-drop level),-0.00519565459502943,0.0197834217094121,

@@ -1,0 +1,142 @@
+created: 2026-10-12 20:10:32 UTC
+file: panel.rds
+md5: 61233e7e23aaffceb08ca0473f0e996a
+all_valid: yes
+failures: []
+objects:
+  l2_hourly:
+    valid: yes
+    rows: 11712
+    keys:
+    - chain
+    - hr
+    - hf
+    - failed
+    columns:
+    - hr
+    - hf
+    - failed
+    - 'n'
+    - fee
+    - n_senders
+    - chain
+  l2_hourly_type:
+    valid: yes
+    rows: 26552
+    keys:
+    - chain
+    - hr
+    - typ
+    - failed
+    columns:
+    - hr
+    - typ
+    - failed
+    - 'n'
+    - fee
+    - chain
+  l2_newsenders:
+    valid: yes
+    rows: 2928
+    keys:
+    - chain
+    - hr
+    columns:
+    - hr
+    - new_senders
+    - chain
+  control_hourly:
+    valid: yes
+    rows: 1512
+    keys: hr
+    columns:
+    - hr
+    - n_eth
+    - n_btc
+  eth_usd_daily:
+    valid: yes
+    rows: 56
+    keys: day
+    columns:
+    - day
+    - close
+  entrants:
+    valid: yes
+    rows: 2857267
+    keys: []
+    columns:
+    - chain
+    - day
+    - hr
+    - act_2024_04
+    - act_2024_06
+    - act_2024_09
+    - act_2024_12
+    - act_2025_03
+    - months_active
+    - any_later
+    - single_tx_wk1
+    - bot_wk1
+    - wave
+    - batch
+    - wave_size
+    - wave_funded
+    - class3
+    - first_to
+    - first_sel
+    - funder_any
+  sender_window:
+    valid: yes
+    rows: 3319464
+    keys:
+    - chain
+    - window
+    - id
+    columns:
+    - chain
+    - window
+    - id
+    - 'n'
+    - fee
+  base_tx_by_class:
+    valid: yes
+    rows: 42
+    keys:
+    - cls
+    - day
+    columns:
+    - cls
+    - day
+    - txs
+  base_hourly_campaign:
+    valid: yes
+    rows: 1122
+    keys: hr
+    columns:
+    - hr
+    - n_campaign
+  multichain_daily:
+    valid: yes
+    rows: 8261
+    keys:
+    - chain
+    - date
+    columns:
+    - chain
+    - date
+    - daa
+    - cost
+    - txcount
+  multichain_drops:
+    valid: yes
+    rows: 414
+    keys:
+    - chain
+    - date
+    columns:
+    - chain
+    - date
+    - drop
+    - local_max
+    - pre_level
+    - post_level

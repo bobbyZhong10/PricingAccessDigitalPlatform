@@ -1,0 +1,7 @@
+set,outcome,att,se,elasticity
+documented dates,log median fee,-3.05576476357923,0.630821201816088,1
+documented dates,log txs,0.542888246642832,0.183562680005747,-0.177660353019761
+documented dates,log active addresses,0.360165149204953,0.205700914221241,-0.117864160716053
+"documented where available, else detected",log median fee,-2.62744661706561,0.519943510538083,1
+"documented where available, else detected",log txs,0.284414808739575,0.165210720752198,-0.108247606970305
+"documented where available, else detected",log active addresses,0.169428345572094,0.162066391788105,-0.0644840296551165

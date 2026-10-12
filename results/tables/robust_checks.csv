@@ -1,0 +1,19 @@
+check,event,est,se,ri_p
+"B. weekly-differenced log txs (mean diff, 36 h)",Base (Ecotone),1.18913800650494,0.172065908872796,0
+"B. weekly-differenced log txs (mean diff, 36 h)",Arbitrum step 1,0.619393619230872,0.076192867117635,0
+"B. weekly-differenced log txs (mean diff, 36 h)",Arbitrum step 2,0.314481509323314,0.14677025434949,0.0461538461538462
+"C1. market controls: log L1 and Bitcoin txs as covariates (trend, 36 h)",Base (Ecotone),0.785539891997663,0.326688699819919,0
+"C1. market controls: log L1 and Bitcoin txs as covariates (trend, 36 h)",Arbitrum step 1,0.748873152837237,0.0873187027551868,0
+"C1. market controls: log L1 and Bitcoin txs as covariates (trend, 36 h)",Arbitrum step 2,0.0969487410774309,0.117051232701436,0.450704225352113
+"C2. market controls, mean difference within 72 h",Base (Ecotone),1.27124426354135,0.123370131657102,0
+"C2. market controls, mean difference within 72 h",Arbitrum step 1,0.428167335790219,0.0638409128240733,0
+"C2. market controls, mean difference within 72 h",Arbitrum step 2,0.332153320346722,0.0656384141053136,0
+"E1. main spec, NW(24) SE",Base (Ecotone),0.786701738954489,0.182507126436504,
+"E1. main spec, NW(24) SE",Arbitrum step 1,0.761381997943937,0.0475778732551213,
+"E1. main spec, NW(24) SE",Arbitrum step 2,0.137764541674558,0.0787275526861019,
+"E2. main spec, SE clustered by day",Base (Ecotone),0.786701738954489,0.0772894172929477,
+"E2. main spec, SE clustered by day",Arbitrum step 1,0.761381997943937,0.0513380337176466,
+"E2. main spec, SE clustered by day",Arbitrum step 2,0.137764541674558,0.0608493869189514,
+"C3. Base minus Arbitrum, before Arbitrum's drop (36 h pre, 15 h post)",Base (Ecotone),1.23244535648148,0.107391082982808,
+"D. Base successful txs net of campaign wallets and collectors (trend, 36 h)",Base (Ecotone),0.910017874648119,0.208296625436574,0
+"D. Base successful txs net of campaign wallets and collectors (mean diff, 72 h)",Base (Ecotone),0.981292646678744,0.0466566529758211,0

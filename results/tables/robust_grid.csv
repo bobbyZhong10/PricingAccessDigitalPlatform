@@ -1,0 +1,115 @@
+event,outcome,spec,window_h,trend,donut_h,est,se,ri_p,n_fake
+Base (Ecotone),log fee per tx,W12 mean donut0,12,FALSE,0,-2.46621457746444,0.151229794517016,,
+Base (Ecotone),log txs,W12 mean donut0,12,FALSE,0,0.646465069361555,0.23719878937113,0.0126582278481013,79
+Base (Ecotone),log fee per tx,W12 mean donut1,12,FALSE,1,-2.58332414043081,0.104868898285806,,
+Base (Ecotone),log txs,W12 mean donut1,12,FALSE,1,0.659258517231077,0.263816705646577,0.0126582278481013,79
+Base (Ecotone),log fee per tx,W12 trend donut0,12,TRUE,0,-2.05869554192155,0.213002951009986,,
+Base (Ecotone),log txs,W12 trend donut0,12,TRUE,0,-0.15695632798289,0.388864670938728,0.493670886075949,79
+Base (Ecotone),log fee per tx,W12 trend donut1,12,TRUE,1,-2.43552006220208,0.108895586502524,,
+Base (Ecotone),log txs,W12 trend donut1,12,TRUE,1,-0.442984048260495,0.401337761219588,0.0886075949367089,79
+Base (Ecotone),log fee per tx,W24 mean donut0,24,FALSE,0,-1.90508228322711,0.189939453252699,,
+Base (Ecotone),log txs,W24 mean donut0,24,FALSE,0,0.994773886697272,0.197113844001555,0,75
+Base (Ecotone),log fee per tx,W24 mean donut1,24,FALSE,1,-1.92994706015385,0.207538875522835,,
+Base (Ecotone),log txs,W24 mean donut1,24,FALSE,1,1.00922407841694,0.210446235312307,0,75
+Base (Ecotone),log fee per tx,W24 mean donut3,24,FALSE,3,-1.91732378228034,0.239146666660193,,
+Base (Ecotone),log txs,W24 mean donut3,24,FALSE,3,1.04196005267248,0.235298971388679,0,75
+Base (Ecotone),log fee per tx,W36 mean donut0,36,FALSE,0,-1.87505463991287,0.154606121686814,,
+Base (Ecotone),log txs,W36 mean donut0,36,FALSE,0,1.10701887616821,0.141275638409423,0,72
+Base (Ecotone),log fee per tx,W36 mean donut1,36,FALSE,1,-1.88975949507588,0.160777627346507,,
+Base (Ecotone),log txs,W36 mean donut1,36,FALSE,1,1.1182154093067,0.143540746692014,0,72
+Base (Ecotone),log fee per tx,W36 mean donut3,36,FALSE,3,-1.85989012899398,0.1639230485278,,
+Base (Ecotone),log txs,W36 mean donut3,36,FALSE,3,1.14011598107728,0.142936568507787,0,72
+Base (Ecotone),log fee per tx,W36 trend donut0,36,TRUE,0,-1.96389829729632,0.259601290209287,,
+Base (Ecotone),log txs,W36 trend donut0,36,TRUE,0,0.76983910042965,0.299067543401906,0,72
+Base (Ecotone),log fee per tx,W36 trend donut1,36,TRUE,1,-2.03302752612295,0.268398084380721,,
+Base (Ecotone),log txs,W36 trend donut1,36,TRUE,1,0.786701738954489,0.324929844271168,0,72
+Base (Ecotone),log fee per tx,W36 trend donut3,36,TRUE,3,-1.9197004924096,0.317793107562909,,
+Base (Ecotone),log txs,W36 trend donut3,36,TRUE,3,0.823442342103553,0.402808419101745,0,72
+Base (Ecotone),log fee per tx,W72 mean donut0,72,FALSE,0,-2.06647506738415,0.105246098634186,,
+Base (Ecotone),log txs,W72 mean donut0,72,FALSE,0,1.23735029673827,0.107715949426844,0,66
+Base (Ecotone),log fee per tx,W72 mean donut1,72,FALSE,1,-2.07902674777123,0.106955581829391,,
+Base (Ecotone),log txs,W72 mean donut1,72,FALSE,1,1.24783123569925,0.108057561078217,0,66
+Base (Ecotone),log fee per tx,W72 mean donut3,72,FALSE,3,-2.06311596467123,0.108407213794513,,
+Base (Ecotone),log txs,W72 mean donut3,72,FALSE,3,1.26822729877477,0.108460834447514,0,66
+Base (Ecotone),log fee per tx,W72 trend donut0,72,TRUE,0,-1.82773317055584,0.216571039293145,,
+Base (Ecotone),log txs,W72 trend donut0,72,TRUE,0,0.826725446928406,0.21160460666317,0,66
+Base (Ecotone),log fee per tx,W72 trend donut1,72,TRUE,1,-1.86024996538776,0.226502532103651,,
+Base (Ecotone),log txs,W72 trend donut1,72,TRUE,1,0.846038356085458,0.214960932942362,0,66
+Base (Ecotone),log fee per tx,W72 trend donut3,72,TRUE,3,-1.78681132700358,0.220251596975767,,
+Base (Ecotone),log txs,W72 trend donut3,72,TRUE,3,0.884718838163447,0.217954664201005,0,66
+Arbitrum step 1,log fee per tx,W12 mean donut0,12,FALSE,0,-1.91171272156715,0.0943273358528015,,
+Arbitrum step 1,log txs,W12 mean donut0,12,FALSE,0,0.514542489569608,0.113299042263905,0,78
+Arbitrum step 1,log fee per tx,W12 mean donut1,12,FALSE,1,-1.88188625142292,0.0863853216078763,,
+Arbitrum step 1,log txs,W12 mean donut1,12,FALSE,1,0.528081449368739,0.101972250772075,0,78
+Arbitrum step 1,log fee per tx,W12 trend donut0,12,TRUE,0,-2.20358464587674,0.13047767803807,,
+Arbitrum step 1,log txs,W12 trend donut0,12,TRUE,0,0.191847750914076,0.11389167001669,0.551282051282051,78
+Arbitrum step 1,log fee per tx,W12 trend donut1,12,TRUE,1,-2.15971975754788,0.161788151151712,,
+Arbitrum step 1,log txs,W12 trend donut1,12,TRUE,1,0.142681839200985,0.142030802786189,0.730769230769231,78
+Arbitrum step 1,log fee per tx,W24 mean donut0,24,FALSE,0,-1.76803333301046,0.15747012761334,,
+Arbitrum step 1,log txs,W24 mean donut0,24,FALSE,0,0.614842434929312,0.0744160578229654,0,74
+Arbitrum step 1,log fee per tx,W24 mean donut1,24,FALSE,1,-1.74363282534633,0.16616671301129,,
+Arbitrum step 1,log txs,W24 mean donut1,24,FALSE,1,0.642681727195322,0.0618097166186521,0,74
+Arbitrum step 1,log fee per tx,W24 mean donut3,24,FALSE,3,-1.67268770885896,0.167665017793265,,
+Arbitrum step 1,log txs,W24 mean donut3,24,FALSE,3,0.70734925029462,0.0357763666701862,0,74
+Arbitrum step 1,log fee per tx,W36 mean donut0,36,FALSE,0,-1.72669312550014,0.119441387954881,,
+Arbitrum step 1,log txs,W36 mean donut0,36,FALSE,0,0.55596571702184,0.0674795592674837,0,71
+Arbitrum step 1,log fee per tx,W36 mean donut1,36,FALSE,1,-1.71769180932084,0.121928890890575,,
+Arbitrum step 1,log txs,W36 mean donut1,36,FALSE,1,0.560300883671584,0.0660531096875802,0,71
+Arbitrum step 1,log fee per tx,W36 mean donut3,36,FALSE,3,-1.69639423141104,0.117497869838087,,
+Arbitrum step 1,log txs,W36 mean donut3,36,FALSE,3,0.568431400059006,0.0676375872687754,0,71
+Arbitrum step 1,log fee per tx,W36 trend donut0,36,TRUE,0,-1.84785353038355,0.199836323209415,,
+Arbitrum step 1,log txs,W36 trend donut0,36,TRUE,0,0.726569527022218,0.0998561879709687,0,71
+Arbitrum step 1,log fee per tx,W36 trend donut1,36,TRUE,1,-1.81954594022289,0.202838670627088,,
+Arbitrum step 1,log txs,W36 trend donut1,36,TRUE,1,0.761381997943937,0.0922667648998191,0,71
+Arbitrum step 1,log fee per tx,W36 trend donut3,36,TRUE,3,-1.73905297513901,0.231422294658442,,
+Arbitrum step 1,log txs,W36 trend donut3,36,TRUE,3,0.849251852769487,0.0806607627003017,0,71
+Arbitrum step 1,log fee per tx,W72 mean donut0,72,FALSE,0,-1.8137208301714,0.0653606002082847,,
+Arbitrum step 1,log txs,W72 mean donut0,72,FALSE,0,0.428614146260907,0.0642167033837422,0,65
+Arbitrum step 1,log fee per tx,W72 mean donut1,72,FALSE,1,-1.80612639486395,0.0641700846839402,,
+Arbitrum step 1,log txs,W72 mean donut1,72,FALSE,1,0.428716025819413,0.0649152405880416,0,65
+Arbitrum step 1,log fee per tx,W72 mean donut3,72,FALSE,3,-1.78933175320241,0.060742671606536,,
+Arbitrum step 1,log txs,W72 mean donut3,72,FALSE,3,0.431966745168118,0.0672382780296105,0,65
+Arbitrum step 1,log fee per tx,W72 trend donut0,72,TRUE,0,-1.74651296628911,0.166942580065492,,
+Arbitrum step 1,log txs,W72 trend donut0,72,TRUE,0,0.587954296497777,0.0954698585402753,0,65
+Arbitrum step 1,log fee per tx,W72 trend donut1,72,TRUE,1,-1.71849346744063,0.16684974606101,,
+Arbitrum step 1,log txs,W72 trend donut1,72,TRUE,1,0.594531863721573,0.0972680992316773,0,65
+Arbitrum step 1,log fee per tx,W72 trend donut3,72,TRUE,3,-1.65279046790166,0.157062204415021,,
+Arbitrum step 1,log txs,W72 trend donut3,72,TRUE,3,0.62010988051707,0.103457951274224,0,65
+Arbitrum step 2,log fee per tx,W12 mean donut0,12,FALSE,0,-1.83758962796767,0.143584647236841,,
+Arbitrum step 2,log txs,W12 mean donut0,12,FALSE,0,0.351404670862355,0.103254513328163,0.0641025641025641,78
+Arbitrum step 2,log fee per tx,W12 mean donut1,12,FALSE,1,-1.82421566928375,0.150455328077057,,
+Arbitrum step 2,log txs,W12 mean donut1,12,FALSE,1,0.361017856996117,0.104229823488943,0.0769230769230769,78
+Arbitrum step 2,log fee per tx,W12 trend donut0,12,TRUE,0,-1.56673002489984,0.192261298955345,,
+Arbitrum step 2,log txs,W12 trend donut0,12,TRUE,0,0.328544342200988,0.114062902119013,0.115384615384615,78
+Arbitrum step 2,log fee per tx,W12 trend donut1,12,TRUE,1,-1.37229267966705,0.33077188208683,,
+Arbitrum step 2,log txs,W12 trend donut1,12,TRUE,1,0.39630073198779,0.128798762246455,0.153846153846154,78
+Arbitrum step 2,log fee per tx,W24 mean donut0,24,FALSE,0,-1.86241656028514,0.0962308972269897,,
+Arbitrum step 2,log txs,W24 mean donut0,24,FALSE,0,0.345266890317327,0.057769541701726,0,74
+Arbitrum step 2,log fee per tx,W24 mean donut1,24,FALSE,1,-1.85100200349046,0.104716476121282,,
+Arbitrum step 2,log txs,W24 mean donut1,24,FALSE,1,0.355332891768837,0.0612429076847393,0,74
+Arbitrum step 2,log fee per tx,W24 mean donut3,24,FALSE,3,-1.98562476346386,0.0374073132032821,,
+Arbitrum step 2,log txs,W24 mean donut3,24,FALSE,3,0.369792607499971,0.0695762570832769,0,74
+Arbitrum step 2,log fee per tx,W36 mean donut0,36,FALSE,0,-1.84466575151217,0.0866745998782321,,
+Arbitrum step 2,log txs,W36 mean donut0,36,FALSE,0,0.44943097210031,0.0847702672723727,0,71
+Arbitrum step 2,log fee per tx,W36 mean donut1,36,FALSE,1,-1.83988640070728,0.0859859835239333,,
+Arbitrum step 2,log txs,W36 mean donut1,36,FALSE,1,0.457233068858299,0.0857583746040994,0,71
+Arbitrum step 2,log fee per tx,W36 mean donut3,36,FALSE,3,-1.89290538078651,0.0795981037591382,,
+Arbitrum step 2,log txs,W36 mean donut3,36,FALSE,3,0.478981280065557,0.0872771208289831,0,71
+Arbitrum step 2,log fee per tx,W36 trend donut0,36,TRUE,0,-1.89690435771226,0.225282392235669,,
+Arbitrum step 2,log txs,W36 trend donut0,36,TRUE,0,0.130976001434125,0.108054687049682,0.323943661971831,71
+Arbitrum step 2,log fee per tx,W36 trend donut1,36,TRUE,1,-1.87961359737957,0.246716926194589,,
+Arbitrum step 2,log txs,W36 trend donut1,36,TRUE,1,0.137764541674558,0.102846384923816,0.295774647887324,71
+Arbitrum step 2,log fee per tx,W36 trend donut3,36,TRUE,3,-2.1484881103601,0.0990769029802904,,
+Arbitrum step 2,log txs,W36 trend donut3,36,TRUE,3,0.174853990035654,0.131708572660594,0.267605633802817,71
+Arbitrum step 2,log fee per tx,W72 mean donut0,72,FALSE,0,-2.00062660827742,0.0689605720286114,,
+Arbitrum step 2,log txs,W72 mean donut0,72,FALSE,0,0.398470322506456,0.0604976692395841,0,65
+Arbitrum step 2,log fee per tx,W72 mean donut1,72,FALSE,1,-2.00121542766802,0.0688862201376601,,
+Arbitrum step 2,log txs,W72 mean donut1,72,FALSE,1,0.401650366298125,0.0597444467965401,0,65
+Arbitrum step 2,log fee per tx,W72 mean donut3,72,FALSE,3,-2.03429344966353,0.0633390623786276,,
+Arbitrum step 2,log txs,W72 mean donut3,72,FALSE,3,0.407151677659446,0.0607327553939018,0,65
+Arbitrum step 2,log fee per tx,W72 trend donut0,72,TRUE,0,-1.73686436037003,0.122356935292661,,
+Arbitrum step 2,log txs,W72 trend donut0,72,TRUE,0,0.438051468198618,0.102669106468474,0,65
+Arbitrum step 2,log fee per tx,W72 trend donut1,72,TRUE,1,-1.72849333931284,0.126735164283373,,
+Arbitrum step 2,log txs,W72 trend donut1,72,TRUE,1,0.450756406313122,0.108203312736919,0,65
+Arbitrum step 2,log fee per tx,W72 trend donut3,72,TRUE,3,-1.82126259264294,0.108968194715653,,
+Arbitrum step 2,log txs,W72 trend donut3,72,TRUE,3,0.474440649958818,0.115583366320809,0,65

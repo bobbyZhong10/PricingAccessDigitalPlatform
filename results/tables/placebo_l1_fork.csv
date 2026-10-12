@@ -1,0 +1,17 @@
+chain,outcome,burst_dropped,est,ri_p,fake_sd
+base,"log txs, minus same hour previous day",FALSE,0.458162050355302,0,0.1004291179267
+base,"log txs, minus same hour previous day",TRUE,0.159257218896734,0.125,0.1004291179267
+base,"log fee per tx, minus same hour previous day",FALSE,-0.150265350563279,0.458333333333333,0.333352665000907
+base,"log fee per tx, minus same hour previous day",TRUE,-0.0673433044789699,0.666666666666667,0.333352665000907
+base,"log txs, minus same hour previous week",FALSE,0.621639046222576,0,0.100030910576816
+base,"log txs, minus same hour previous week",TRUE,0.334602836613726,0,0.100030910576816
+base,"log fee per tx, minus same hour previous week",FALSE,-0.229188651610709,0.454545454545455,0.429172379343847
+base,"log fee per tx, minus same hour previous week",TRUE,-0.165221138678084,0.681818181818182,0.429172379343847
+arbitrum,"log txs, minus same hour previous day",FALSE,-0.0883970862599563,0.666666666666667,0.173206236529093
+arbitrum,"log txs, minus same hour previous day",TRUE,-0.107869234389168,0.541666666666667,0.173206236529093
+arbitrum,"log fee per tx, minus same hour previous day",FALSE,-0.0447688009726133,0.833333333333333,0.333401037752751
+arbitrum,"log fee per tx, minus same hour previous day",TRUE,-0.066828087971852,0.791666666666667,0.333401037752751
+arbitrum,"log txs, minus same hour previous week",FALSE,0.131720860605044,0.454545454545455,0.188176614217171
+arbitrum,"log txs, minus same hour previous week",TRUE,0.111035878132484,0.545454545454545,0.188176614217171
+arbitrum,"log fee per tx, minus same hour previous week",FALSE,-0.153414025040686,0.409090909090909,0.320635852607553
+arbitrum,"log fee per tx, minus same hour previous week",TRUE,-0.165855623020399,0.409090909090909,0.320635852607553

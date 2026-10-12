@@ -1,0 +1,17 @@
+# Raw downloads (about 2 GB) are rebuilt by code/01_download.R; data/panel/panel.rds is tracked
+data/raw/
+
+# Reference papers (copyrighted PDFs)
+literature/
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# macOS
+.DS_Store
+
+# Claude Code worktrees
+.claude/worktrees/
