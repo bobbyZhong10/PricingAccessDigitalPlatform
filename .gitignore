@@ -4,6 +4,9 @@ data/raw/
 # Reference papers (copyrighted PDFs)
 literature/
 
+# Proposal PDF (course submission); proposal.md is tracked
+proposal/*.pdf
+
 # R / RStudio
 .Rproj.user/
 .Rhistory
@@ -12,6 +15,3 @@ literature/
 
 # macOS
 .DS_Store
-
-# Claude Code worktrees
-.claude/worktrees/
