@@ -4,7 +4,7 @@
 
 ## 1. Question
 
-Platforms change the price of access all the time: they cut fees to grow, or start charging to monetize. Zhu, Shi, and Banerjee (2026) show that when Goodreads began charging authors to run Giveaways, participation fell, the exits came mostly from small and independent publishers, and match quality on the demand side declined. Their setting asks who leaves when access becomes more expensive. This project asks the mirror question about the price users face:
+Platforms change the price of access all the time: they cut fees to grow, or start charging to monetize. Zhu, Shi, and Banerjee (2025) show that when Goodreads began charging authors to run Giveaways, participation fell, the exits came mostly from small and independent publishers, and match quality on the demand side declined. Their setting asks who leaves when access becomes more expensive. This project asks the mirror question about the price users face:
 
 > When a platform's per-use price falls sharply, how much does usage respond, through which margin (more activity by existing users, or more participants), and who are the marginal participants?
 
@@ -17,7 +17,7 @@ The mirror is about the price of access, not about who sets it. Goodreads' fee w
 - **H1 (inelastic demand).** Usage rises, but by much less than the fee falls (elasticity well below one in absolute value). This is consistent with Ilk et al. (2021), who find relatively inelastic demand for Bitcoin block space.
 - **H2 (participation margin).** The response operates mainly through more participants (new and returning senders) rather than more transactions per existing sender.
 - **H3a (noise).** Marginal participants are disproportionately automated or single-entity "campaign" accounts (airdrop farming, wash-style activity). Cheaper access mainly admits low-value activity, which inflates address-based growth metrics (cf. Cong et al. 2023 on wash trading).
-- **H3b (niche genuine users).** Marginal participants are small but genuine users who were priced out before. This is the mirror image of Zhu et al. (2026), where the fee pushed out small genuine participants.
+- **H3b (niche genuine users).** Marginal participants are small but genuine users who were priced out before. This is the mirror image of Zhu et al. (2025), where the fee pushed out small genuine participants.
 
 H3a and H3b make different predictions about who enters (funding structure, first actions, burstiness) and how long they stay (later retention). Either outcome is informative.
 
@@ -182,13 +182,13 @@ Protocol system transactions are removed: one per block, about 3% of Base and 22
 
 ## 9. Contributions
 
-1. **Platform pricing (economics of IS).** The mirror image of Zhu et al. (2026) on the user side: a cut in the price of use, with three fee drops at hourly resolution plus a staggered multi-platform replication. Two drops are cost pass-through and one is a platform pricing decision, which lets the analysis compare the two. The marginal participants admitted by cheaper access are measured directly, including their later retention.
+1. **Platform pricing (economics of IS).** The mirror image of Zhu et al. (2025) on the user side: a cut in the price of use, with three fee drops at hourly resolution plus a staggered multi-platform replication. Two drops are cost pass-through and one is a platform pricing decision, which lets the analysis compare the two. The marginal participants admitted by cheaper access are measured directly, including their later retention.
 2. **Blockchain fee markets.** Causal, discontinuity-based estimates of the fee elasticity of rollup usage (≈ −0.4 for a single event; −0.16 to −0.20 across rollups), complementing Ilk et al. (2021) on Bitcoin demand and Basu et al. (2023) on fee-market design. Prior Dencun studies document protocol and blob-market effects (Park et al. 2024; Huang et al. 2024) rather than demand elasticities and who enters.
 3. **Measurement and platform integrity.** Address-based growth after a price cut can be dominated by single-entity campaigns, so address counts overstate user growth. This parallels evidence on fabricated activity in crypto markets (Cong et al. 2023) and gives a reproducible, pre-shock-calibrated rule with bounds.
 
 ## 10. Next steps
 
-- **Supply side.** Newly deployed contracts, newly issued tokens, and distinct contracts called per hour, to speak to the two-sided-market question in Zhu et al. (2026).
+- **Supply side.** Newly deployed contracts, newly issued tokens, and distinct contracts called per hour, to speak to the two-sided-market question in Zhu et al. (2025).
 - **Platform profit.** Estimate fee revenue net of Layer-1 data costs (the rollup's margin), not revenue alone. With inelastic demand a fee cut lowers revenue, but Layer-1 data costs fell even more, so the margin can rise.
 - **Longer histories.** Rebuild the hourly new-sender measure with full lookback, and extend Arbitrum's history to its 2021 launch.
 - **Validation.** Check the campaign classification against public sybil lists, if an official copy with chain coverage can be located.
@@ -214,4 +214,4 @@ Protocol system transactions are removed: one per block, about 3% of Base and 22
 - Huang, Y., Wang, S., Huang, Y., Tyson, G., Duan, H., & Tang, J. (2024). A first look at Ethereum blob revolution: Market, strategies, and optimality. arXiv:2411.03892.
 - Ilk, N., Shang, G., Fan, S., & Zhao, J. L. (2021). Stability of transaction fees in Bitcoin: A supply and demand perspective. *MIS Quarterly*, 45(2). https://doi.org/10.25300/MISQ/2021/15718
 - Park, S., Mun, B., Lee, S., Jeong, W., Lee, J., Eom, H., & Jang, H. (2024). Impact of EIP-4844 on Ethereum: Consensus security, Ethereum usage, rollup transaction dynamics, and blob gas fee markets. arXiv:2405.03183.
-- Zhu, K., Shi, Q., & Banerjee, S. (2026). Monetizing platforms: An empirical analysis of supply and demand responses to entry costs in two-sided markets. *Management Science*, 72(3), 2380–2397. https://doi.org/10.1287/mnsc.2023.01390
+- Zhu, K., Shi, Q., & Banerjee, S. (2025). Monetizing platforms: An empirical analysis of supply and demand responses to entry costs in two-sided markets. *Management Science*, 72(3), 2380–2397. https://doi.org/10.1287/mnsc.2023.01390
