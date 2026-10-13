@@ -1,17 +1,17 @@
 chain,outcome,burst_dropped,est,ri_p,fake_sd
-base,"log txs, minus same hour previous day",FALSE,0.458162050355302,0,0.1004291179267
-base,"log txs, minus same hour previous day",TRUE,0.159257218896734,0.125,0.1004291179267
-base,"log fee per tx, minus same hour previous day",FALSE,-0.150265350563279,0.458333333333333,0.333352665000907
-base,"log fee per tx, minus same hour previous day",TRUE,-0.0673433044789699,0.666666666666667,0.333352665000907
-base,"log txs, minus same hour previous week",FALSE,0.621639046222576,0,0.100030910576816
-base,"log txs, minus same hour previous week",TRUE,0.334602836613726,0,0.100030910576816
-base,"log fee per tx, minus same hour previous week",FALSE,-0.229188651610709,0.454545454545455,0.429172379343847
-base,"log fee per tx, minus same hour previous week",TRUE,-0.165221138678084,0.681818181818182,0.429172379343847
-arbitrum,"log txs, minus same hour previous day",FALSE,-0.0883970862599563,0.666666666666667,0.173206236529093
-arbitrum,"log txs, minus same hour previous day",TRUE,-0.107869234389168,0.541666666666667,0.173206236529093
-arbitrum,"log fee per tx, minus same hour previous day",FALSE,-0.0447688009726133,0.833333333333333,0.333401037752751
-arbitrum,"log fee per tx, minus same hour previous day",TRUE,-0.066828087971852,0.791666666666667,0.333401037752751
-arbitrum,"log txs, minus same hour previous week",FALSE,0.131720860605044,0.454545454545455,0.188176614217171
-arbitrum,"log txs, minus same hour previous week",TRUE,0.111035878132484,0.545454545454545,0.188176614217171
-arbitrum,"log fee per tx, minus same hour previous week",FALSE,-0.153414025040686,0.409090909090909,0.320635852607553
-arbitrum,"log fee per tx, minus same hour previous week",TRUE,-0.165855623020399,0.409090909090909,0.320635852607553
+base,"log txs, minus same hour previous day",FALSE,0.458162050355302,0.04,0.1004291179267
+base,"log txs, minus same hour previous day",TRUE,0.159257218896734,0.16,0.1004291179267
+base,"log median fee per tx, minus same hour previous day",FALSE,-0.204318267518181,0.6,0.531196105570747
+base,"log median fee per tx, minus same hour previous day",TRUE,-0.141394302466582,0.68,0.531196105570747
+base,"log txs, minus same hour previous week",FALSE,0.621639046222576,0.0434782608695652,0.100030910576816
+base,"log txs, minus same hour previous week",TRUE,0.334602836613726,0.0434782608695652,0.100030910576816
+base,"log median fee per tx, minus same hour previous week",FALSE,-0.211076631429653,0.652173913043478,0.747011689862141
+base,"log median fee per tx, minus same hour previous week",TRUE,-0.13232203719028,0.739130434782609,0.747011689862141
+arbitrum,"log txs, minus same hour previous day",FALSE,-0.0883970862599563,0.68,0.173206236529093
+arbitrum,"log txs, minus same hour previous day",TRUE,-0.107869234389168,0.56,0.173206236529093
+arbitrum,"log median fee per tx, minus same hour previous day",FALSE,-0.00289540179261962,1,0.351614414631594
+arbitrum,"log median fee per tx, minus same hour previous day",TRUE,-0.0311161606553235,0.84,0.351614414631594
+arbitrum,"log txs, minus same hour previous week",FALSE,0.131720860605044,0.478260869565217,0.188176614217171
+arbitrum,"log txs, minus same hour previous week",TRUE,0.111035878132484,0.565217391304348,0.188176614217171
+arbitrum,"log median fee per tx, minus same hour previous week",FALSE,-0.1839127351736,0.434782608695652,0.269731420765947
+arbitrum,"log median fee per tx, minus same hour previous week",TRUE,-0.201957598346032,0.347826086956522,0.269731420765947

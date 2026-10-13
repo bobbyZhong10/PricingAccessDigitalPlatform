@@ -1,5 +1,6 @@
 # 01_download.R: public data -> data/raw. Each section is skipped if its files exist (set FORCE_DOWNLOAD = TRUE to redo).
-# Sources (no keys): AWS Public Blockchain (s3://aws-public-blockchain, sonarx Base/Arbitrum, Ethereum/Bitcoin blocks), growthepie exports, Coinbase candles.
+# Sources (no keys): AWS Public Blockchain (s3://aws-public-blockchain: sonarx Base/Arbitrum, Ethereum/Bitcoin blocks), growthepie exports, Coinbase candles,
+# copies of the LayerZero provisional Sybil list (Internet Archive, GitHub mirrors). The Google Trends capture is in data/external (section M).
 # Raw files are aggregates computed on the fly with DuckDB; the transaction-level tables are hundreds of GB. A full download takes 1-2 hours.
 # Successful (transactions) and failed (transactions_failed) tables are disjoint and are stacked.
 source(here::here("code", "00_setup.R"))
@@ -55,11 +56,8 @@ for (ch in CHAINS) {
 }
 
 # ---- D. hourly txs by type (4-byte method selector) ----
-swap <- c("0x3593564c", "0x24856bc3", "0x7ff36ab5", "0x18cbafe5", "0x38ed1739", "0xb6f9de95", "0x791ac947", "0x5c11d795", "0xfb3bdb41", "0x8803dbee", "0x4a25d94a",
-          "0x414bf389", "0x04e45aaf", "0xc04b8d59", "0xb858183f", "0xdb3e2198", "0x5ae401dc", "0xac9650d8", "0x12aa3caf", "0xe449022e", "0x0502b1c5", "0x2e95b6c8",
-          "0x415565b0", "0xcac88ea9", "0xf41766d8", "0x83bd37f9", "0x90411a32")   # Uniswap V2/V3/Universal Router, Aerodrome, 1inch, 0x, ParaSwap, Odos
 cls <- sprintf("CASE WHEN INPUT IS NULL OR length(INPUT) <= 2 THEN 'native' WHEN substr(INPUT,1,10) = '0xa9059cbb' THEN 'erc20_transfer' WHEN substr(INPUT,1,10) = '0x095ea7b3' THEN 'approve'
-  WHEN substr(INPUT,1,10) IN (%s) THEN 'swap' ELSE 'other_call' END", paste0("'", swap, "'", collapse = ","))
+  WHEN substr(INPUT,1,10) IN (%s) THEN 'swap' ELSE 'other_call' END", paste0("'", SWAP_SELECTORS, "'", collapse = ","))
 for (ch in CHAINS) {
   out <- file.path(DIR_RAW, sprintf("l2_hourly_type_%s.parquet", ch))
   if (!FORCE_DOWNLOAD && file.exists(out)) { cat("D ", ch, ": exists, skipped\n", sep = ""); next }
@@ -168,7 +166,7 @@ if (FORCE_DOWNLOAD || !file.exists(out)) {
 
 # ---- H. growthepie daily exports (all L2s) ----
 dir.create(file.path(DIR_RAW, "growthepie"), showWarnings = FALSE)
-for (m in c("txcount", "daa", "txcosts")) {
+for (m in c("txcount", "daa", "txcosts", "fees", "rent_paid", "profit")) {   # fees, rent_paid (L1 costs), profit: validation V6
   f <- file.path(DIR_RAW, "growthepie", sprintf("export_%s.json", m))
   if (!FORCE_DOWNLOAD && file.exists(f)) next
   download.file(sprintf("https://api.growthepie.xyz/v1/export/%s.json", m), f, mode = "wb", quiet = TRUE, headers = c(`User-Agent` = "Mozilla/5.0")); Sys.sleep(1)
@@ -182,5 +180,212 @@ if (FORCE_DOWNLOAD || !file.exists(out)) {
   P <- data.table(day = as.IDate(as.POSIXct(j[, 1], origin = "1970-01-01", tz = "UTC")), low = j[, 2], high = j[, 3], open = j[, 4], close = j[, 5])[order(day)]
   stopifnot(!anyDuplicated(P$day)); fwrite(P, out); cat(sprintf("I: %d days of ETH/USD\n", nrow(P)))
 } else cat("I: exists, skipped\n")
+
+# ---- J. validation V2: entrants' first block, funders before the first outgoing tx, last ETH sweep, service degrees ----
+# Entrants = wave_first_out (first outgoing tx from 03-08). First outgoing tx: successful or failed (as in cohort_first), ordered by block, then position.
+# ETH funder: earliest incoming top-level ETH transfer (from 02-15) or, on Base, internal ETH transfer (traces 03-01..22; the funder is the account that
+# initiated the tx), strictly before the first outgoing tx. Token funder: earliest ERC-20 transfer in an earlier block (from 02-15; mints excluded).
+# Sweep: last outgoing top-level ETH transfer up to 04-15. Service degrees on 02-15..03-07, before any fee drop: distinct ETH recipients of each funder
+# (internal transfers: 03-01..07) and distinct ETH senders of each sweep target. Traces are read for Base only (about 8.5 GB a day on Arbitrum).
+d_ent <- format(seq(as.Date("2024-03-06"), as.Date("2024-03-26"), by = "day")); d_pre <- format(seq(PULL_START, as.Date("2024-03-07"), by = "day"))
+d_tr <- format(seq(as.Date("2024-03-01"), as.Date("2024-03-22"), by = "day")); d_tok <- format(seq(PULL_START, as.Date("2024-03-26"), by = "day"))
+for (ch in CHAINS) {
+  outs <- file.path(DIR_RAW, sprintf(c("val_entrant_%s.parquet", "val_degree_%s.parquet"), ch))
+  if (!FORCE_DOWNLOAD && all(file.exists(outs))) { cat("J ", ch, ": exists, skipped\n", sep = ""); next }
+  q_out <- paste0("'", gsub("'", "''", outs), "'")
+  pq <- list()   # parquet file lists: tx, failed tx, transfers, pre-period tx, traces, pre-period traces
+  pq$tx <- paste0("[", paste0("'", SONARX, ch, "/transactions/date=", days_main, "/*.parquet'", collapse = ", "), "]")
+  pq$txf <- paste0("[", paste0("'", SONARX, ch, "/transactions_failed/date=", d_ent, "/*.parquet'", collapse = ", "), "]")
+  pq$tok <- paste0("[", paste0("'", SONARX, ch, "/transfers/date=", d_tok, "/*.parquet'", collapse = ", "), "]")
+  pq$pre <- paste0("[", paste0("'", SONARX, ch, "/transactions/date=", d_pre, "/*.parquet'", collapse = ", "), "]")
+  pq$tr <- paste0("[", paste0("'", SONARX, ch, "/traces/date=", d_tr, "/*.parquet'", collapse = ", "), "]")
+  pq$trpre <- paste0("[", paste0("'", SONARX, ch, "/traces/date=", d_tr[1:7], "/*.parquet'", collapse = ", "), "]")
+  t_start <- Sys.time(); dbf <- tempfile(fileext = ".duckdb"); con <- DBI::dbConnect(duckdb::duckdb(), dbdir = dbf); DBI::dbExecute(con, S3_INIT)
+  DBI::dbExecute(con, sprintf("CREATE TABLE ent AS SELECT a FROM read_parquet('%s')", gsub("'", "''", file.path(DIR_RAW, sprintf("wave_first_out_%s.parquet", ch)))))
+  DBI::dbExecute(con, sprintf("CREATE TABLE tx AS SELECT lower(FROM_ADDRESS) AS fr, lower(TO_ADDRESS) AS t, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord, VALUE AS v
+    FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) IN (SELECT a FROM ent) OR (VALUE > 0 AND lower(TO_ADDRESS) IN (SELECT a FROM ent))", pq$tx))
+  DBI::dbExecute(con, sprintf("CREATE TABLE fo AS SELECT a, min(ord) AS ord0 FROM (SELECT fr AS a, ord FROM tx WHERE fr IN (SELECT a FROM ent) UNION ALL
+    SELECT lower(FROM_ADDRESS), BLOCK_NUMBER * 100000 + TRANSACTION_INDEX FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) IN (SELECT a FROM ent)) GROUP BY a", pq$txf))
+  DBI::dbExecute(con, "CREATE TABLE ftx AS SELECT i.t AS a, arg_min(i.fr, i.ord) AS f_tx, min(i.ord) AS ord_tx FROM tx i JOIN fo ON i.t = fo.a WHERE i.v > 0 AND i.ord < fo.ord0 AND i.fr <> i.t GROUP BY 1")
+  DBI::dbExecute(con, sprintf("CREATE TABLE tk AS SELECT lower(TO_ADDRESS) AS t, lower(FROM_ADDRESS) AS fr, BLOCK_NUMBER * 100000 + LOG_INDEX AS ord FROM read_parquet(%s)
+    WHERE lower(TO_ADDRESS) IN (SELECT a FROM ent) AND lower(FROM_ADDRESS) <> '0x0000000000000000000000000000000000000000'", pq$tok))
+  DBI::dbExecute(con, "CREATE TABLE ftk AS SELECT k.t AS a, arg_min(k.fr, k.ord) AS f_tok FROM tk k JOIN fo ON k.t = fo.a WHERE floor(k.ord / 100000) < floor(fo.ord0 / 100000) AND k.fr <> k.t GROUP BY 1")
+  DBI::dbExecute(con, "CREATE TABLE sw AS SELECT fr AS a, arg_max(t, ord) AS sweep_to FROM tx WHERE fr IN (SELECT a FROM ent) AND v > 0 AND t IS NOT NULL AND t <> fr GROUP BY 1")
+  if (ch == "base") {
+    DBI::dbExecute(con, sprintf("CREATE TABLE tr AS SELECT lower(TO_ADDRESS) AS t, lower(TRANSACTION_FROM) AS fr, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord FROM read_parquet(%s)
+      WHERE coalesce(PATH, '') <> '' AND VALUE > 0 AND lower(TO_ADDRESS) IN (SELECT a FROM ent)", pq$tr))
+    DBI::dbExecute(con, "CREATE TABLE ftr AS SELECT r.t AS a, arg_min(r.fr, r.ord) AS f_tr, min(r.ord) AS ord_tr FROM tr r JOIN fo ON r.t = fo.a WHERE r.ord < fo.ord0 AND r.fr <> r.t GROUP BY 1")
+  } else DBI::dbExecute(con, "CREATE TABLE ftr AS SELECT NULL::VARCHAR AS a, NULL::VARCHAR AS f_tr, NULL::DECIMAL(38,0) AS ord_tr WHERE false")
+  # ETH funder = the earlier of the top-level and the internal funder
+  DBI::dbExecute(con, sprintf("COPY (SELECT fo.a, floor(fo.ord0 / 100000) AS blk0, CASE WHEN ftr.f_tr IS NOT NULL AND (ftx.ord_tx IS NULL OR ftr.ord_tr < ftx.ord_tx) THEN ftr.f_tr ELSE ftx.f_tx END AS f_eth,
+    CASE WHEN ftr.f_tr IS NOT NULL AND (ftx.ord_tx IS NULL OR ftr.ord_tr < ftx.ord_tx) THEN 'internal' WHEN ftx.f_tx IS NOT NULL THEN 'top-level' END AS f_eth_via, ftk.f_tok, sw.sweep_to
+    FROM fo LEFT JOIN ftx USING (a) LEFT JOIN ftr USING (a) LEFT JOIN ftk USING (a) LEFT JOIN sw USING (a)) TO %s (FORMAT PARQUET)", q_out[1]))
+  # service degrees before any fee drop
+  DBI::dbExecute(con, sprintf("CREATE TABLE cand AS SELECT DISTINCT f_eth AS addr, 'funder' AS role FROM read_parquet(%s) WHERE f_eth IS NOT NULL
+    UNION SELECT DISTINCT sweep_to, 'sweep' FROM read_parquet(%s) WHERE sweep_to IS NOT NULL", q_out[1], q_out[1]))
+  DBI::dbExecute(con, sprintf("CREATE TABLE pre AS SELECT lower(FROM_ADDRESS) AS fr, lower(TO_ADDRESS) AS t FROM read_parquet(%s) WHERE VALUE > 0 AND
+    (lower(FROM_ADDRESS) IN (SELECT addr FROM cand WHERE role = 'funder') OR lower(TO_ADDRESS) IN (SELECT addr FROM cand WHERE role = 'sweep'))", pq$pre))
+  if (ch == "base") DBI::dbExecute(con, sprintf("INSERT INTO pre SELECT lower(TRANSACTION_FROM), lower(TO_ADDRESS) FROM read_parquet(%s) WHERE coalesce(PATH, '') <> '' AND VALUE > 0 AND
+    lower(TRANSACTION_FROM) IN (SELECT addr FROM cand WHERE role = 'funder')", pq$trpre))
+  DBI::dbExecute(con, sprintf("COPY (SELECT c.addr, c.role, coalesce(CASE WHEN c.role = 'funder' THEN o.n ELSE i.n END, 0) AS deg_pre FROM cand c
+    LEFT JOIN (SELECT fr AS addr, count(DISTINCT t) AS n FROM pre GROUP BY 1) o ON c.addr = o.addr LEFT JOIN (SELECT t AS addr, count(DISTINCT fr) AS n FROM pre GROUP BY 1) i ON c.addr = i.addr)
+    TO %s (FORMAT PARQUET)", q_out[2]))
+  DBI::dbDisconnect(con, shutdown = TRUE); unlink(dbf)
+  cat(sprintf("J %s: %.1f min\n", ch, as.numeric(Sys.time() - t_start, units = "mins")))
+}
+
+# ---- K. validation V1: LayerZero provisional Sybil list (May 2024), two copies ----
+# The official repository (LayerZero-Labs/sybil-report) has been removed. Copies: the Internet Archive capture of its initialList.txt (2024-05-23) and two
+# GitHub mirrors. The ibuyshite mirror (lz_copy) matches the archive; the Compich mirror (lz_mirror) turned out to hold a different, larger list (reported, not used).
+# Each file goes to its own directory and is only read as text (addresses are extracted in 02).
+LZ <- data.table(dir = c("lz_archive", "lz_mirror", "lz_copy"),
+                 url = c("https://web.archive.org/web/20240523230204id_/https://raw.githubusercontent.com/LayerZero-Labs/sybil-report/main/initialList.txt",
+                         "https://raw.githubusercontent.com/Compich/LayerZero-Sybil-List/main/LayerZeroSybilList.txt",
+                         "https://raw.githubusercontent.com/ibuyshite/LayerZero-Sybil/main/LO%20Report"))
+for (i in seq_len(nrow(LZ))) {
+  dir.create(file.path(DIR_RAW, LZ$dir[i]), showWarnings = FALSE); f <- file.path(DIR_RAW, LZ$dir[i], URLdecode(basename(LZ$url[i])))
+  if (!FORCE_DOWNLOAD && file.exists(f)) { cat("K ", LZ$dir[i], ": exists, skipped\n", sep = ""); next }
+  options(timeout = 1200); download.file(LZ$url[i], f, mode = "wb", quiet = TRUE); Sys.sleep(5)
+  cat(sprintf("K %s: %s, %.1f MB, md5 %s\n", LZ$dir[i], basename(f), file.size(f) / 1e6, tools::md5sum(f)))
+}
+
+# ---- L. validation V4: Base first-action targets with >= SPIKE_MIN entrants on some day: contract or not, token standard (logs 03-13..22) ----
+# A target that emitted logs is a contract; Transfer events with a fourth topic (token id) mark ERC-721, without it ERC-20.
+out <- file.path(DIR_RAW, "val_targets_base.parquet")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  t_start <- Sys.time()
+  X <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, "wave_first_out_base.parquet"))); setattr(X$first_dt, "tzone", "UTC")
+  tg <- X[!is.na(first_to), .N, by = .(day = as.IDate(first_dt, tz = "UTC"), first_to)][N >= SPIKE_MIN, unique(first_to)]
+  con <- DBI::dbConnect(duckdb::duckdb()); DBI::dbExecute(con, S3_INIT)
+  d <- format(seq(as.Date("2024-03-13"), as.Date("2024-03-22"), by = "day"))
+  DBI::dbExecute(con, sprintf("COPY (SELECT t.addr, coalesce(l.n_logs, 0) AS n_logs, coalesce(l.n_721, 0) AS n_721, coalesce(l.n_20, 0) AS n_20 FROM (SELECT unnest([%s]) AS addr) t LEFT JOIN
+    (SELECT lower(ADDRESS) AS addr, count(*) AS n_logs, count(*) FILTER (WHERE TOPIC1 = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' AND coalesce(TOPIC4, '') <> '') AS n_721,
+      count(*) FILTER (WHERE TOPIC1 = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' AND coalesce(TOPIC4, '') = '') AS n_20
+     FROM read_parquet([%s]) WHERE lower(ADDRESS) IN (%s) GROUP BY 1) l USING (addr)) TO %s (FORMAT PARQUET)",
+    paste0("'", tg, "'", collapse = ", "), paste0("'", SONARX, "base/logs/date=", d, "/*.parquet'", collapse = ", "), paste0("'", tg, "'", collapse = ", "), paste0("'", gsub("'", "''", out), "'")))
+  DBI::dbDisconnect(con, shutdown = TRUE)
+  cat(sprintf("L: %d targets, %.1f min\n", length(tg), as.numeric(Sys.time() - t_start, units = "mins")))
+} else cat("L: exists, skipped\n")
+
+# ---- M. validation V5: Google Trends, daily 2024-02-15..04-15 (browser capture on 2026-10-12) ----
+# Google Trends has no keyless API and rate-limits scripted requests, so the series were read in a browser session from trends.google.com (explore and
+# widgetdata/multiline responses; hl = en-US, tz = 0, worldwide, all categories, web search) and saved as data/external/gtrends_daily.csv (tracked in git; see data/external/README.md) with columns
+# request, keyword, date, value, partial. request = "shared": one request with "Base airdrop", "Arbitrum airdrop", "Dencun", "EIP-4844" on a common 0-100
+# scale; request = "single": one request per term (own scale; "EIP-4844" alone returned no series). Values are sampled and rounded by Google, so a
+# new capture can differ slightly.
+cat(sprintf("M: Google Trends capture %s\n", if (file.exists(here("data", "external", "gtrends_daily.csv"))) "present" else "MISSING (capture it as described above)"))
+
+# ---- N. second Base event: the block gas limit was raised 60M -> 75M (05-28 19:00 UTC) and 75M -> 90M (05-30 20:00 UTC); Arbitrum as the comparison chain ----
+# New sender = no outgoing tx (successful or failed) on the chain since 2024-02-15 (section A sender-days, then transactions from 04-16).
+# Hourly window MAY_PULL: txs, fees, distinct senders, new senders. Entrants = new senders whose first outgoing tx is in MAY_WINDOW; first-week txs.
+# Base only: funders, sweeps and service degrees as in section J, moved to May: ETH funder from 05-01 (internal transfers 05-15..06-05), sweep up to 06-30,
+# service degrees on 05-01..05-20 (internal: 05-15..05-20); later activity on days 1-10 of RETENTION_MONTHS_MAY.
+for (ch in CHAINS) {
+  outs <- file.path(DIR_RAW, sprintf(c("may_hourly_%s.parquet", "may_entrant_%s.parquet", "may_degree_%s.parquet", "may_post_%s.parquet"), ch))
+  if (ch == "arbitrum") outs <- outs[1:2]   # comparison chain: activity and entrants only
+  if (!FORCE_DOWNLOAD && all(file.exists(outs))) { cat("N ", ch, ": exists, skipped\n", sep = ""); next }
+  q_out <- paste0("'", gsub("'", "''", outs), "'")
+  post_d <- character(0); for (m in RETENTION_MONTHS_MAY) post_d <- c(post_d, format(seq(as.Date(paste0(m, "-01")), as.Date(paste0(m, "-10")), by = "day")))
+  fl <- list()   # parquet file lists by purpose
+  for (k in c("seen", "seenf", "hour", "hourf", "fund", "tr", "sweep", "pre", "trpre", "post", "postf")) {
+    d <- switch(k, seen = , seenf = format(seq(as.Date("2024-04-16"), MAY_PULL[1] - 1, by = "day")), hour = , hourf = format(seq(MAY_PULL[1], MAY_PULL[2], by = "day")),
+                fund = format(seq(as.Date("2024-05-01"), as.Date(MAY_WINDOW[2]) + 1, by = "day")), tr = format(seq(as.Date("2024-05-15"), as.Date(MAY_WINDOW[2]) + 1, by = "day")),
+                sweep = format(seq(as.Date(MAY_WINDOW[1]), as.Date("2024-06-30"), by = "day")), pre = format(seq(as.Date("2024-05-01"), as.Date("2024-05-20"), by = "day")),
+                trpre = format(seq(as.Date("2024-05-15"), as.Date("2024-05-20"), by = "day")), post = , postf = post_d)
+    tbl <- switch(k, seenf = , hourf = , postf = "transactions_failed", tr = , trpre = "traces", "transactions")
+    fl[[k]] <- paste0("[", paste0("'", SONARX, ch, "/", tbl, "/date=", d, "/*.parquet'", collapse = ", "), "]")
+  }
+  t_start <- Sys.time(); dbf <- tempfile(fileext = ".duckdb"); con <- DBI::dbConnect(duckdb::duckdb(), dbdir = dbf); DBI::dbExecute(con, S3_INIT)
+  DBI::dbExecute(con, sprintf("CREATE TABLE seen AS SELECT DISTINCT a FROM read_parquet('%s') UNION SELECT DISTINCT lower(FROM_ADDRESS) FROM read_parquet(%s)
+    UNION SELECT DISTINCT lower(FROM_ADDRESS) FROM read_parquet(%s)", gsub("'", "''", file.path(DIR_RAW, sprintf("l2_senderday_%s.parquet", ch))), fl$seen, fl$seenf))
+  DBI::dbExecute(con, sprintf("CREATE TABLE tx AS SELECT lower(FROM_ADDRESS) AS a, lower(TO_ADDRESS) AS t, substr(INPUT, 1, 10) AS sel, DATETIME AS dt, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord,
+    TRANSACTION_FEE AS fee, 0 AS failed FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) <> '%s' UNION ALL SELECT lower(FROM_ADDRESS), lower(TO_ADDRESS), substr(INPUT, 1, 10), DATETIME,
+    BLOCK_NUMBER * 100000 + TRANSACTION_INDEX, TRANSACTION_FEE, 1 FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) <> '%s'", fl$hour, SYSTEM_SENDERS[[ch]], fl$hourf, SYSTEM_SENDERS[[ch]]))
+  DBI::dbExecute(con, "CREATE TABLE fs AS SELECT a, min(ord) AS ord0, arg_min(t, ord) AS first_to, arg_min(sel, ord) AS first_sel, min(dt) AS first_dt FROM tx WHERE a NOT IN (SELECT a FROM seen) GROUP BY a")
+  DBI::dbExecute(con, sprintf("COPY (SELECT h.hr, h.n, h.n_failed, h.fee, h.n_senders, coalesce(s.new_senders, 0) AS new_senders FROM
+    (SELECT date_trunc('hour', dt) AS hr, count(*) AS n, sum(failed) AS n_failed, sum(fee) AS fee, count(DISTINCT a) AS n_senders FROM tx GROUP BY 1) h
+    LEFT JOIN (SELECT date_trunc('hour', first_dt) AS hr, count(*) AS new_senders FROM fs GROUP BY 1) s USING (hr) ORDER BY h.hr) TO %s (FORMAT PARQUET)", q_out[1]))
+  DBI::dbExecute(con, sprintf("CREATE TABLE ent AS SELECT * FROM fs WHERE first_dt >= TIMESTAMP '%s' AND first_dt < TIMESTAMP '%s'", MAY_WINDOW[1], MAY_WINDOW[2] + 1))
+  DBI::dbExecute(con, "CREATE TABLE wk AS SELECT x.a, count(*) AS n_week1 FROM tx x JOIN ent e ON x.a = e.a WHERE x.dt < e.first_dt + INTERVAL 7 DAY GROUP BY 1")
+  if (ch == "arbitrum") {
+    DBI::dbExecute(con, sprintf("COPY (SELECT e.a, e.first_dt, floor(e.ord0 / 100000) AS blk0, e.first_to, e.first_sel, coalesce(w.n_week1, 0) AS n_week1 FROM ent e LEFT JOIN wk w USING (a))
+      TO %s (FORMAT PARQUET)", q_out[2]))
+    DBI::dbDisconnect(con, shutdown = TRUE); unlink(dbf); cat(sprintf("N %s: %.1f min\n", ch, as.numeric(Sys.time() - t_start, units = "mins"))); next
+  }
+  DBI::dbExecute(con, sprintf("CREATE TABLE fin AS SELECT lower(FROM_ADDRESS) AS fr, lower(TO_ADDRESS) AS t, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord FROM read_parquet(%s)
+    WHERE VALUE > 0 AND lower(TO_ADDRESS) IN (SELECT a FROM ent)", fl$fund))
+  DBI::dbExecute(con, "CREATE TABLE ftx AS SELECT i.t AS a, arg_min(i.fr, i.ord) AS f_tx, min(i.ord) AS ord_tx FROM fin i JOIN ent e ON i.t = e.a WHERE i.ord < e.ord0 AND i.fr <> i.t GROUP BY 1")
+  DBI::dbExecute(con, sprintf("CREATE TABLE tr AS SELECT lower(TO_ADDRESS) AS t, lower(TRANSACTION_FROM) AS fr, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord FROM read_parquet(%s)
+    WHERE coalesce(PATH, '') <> '' AND VALUE > 0 AND lower(TO_ADDRESS) IN (SELECT a FROM ent)", fl$tr))
+  DBI::dbExecute(con, "CREATE TABLE ftr AS SELECT r.t AS a, arg_min(r.fr, r.ord) AS f_tr, min(r.ord) AS ord_tr FROM tr r JOIN ent e ON r.t = e.a WHERE r.ord < e.ord0 AND r.fr <> r.t GROUP BY 1")
+  DBI::dbExecute(con, sprintf("CREATE TABLE sw AS SELECT lower(FROM_ADDRESS) AS a, arg_max(lower(TO_ADDRESS), BLOCK_NUMBER * 100000 + TRANSACTION_INDEX) AS sweep_to FROM read_parquet(%s)
+    WHERE VALUE > 0 AND lower(FROM_ADDRESS) IN (SELECT a FROM ent) AND TO_ADDRESS IS NOT NULL AND lower(TO_ADDRESS) <> lower(FROM_ADDRESS) GROUP BY 1", fl$sweep))
+  DBI::dbExecute(con, sprintf("COPY (SELECT e.a, e.first_dt, floor(e.ord0 / 100000) AS blk0, e.first_to, e.first_sel, coalesce(w.n_week1, 0) AS n_week1,
+    CASE WHEN ftr.f_tr IS NOT NULL AND (ftx.ord_tx IS NULL OR ftr.ord_tr < ftx.ord_tx) THEN ftr.f_tr ELSE ftx.f_tx END AS f_eth,
+    CASE WHEN ftr.f_tr IS NOT NULL AND (ftx.ord_tx IS NULL OR ftr.ord_tr < ftx.ord_tx) THEN 'internal' WHEN ftx.f_tx IS NOT NULL THEN 'top-level' END AS f_eth_via, sw.sweep_to
+    FROM ent e LEFT JOIN wk w USING (a) LEFT JOIN ftx USING (a) LEFT JOIN ftr USING (a) LEFT JOIN sw USING (a)) TO %s (FORMAT PARQUET)", q_out[2]))
+  DBI::dbExecute(con, sprintf("CREATE TABLE cand AS SELECT DISTINCT f_eth AS addr, 'funder' AS role FROM read_parquet(%s) WHERE f_eth IS NOT NULL
+    UNION SELECT DISTINCT sweep_to, 'sweep' FROM read_parquet(%s) WHERE sweep_to IS NOT NULL", q_out[2], q_out[2]))
+  DBI::dbExecute(con, sprintf("CREATE TABLE pre AS SELECT lower(FROM_ADDRESS) AS fr, lower(TO_ADDRESS) AS t FROM read_parquet(%s) WHERE VALUE > 0 AND
+    (lower(FROM_ADDRESS) IN (SELECT addr FROM cand WHERE role = 'funder') OR lower(TO_ADDRESS) IN (SELECT addr FROM cand WHERE role = 'sweep'))", fl$pre))
+  DBI::dbExecute(con, sprintf("INSERT INTO pre SELECT lower(TRANSACTION_FROM), lower(TO_ADDRESS) FROM read_parquet(%s) WHERE coalesce(PATH, '') <> '' AND VALUE > 0 AND
+    lower(TRANSACTION_FROM) IN (SELECT addr FROM cand WHERE role = 'funder')", fl$trpre))
+  DBI::dbExecute(con, sprintf("COPY (SELECT c.addr, c.role, coalesce(CASE WHEN c.role = 'funder' THEN o.n ELSE i.n END, 0) AS deg_pre FROM cand c
+    LEFT JOIN (SELECT fr AS addr, count(DISTINCT t) AS n FROM pre GROUP BY 1) o ON c.addr = o.addr LEFT JOIN (SELECT t AS addr, count(DISTINCT fr) AS n FROM pre GROUP BY 1) i ON c.addr = i.addr)
+    TO %s (FORMAT PARQUET)", q_out[3]))
+  DBI::dbExecute(con, sprintf("COPY (SELECT DISTINCT lower(FROM_ADDRESS) AS a, strftime(DATETIME, '%%Y-%%m') AS ym FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) IN (SELECT a FROM ent)
+    UNION SELECT DISTINCT lower(FROM_ADDRESS), strftime(DATETIME, '%%Y-%%m') FROM read_parquet(%s) WHERE lower(FROM_ADDRESS) IN (SELECT a FROM ent)) TO %s (FORMAT PARQUET)", fl$post, fl$postf, q_out[4]))
+  DBI::dbDisconnect(con, shutdown = TRUE); unlink(dbf)
+  cat(sprintf("N %s: %.1f min\n", ch, as.numeric(Sys.time() - t_start, units = "mins")))
+}
+
+# ---- O. tokens and ETH received by Base window entrants after entry (transfers 03-08..04-15), and transfers sent by the largest burst target ----
+# Native ETH appears with token address 0xeee...e. The filter on the entrant's first block is applied in 02.
+out <- file.path(DIR_RAW, "val_received_base.parquet")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  t_start <- Sys.time(); dbf <- tempfile(fileext = ".duckdb"); con <- DBI::dbConnect(duckdb::duckdb(), dbdir = dbf); DBI::dbExecute(con, S3_INIT)
+  DBI::dbExecute(con, sprintf("CREATE TABLE ent AS SELECT a, blk0 FROM read_parquet('%s')", gsub("'", "''", file.path(DIR_RAW, "val_entrant_base.parquet"))))
+  DBI::dbExecute(con, sprintf("COPY (SELECT lower(TO_ADDRESS) AS a, lower(FROM_ADDRESS) AS fr, lower(TOKEN_ADDRESS) AS tok, BLOCK_NUMBER AS blk, VALUE AS v FROM read_parquet([%s])
+    WHERE lower(TO_ADDRESS) IN (SELECT a FROM ent) OR lower(FROM_ADDRESS) = '0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50') TO '%s' (FORMAT PARQUET)",
+    paste0("'", SONARX, "base/transfers/date=", format(seq(as.Date("2024-03-08"), as.Date("2024-04-15"), by = "day")), "/*.parquet'", collapse = ", "), gsub("'", "''", out)))
+  DBI::dbDisconnect(con, shutdown = TRUE); unlink(dbf)
+  cat(sprintf("O: %.1f min\n", as.numeric(Sys.time() - t_start, units = "mins")))
+} else cat("O: exists, skipped\n")
+
+# ---- Q. Base blocks in the May window: hourly block gas limit and median L2 base fee per gas (the price lever the gas-limit increase moved) ----
+out <- file.path(DIR_RAW, "may_blocks_base.parquet")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  t_start <- Sys.time(); con <- DBI::dbConnect(duckdb::duckdb()); DBI::dbExecute(con, S3_INIT)
+  DBI::dbExecute(con, sprintf("COPY (SELECT date_trunc('hour', DATETIME) AS hr, min(GAS_LIMIT) AS gas_limit_min, max(GAS_LIMIT) AS gas_limit_max, median(BASE_FEE_PER_GAS) / 1e9 AS base_fee_gwei,
+    avg(GAS_USED) AS gas_used, count(*) AS blocks FROM read_parquet([%s]) GROUP BY 1 ORDER BY 1) TO '%s' (FORMAT PARQUET)",
+    paste0("'", SONARX, "base/blocks/date=", format(seq(MAY_PULL[1], MAY_PULL[2], by = "day")), "/*.parquet'", collapse = ", "), gsub("'", "''", out)))
+  DBI::dbDisconnect(con, shutdown = TRUE)
+  cat(sprintf("Q: %.1f min\n", as.numeric(Sys.time() - t_start, units = "mins")))
+} else cat("Q: exists, skipped\n")
+
+# ---- R. hourly fee quantiles: the fee a typical transaction pays (successful txs with a positive fee, system sender excluded), both chains, ----
+# March pull (PULL_START..PULL_END) and May pull (MAY_PULL). Fees in ETH. The hourly mean (section A) is dominated by a few high-priority txs once fees are cents.
+out <- file.path(DIR_RAW, "fee_quantiles_hourly.parquet")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  t_start <- Sys.time(); con <- DBI::dbConnect(duckdb::duckdb()); DBI::dbExecute(con, S3_INIT)
+  FQ <- list()
+  for (ch in CHAINS) {
+    d <- format(c(seq(PULL_START, PULL_END, by = "day"), seq(MAY_PULL[1], MAY_PULL[2], by = "day")))
+    FQ[[ch]] <- as.data.table(DBI::dbGetQuery(con, sprintf("SELECT date_trunc('hour', DATETIME) AS hr, count(*) AS n_paid, quantile_cont(TRANSACTION_FEE, 0.25) AS p25,
+      median(TRANSACTION_FEE) AS p50, quantile_cont(TRANSACTION_FEE, 0.75) AS p75 FROM read_parquet([%s]) WHERE TRANSACTION_FEE > 0 AND lower(FROM_ADDRESS) <> '%s' GROUP BY 1 ORDER BY 1",
+      paste0("'", SONARX, ch, "/transactions/date=", d, "/*.parquet'", collapse = ", "), SYSTEM_SENDERS[[ch]])))[, chain := ch]
+  }
+  DBI::dbDisconnect(con, shutdown = TRUE)
+  nanoparquet::write_parquet(as.data.frame(rbindlist(FQ)), out)
+  cat(sprintf("R: %.1f min\n", as.numeric(Sys.time() - t_start, units = "mins")))
+} else cat("R: exists, skipped\n")
+
+# ---- P. ETH/USD daily (Coinbase) for the second Base event, 2024-05-01..06-30 ----
+out <- file.path(DIR_RAW, "eth_usd_daily_may.csv")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  j <- fromJSON("https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400&start=2024-05-01T00:00:00Z&end=2024-06-30T00:00:00Z")
+  P <- data.table(day = as.IDate(as.POSIXct(j[, 1], origin = "1970-01-01", tz = "UTC")), low = j[, 2], high = j[, 3], open = j[, 4], close = j[, 5])[order(day)]
+  stopifnot(!anyDuplicated(P$day)); fwrite(P, out); cat(sprintf("P: %d days of ETH/USD\n", nrow(P)))
+} else cat("P: exists, skipped\n")
 
 cat("\n## sessionInfo\n```\n"); print(sessionInfo()); cat("```\n"); sink()

@@ -1,0 +1,13 @@
+Margin,Design,Sample,Elasticity,SE,Note
+Aggregate (all txs),Hourly fuzzy RD in time,"Base, 14 Mar",-0.19,(0.08),first-stage Wald 25.6
+Aggregate (all txs),Hourly fuzzy RD in time,"Arbitrum, 14 Mar",-0.38,(0.07),first-stage Wald 131.8
+Aggregate (all txs),Hourly fuzzy RD in time,"Arbitrum, 19 Mar",-0.08,(0.06),first-stage Wald 89.7
+Aggregate (all txs),Hourly fuzzy RD in time,"Base, 28 May",-0.20,(0.04),first-stage Wald 19.8
+Aggregate (all txs),Hourly fuzzy RD in time,"Base, 30 May",0.01,(0.05),first-stage Wald 8.3
+Aggregate (all txs),Hourly fuzzy RD in time,"Base, both May steps",-0.10,(0.04),first-stage Wald 15.7
+Aggregate (all txs),Daily 2SLS vs 7 chains,"Base, May",-0.10,(0.02),permutation p of the DiD 0.38
+Aggregate (all txs),Stacked 2SLS across rollups,"6 events, documented dates",-0.20,(0.06),first-stage F 29
+Aggregate (all txs),Stacked 2SLS across rollups,"9 events, detected dates",-0.16,(0.06),first-stage F 47
+Intensive (txs per existing sender),"Within sender, net of a placebo window pair","Base, 14 Mar (245,606 senders)",-0.041,(0.001),"3 fee-level bins, -0.060 to -0.036"
+Intensive (txs per existing sender),"Within sender, net of a placebo window pair","Arbitrum, 14 Mar (237,159 senders)",-0.030,(0.001),"3 fee-level bins, -0.050 to -0.011"
+Intensive (txs per existing sender),"Within sender, net of a placebo window pair","Arbitrum, 19 Mar (316,933 senders)",0.002,(0.021),"5 fee-level bins, -0.054 to 0.104"

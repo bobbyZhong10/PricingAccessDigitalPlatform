@@ -10,11 +10,12 @@ stopifnot(isTRUE(ct$all_valid), unname(tools::md5sum(PANEL_FILE)) == ct$md5)
 PNL <- readRDS(PANEL_FILE)
 l2_hourly <- PNL$l2_hourly; control_hourly <- PNL$control_hourly; base_hourly_campaign <- PNL$base_hourly_campaign
 
-H0 <- l2_hourly[, .(n = sum(n), n_ok = sum(n[failed == 0]), fee = sum(fee), senders = sum(n_senders)), by = .(hr, chain)]
+# Price: log hourly median fee per tx (02 fee_quantiles_hourly), as in 04
+H0 <- merge(l2_hourly[, .(n = sum(n), n_ok = sum(n[failed == 0]), fee = sum(fee), senders = sum(n_senders)), by = .(hr, chain)], PNL$fee_quantiles_hourly[, .(hr, chain, p50)], by = c("hr", "chain"))
 D <- merge(H0, control_hourly[, .(hr, n_eth, n_btc)], by = "hr", all.x = TRUE)
 D <- merge(D, base_hourly_campaign[, .(hr, n_camp = n_campaign, chain = "base")], by = c("hr", "chain"), all.x = TRUE)[is.na(n_camp), n_camp := 0]
 D <- D[hr >= as.POSIXct("2024-02-22", tz = "UTC") & hr < as.POSIXct("2024-04-15", tz = "UTC")][order(chain, hr)]
-D[, `:=`(y = log(n), lfpt = log(fee / n), y_net = log(pmax(n_ok - n_camp, 1)), y_eth = log(n_eth), y_btc = log(n_btc), hod = hour(hr))]
+D[, `:=`(y = log(n), lfpt = log(p50), y_net = log(pmax(n_ok - n_camp, 1)), y_eth = log(n_eth), y_btc = log(n_btc), hod = hour(hr))]
 D[, y_wk := y - shift(y, 168), by = chain]; stopifnot(!anyDuplicated(D, by = c("chain", "hr")))
 cat(sprintf("Panel %s..%s UTC; campaign share of Base successful txs 03-14..21: %.3f\n", min(D$hr), max(D$hr),
             D[chain == "base" & hr >= as.POSIXct("2024-03-14", tz = "UTC") & hr < as.POSIXct("2024-03-22", tz = "UTC"), sum(n_camp) / sum(n_ok)]))
@@ -40,7 +41,7 @@ SPEC <- rbind(G, CHK, use.names = TRUE)
 #   mean diff: y_t = a + b * Post_t [+ g' X_t] [+ hour-of-day FE] + e_t
 # Hour-of-day FE only when W > 12 h (shorter windows cannot carry them); X_t = (log L1 txs, log Bitcoin txs) in C1/C2.
 # SEs: Newey-West with 6 or 24 lags, or clustered by day. RI: the same regression at fake event hours t0 + 12 h * k in 02-26..04-12 that are
-# more than W + 24 h from any event; p = share of fake |b| >= |b|. Element 1 of b and s is the actual event, the rest are the fakes.
+# more than W + 24 h from any event; p = (1 + #{fake |b| >= |b|}) / (1 + K), K fakes. Element 1 of b and s is the actual event, the rest are the fakes.
 RES <- list()
 for (r in seq_len(nrow(SPEC))) {
   sp <- SPEC[r]; ch <- EVENTS$chain[sp$i]; t0 <- EVENTS$t0[sp$i]; times <- t0
@@ -60,15 +61,15 @@ for (r in seq_len(nrow(SPEC))) {
     if (inherits(f, "try-error")) next
     b[k] <- coef(f)[["post"]]; s[k] <- se(f)[["post"]]
   }
-  RES[[r]] <- data.table(est = b[1], se = s[1], ri_p = if (sp$ri) mean(abs(b[-1]) >= abs(b[1]), na.rm = TRUE) else NA_real_, n_fake = if (sp$ri) sum(!is.na(b[-1])) else NA_integer_)
+  RES[[r]] <- data.table(est = b[1], se = s[1], ri_p = if (sp$ri) (1 + sum(abs(b[-1]) >= abs(b[1]), na.rm = TRUE)) / (1 + sum(!is.na(b[-1]))) else NA_real_, n_fake = if (sp$ri) sum(!is.na(b[-1])) else NA_integer_)
 }
 SPEC <- cbind(SPEC, rbindlist(RES))
 SPEC[, event := factor(EVENTS$event[i], EVENTS$event)]
 
 # ---- A. specification grid ----
-G <- SPEC[check == "grid"][, `:=`(outcome = fifelse(y == "y", "log txs", "log fee per tx"), spec = paste0("W", W, ifelse(trend, " trend", " mean"), " donut", donut))]
+G <- SPEC[check == "grid"][, `:=`(outcome = fifelse(y == "y", "log txs", "log median fee per tx"), spec = paste0("W", W, ifelse(trend, " trend", " mean"), " donut", donut))]
 cat("## A. Log txs: estimate [RI p]\n"); print(dcast(G[y == "y", .(event, spec, v = sprintf("%.2f [%.2f]", est, ri_p))], spec ~ event, value.var = "v"))
-cat("## A. First stage (log fee per tx)\n"); print(dcast(G[y == "lfpt", .(event, spec, v = sprintf("%.2f", est))], spec ~ event, value.var = "v"))
+cat("## A. First stage (log median fee per tx)\n"); print(dcast(G[y == "lfpt", .(event, spec, v = sprintf("%.2f", est))], spec ~ event, value.var = "v"))
 cat("Share of specifications with estimate > 0 and RI p <= 0.10:", G[y == "y", .(share = mean(est > 0 & ri_p <= 0.10, na.rm = TRUE)), by = event][, paste(sprintf("%s %.2f", event, share), collapse = "; ")], "\n")
 
 # ---- B-E. other checks ----
@@ -84,8 +85,9 @@ fwrite(G[, .(event, outcome, spec, window_h = W, trend, donut_h = donut, est, se
 
 # ---- F. placebo at the L1 fork hour (neither L2 had changed pricing) ----
 # Statistic at hour t: mean of the differenced outcome over [t, t + 10 h) minus its mean over [t - 10 h, t); outcomes differenced against the same hour
-# of the previous day or week. RI over the same clock hour on other days whose window and comparison hours are more than 11 h from any L2 event.
-P <- H0[order(chain, hr)][, `:=`(y = log(n), f = log(fee / n))]
+# of the previous day or week. RI over the same clock hour on other days whose window and comparison hours are more than 11 h from any L2 event;
+# p = (1 + #{fake |m| >= |m|}) / (1 + K).
+P <- H0[order(chain, hr)][, `:=`(y = log(n), f = log(p50))]
 P[, `:=`(y_d = y - shift(y, 24), f_d = f - shift(f, 24), y_w = y - shift(y, 168), f_w = f - shift(f, 168)), by = chain]
 burst <- as.POSIXct(c("2024-03-13 19:00:00", "2024-03-13 20:00:00"), tz = "UTC")   # one-off Base burst in the placebo window
 fakes <- L1_FORK + 86400 * c(-12:-2, 8:20); near_d <- near_w <- rep(FALSE, length(fakes))
@@ -101,10 +103,10 @@ for (ch in CHAINS) for (v in c("y_d", "f_d", "y_w", "f_w")) for (drop_burst in c
     d <- P[chain == ch & hr >= times[k] - 10 * 3600 & hr < times[k] + 10 * 3600 & !(k == 1 & drop_burst & hr %in% burst)]
     m[k] <- d[hr >= times[k], mean(get(v), na.rm = TRUE)] - d[hr < times[k], mean(get(v), na.rm = TRUE)]
   }
-  PL[[length(PL) + 1]] <- data.table(chain = ch, outcome = v, burst_dropped = drop_burst, est = m[1], ri_p = mean(abs(m[-1]) >= abs(m[1]), na.rm = TRUE), fake_sd = sd(m[-1], na.rm = TRUE))
+  PL[[length(PL) + 1]] <- data.table(chain = ch, outcome = v, burst_dropped = drop_burst, est = m[1], ri_p = (1 + sum(abs(m[-1]) >= abs(m[1]), na.rm = TRUE)) / (1 + sum(!is.na(m[-1]))), fake_sd = sd(m[-1], na.rm = TRUE))
 }
 PL <- rbindlist(PL)
-PL[, outcome := c(y_d = "log txs, minus same hour previous day", f_d = "log fee per tx, minus same hour previous day", y_w = "log txs, minus same hour previous week", f_w = "log fee per tx, minus same hour previous week")[outcome]]
+PL[, outcome := c(y_d = "log txs, minus same hour previous day", f_d = "log median fee per tx, minus same hour previous day", y_w = "log txs, minus same hour previous week", f_w = "log median fee per tx, minus same hour previous week")[outcome]]
 cat(sprintf("## F. Placebo at the L1 fork hour (+-10 h); RI over the same clock hour on %d / %d other days (daily / weekly differenced)\n", length(fakes_d), length(fakes_w))); print(PL)
 fwrite(PL, file.path(DIR_TAB, "placebo_l1_fork.csv"))
 cat("\n## sessionInfo\n```\n"); print(sessionInfo()); cat("```\n"); sink()

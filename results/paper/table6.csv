@@ -1,0 +1,5 @@
+Cut,Set by,"Fee revenue, before -> after (US$ k/day)",L1 data cost (US$ k/day),Profit (US$ k/day),Profit change (log),Stake: individual entrant (US$),Stake: operator of the average burst account (US$),"Cost of an identity, before -> after (US$)"
+Base Mar,cost pass-through,405 -> 435,279.9 -> 1.5,125 -> 433,+1.25,1.16,"16,526",0.589 -> 0.0079
+Arb 1,cost pass-through,653 -> 168,556.0 -> 7.1,97 -> 160,+0.50,0.47,69,1.650 -> 0.2475
+Arb 2,platform,168 -> 31,7.1 -> 8.0,160 -> 23,-1.96,0.07,35,0.248 -> 0.0272
+Base May,platform,328 -> 121,0.6 -> 1.0,327 -> 120,-1.00,0.06,"1,587",0.068 -> 0.0045

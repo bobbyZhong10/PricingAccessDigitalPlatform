@@ -1,0 +1,5 @@
+short,time_utc,origin,set_by,median_fee_pre,median_fee_post,dlog_fee,stake_individual,stake_operator_acct_weighted
+Base Mar,2024-03-14 00:00,Ethereum Dencun (EIP-4844) passed through: Base Ecotone upgrade,cost pass-through,0.588802867510391,0.00787514846922962,-4.3143793997257,1.16185543808232,16526.1254974378
+Arb 1,2024-03-14 15:00,Ethereum Dencun passed through: Arbitrum ArbOS 20,cost pass-through,0.550161718259546,0.0825120976034049,-1.89726734799898,0.467649620656141,69.1713163150341
+Arb 2,2024-03-19 08:00,Arbitrum governance: minimum L2 base fee 0.1 to 0.01 gwei,platform,0.0825120976034049,0.00907219758170543,-2.20773039417067,0.0734399000216995,34.7681844029141
+Base May,2024-05-28 19:00 and 2024-05-30 20:00,Base raised the block gas limit 60M to 75M to 90M (capacity),platform,0.0339635255646438,0.0022402504823942,-2.71869948915533,0.0634465501644991,1586.87541973719

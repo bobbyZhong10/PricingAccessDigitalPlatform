@@ -1,0 +1,21 @@
+event,class3,type,N,share
+1. March,campaign,native or zero-value transfer,680418,0.861598346747438
+1. March,campaign,mint or claim,47843,0.0605825385328397
+1. March,campaign,token transfer or approval,29081,0.0368246306267063
+1. March,campaign,other contract call,17231,0.0218192362824104
+1. March,campaign,DEX swap,15143,0.0191752478106053
+1. March,genuine,other contract call,95035,0.369511374814826
+1. March,genuine,native or zero-value transfer,92123,0.358189050161164
+1. March,genuine,token transfer or approval,37406,0.145440548075166
+1. March,genuine,DEX swap,26378,0.102561909242547
+1. March,genuine,mint or claim,6249,0.0242971177062961
+2. May,campaign,DEX swap,209230,0.58750852916483
+2. May,campaign,mint or claim,66230,0.185970892733292
+2. May,campaign,native or zero-value transfer,45896,0.128873925606027
+2. May,campaign,other contract call,27732,0.0778702219127231
+2. May,campaign,token transfer or approval,7043,0.0197764305831281
+2. May,genuine,other contract call,104707,0.335736020752037
+2. May,genuine,native or zero-value transfer,94896,0.304277702782864
+2. May,genuine,DEX swap,54942,0.176167863200726
+2. May,genuine,token transfer or approval,49803,0.159690002020053
+2. May,genuine,mint or claim,7525,0.0241284112443206

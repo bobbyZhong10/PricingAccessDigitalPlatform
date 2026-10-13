@@ -1,11 +1,15 @@
-# Raw downloads (about 2 GB) are rebuilt by code/01_download.R; data/panel/panel.rds is tracked
-data/raw/
+# Raw downloads (about 3 GB) are rebuilt by code/01_download.R; data/panel/panel.rds is tracked
+# (no trailing slash, so a symlink to the main checkout's data/raw is ignored too)
+data/raw
 
 # Reference papers (copyrighted PDFs)
 literature/
 
-# Proposal PDF (course submission); proposal.md is tracked
-proposal/*.pdf
+# Pre-writing notes: literature map, framing, theory, pre-analysis plans (private)
+notes/
+
+# Research proposal (not published for now)
+proposal/
 
 # R / RStudio
 .Rproj.user/
@@ -15,3 +19,6 @@ proposal/*.pdf
 
 # macOS
 .DS_Store
+
+# local tool settings and worktrees
+.claude/

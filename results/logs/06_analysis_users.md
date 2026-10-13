@@ -1,126 +1,126 @@
 # 06 users
-Run 2026-10-12 22:54:01 UTC
+Run 2026-10-13 18:15:02 UTC
 Entrants: base 1628756; arbitrum 1228511
 ## A. Base (Ecotone), W = 12 h each side: entrants/hour 821 -> 1016
                                   y  before      jump    ri_p n_fake marginal    m_lo   m_hi
- 1:           log entrants per hour 6.71086  0.212684 0.34615     78       NA      NA     NA
- 2:                 active Apr 2024 0.24020 -0.002709 0.96154     78  0.22606 0.12684 0.5844
- 3:                 active Jun 2024 0.12608  0.001885 0.92308     78  0.13592 0.05910 0.5796
- 4:                 active Sep 2024 0.04605  0.012386 0.24359     78  0.11070 0.06194 0.4643
- 5:                 active Dec 2024 0.09165 -0.002079 0.96154     78  0.08080 0.03922 0.3457
- 6:                 active Mar 2025 0.03974  0.010731 0.25641     78  0.09575 0.05682 0.4176
- 7:  any activity in sampled months 0.37436  0.039954 0.33333     78  0.58291 0.39314 2.0158
- 8:   months active (of 10 sampled) 0.97609  0.073574 0.55128     78  1.36011 0.86607 4.9324
- 9:         single tx in first week 0.40215  0.018613 0.74359     78  0.49930 0.18420 0.9297
-10: bot-like (>= 100 txs in week 1) 0.00952  0.014999 0.03846     78  0.08781 0.01606 0.2196
+ 1:           log entrants per hour 6.71086  0.212684 0.35443     78       NA      NA     NA
+ 2:                 active Apr 2024 0.24020 -0.002709 0.96203     78  0.22606 0.12684 0.5844
+ 3:                 active Jun 2024 0.12608  0.001885 0.92405     78  0.13592 0.05910 0.5796
+ 4:                 active Sep 2024 0.04605  0.012386 0.25316     78  0.11070 0.06194 0.4643
+ 5:                 active Dec 2024 0.09165 -0.002079 0.96203     78  0.08080 0.03922 0.3457
+ 6:                 active Mar 2025 0.03974  0.010731 0.26582     78  0.09575 0.05682 0.4176
+ 7:  any activity in sampled months 0.37436  0.039954 0.34177     78  0.58291 0.39314 2.0158
+ 8:   months active (of 10 sampled) 0.97609  0.073574 0.55696     78  1.36011 0.86607 4.9324
+ 9:         single tx in first week 0.40215  0.018613 0.74684     78  0.49930 0.18420 0.9297
+10: bot-like (>= 100 txs in week 1) 0.00952  0.014999 0.05063     78  0.08781 0.01606 0.2196
 ## A. Base (Ecotone), W = 24 h each side: entrants/hour 686 -> 1450
                                   y  before      jump    ri_p n_fake marginal    m_lo    m_hi
- 1:           log entrants per hour 6.53119  0.748394 0.06061     66       NA      NA      NA
- 2:                 active Apr 2024 0.23639  0.016672 0.50000     66  0.26804 0.23484 0.29271
- 3:                 active Jun 2024 0.12697  0.001479 0.95455     66  0.12978 0.11366 0.15077
- 4:                 active Sep 2024 0.05271  0.005081 0.50000     66  0.06236 0.05185 0.07556
- 5:                 active Dec 2024 0.10347 -0.021809 0.25758     66  0.06207 0.05201 0.07377
- 6:                 active Mar 2025 0.04511  0.010825 0.22727     66  0.06566 0.05027 0.07767
- 7:  any activity in sampled months 0.38770  0.041214 0.24242     66  0.46592 0.42495 0.49874
- 8:   months active (of 10 sampled) 1.03174  0.002041 0.96970     66  1.03562 0.93109 1.12711
- 9:         single tx in first week 0.44269 -0.098826 0.12121     66  0.25512 0.21788 0.32163
-10: bot-like (>= 100 txs in week 1) 0.00716  0.009837 0.00000     66  0.02583 0.01490 0.04689
+ 1:           log entrants per hour 6.53119  0.748394 0.07463     66       NA      NA      NA
+ 2:                 active Apr 2024 0.23639  0.016672 0.50746     66  0.26804 0.23484 0.29271
+ 3:                 active Jun 2024 0.12697  0.001479 0.95522     66  0.12978 0.11366 0.15077
+ 4:                 active Sep 2024 0.05271  0.005081 0.50746     66  0.06236 0.05185 0.07556
+ 5:                 active Dec 2024 0.10347 -0.021809 0.26866     66  0.06207 0.05201 0.07377
+ 6:                 active Mar 2025 0.04511  0.010825 0.23881     66  0.06566 0.05027 0.07767
+ 7:  any activity in sampled months 0.38770  0.041214 0.25373     66  0.46592 0.42495 0.49874
+ 8:   months active (of 10 sampled) 1.03174  0.002041 0.97015     66  1.03562 0.93109 1.12711
+ 9:         single tx in first week 0.44269 -0.098826 0.13433     66  0.25512 0.21788 0.32163
+10: bot-like (>= 100 txs in week 1) 0.00716  0.009837 0.01493     66  0.02583 0.01490 0.04689
 ## A. Base (Ecotone), W = 72 h each side: entrants/hour 755 -> 10482
-                                  y   before      jump ri_p n_fake marginal     m_lo     m_hi
- 1:           log entrants per hour 6.626289  2.631086    0     31       NA       NA       NA
- 2:                 active Apr 2024 0.245810 -0.188032    0     31 0.043189 0.027039 0.074178
- 3:                 active Jun 2024 0.133814 -0.108163    0     31 0.017259 0.012124 0.026964
- 4:                 active Sep 2024 0.054403 -0.043246    0     31 0.007802 0.005238 0.013151
- 5:                 active Dec 2024 0.106099 -0.093465    0     31 0.005382 0.004096 0.008050
- 6:                 active Mar 2025 0.045948 -0.033922    0     31 0.009395 0.006700 0.015326
- 7:  any activity in sampled months 0.399332 -0.293436    0     31 0.083129 0.056872 0.123665
- 8:   months active (of 10 sampled) 1.083106 -0.872182    0     31 0.143255 0.104871 0.217949
- 9:         single tx in first week 0.442462  0.347970    0     31 0.817430 0.758115 0.862763
-10: bot-like (>= 100 txs in week 1) 0.005953 -0.003583    0     31 0.002092 0.001540 0.003227
+                                  y   before      jump    ri_p n_fake marginal     m_lo     m_hi
+ 1:           log entrants per hour 6.626289  2.631086 0.03125     31       NA       NA       NA
+ 2:                 active Apr 2024 0.245810 -0.188032 0.03125     31 0.043189 0.027039 0.074178
+ 3:                 active Jun 2024 0.133814 -0.108163 0.03125     31 0.017259 0.012124 0.026964
+ 4:                 active Sep 2024 0.054403 -0.043246 0.03125     31 0.007802 0.005238 0.013151
+ 5:                 active Dec 2024 0.106099 -0.093465 0.03125     31 0.005382 0.004096 0.008050
+ 6:                 active Mar 2025 0.045948 -0.033922 0.03125     31 0.009395 0.006700 0.015326
+ 7:  any activity in sampled months 0.399332 -0.293436 0.03125     31 0.083129 0.056872 0.123665
+ 8:   months active (of 10 sampled) 1.083106 -0.872182 0.03125     31 0.143255 0.104871 0.217949
+ 9:         single tx in first week 0.442462  0.347970 0.03125     31 0.817430 0.758115 0.862763
+10: bot-like (>= 100 txs in week 1) 0.005953 -0.003583 0.03125     31 0.002092 0.001540 0.003227
 ## A. Arbitrum step 1, W = 12 h each side: entrants/hour 1469 -> 1876
                                   y    before      jump    ri_p n_fake marginal      m_lo    m_hi
- 1:           log entrants per hour 7.2922134  0.244635 0.51282     78       NA        NA      NA
- 2:                 active Apr 2024 0.1245281  0.025460 0.39744     78 0.241849  0.079502 0.86490
- 3:                 active Jun 2024 0.0563842  0.017229 0.25641     78 0.135775  0.089003 0.43943
- 4:                 active Sep 2024 0.0246952 -0.004244 0.42308     78 0.005136 -0.085873 0.03501
- 5:                 active Dec 2024 0.0312558 -0.002809 0.70513     78 0.018312 -0.020163 0.04112
- 6:                 active Mar 2025 0.0310082 -0.001786 0.83333     78 0.022778 -0.032495 0.07256
- 7:  any activity in sampled months 0.2693569  0.027808 0.52564     78 0.397499  0.225670 1.13186
- 8:   months active (of 10 sampled) 0.4594912  0.031325 0.65385     78 0.603841  0.350430 1.58993
- 9:         single tx in first week 0.6158940 -0.031208 0.58974     78 0.472086 -0.253818 0.63200
-10: bot-like (>= 100 txs in week 1) 0.0006189  0.002725 0.01282     78 0.013176  0.002542 0.05035
+ 1:           log entrants per hour 7.2922134  0.244635 0.51899     78       NA        NA      NA
+ 2:                 active Apr 2024 0.1245281  0.025460 0.40506     78 0.241849  0.079502 0.86490
+ 3:                 active Jun 2024 0.0563842  0.017229 0.26582     78 0.135775  0.089003 0.43943
+ 4:                 active Sep 2024 0.0246952 -0.004244 0.43038     78 0.005136 -0.085873 0.03501
+ 5:                 active Dec 2024 0.0312558 -0.002809 0.70886     78 0.018312 -0.020163 0.04112
+ 6:                 active Mar 2025 0.0310082 -0.001786 0.83544     78 0.022778 -0.032495 0.07256
+ 7:  any activity in sampled months 0.2693569  0.027808 0.53165     78 0.397499  0.225670 1.13186
+ 8:   months active (of 10 sampled) 0.4594912  0.031325 0.65823     78 0.603841  0.350430 1.58993
+ 9:         single tx in first week 0.6158940 -0.031208 0.59494     78 0.472086 -0.253818 0.63200
+10: bot-like (>= 100 txs in week 1) 0.0006189  0.002725 0.02532     78 0.013176  0.002542 0.05035
 ## A. Arbitrum step 1, W = 24 h each side: entrants/hour 1412 -> 1975
                                   y    before       jump    ri_p n_fake marginal      m_lo    m_hi
- 1:           log entrants per hour 7.2525469  0.3356227 0.03030     66       NA        NA      NA
- 2:                 active Apr 2024 0.1371770 -0.0074927 0.71212     66 0.110897  0.056327 0.19365
- 3:                 active Jun 2024 0.0546367  0.0168547 0.04545     66 0.113754  0.089843 0.15656
- 4:                 active Sep 2024 0.0226062 -0.0009628 0.74242     66 0.019229  0.008612 0.03198
- 5:                 active Dec 2024 0.0335705 -0.0050796 0.21212     66 0.015754 -0.014194 0.03533
- 6:                 active Mar 2025 0.0308294 -0.0034834 0.45455     66 0.018611  0.001208 0.02811
- 7:  any activity in sampled months 0.2860883 -0.0152705 0.71212     66 0.232528  0.165833 0.32056
- 8:   months active (of 10 sampled) 0.4708799 -0.0091907 0.81818     66 0.438644  0.334804 0.57584
- 9:         single tx in first week 0.6155718 -0.0305614 0.50000     66 0.508379  0.383503 0.58720
-10: bot-like (>= 100 txs in week 1) 0.0004312  0.0013963 0.03030     66 0.005329  0.001921 0.01152
+ 1:           log entrants per hour 7.2525469  0.3356227 0.04478     66       NA        NA      NA
+ 2:                 active Apr 2024 0.1371770 -0.0074927 0.71642     66 0.110897  0.056327 0.19365
+ 3:                 active Jun 2024 0.0546367  0.0168547 0.05970     66 0.113754  0.089843 0.15656
+ 4:                 active Sep 2024 0.0226062 -0.0009628 0.74627     66 0.019229  0.008612 0.03198
+ 5:                 active Dec 2024 0.0335705 -0.0050796 0.22388     66 0.015754 -0.014194 0.03533
+ 6:                 active Mar 2025 0.0308294 -0.0034834 0.46269     66 0.018611  0.001208 0.02811
+ 7:  any activity in sampled months 0.2860883 -0.0152705 0.71642     66 0.232528  0.165833 0.32056
+ 8:   months active (of 10 sampled) 0.4708799 -0.0091907 0.82090     66 0.438644  0.334804 0.57584
+ 9:         single tx in first week 0.6155718 -0.0305614 0.50746     66 0.508379  0.383503 0.58720
+10: bot-like (>= 100 txs in week 1) 0.0004312  0.0013963 0.04478     66 0.005329  0.001921 0.01152
 ## A. Arbitrum step 1, W = 72 h each side: entrants/hour 1646 -> 1712
                                   y    before       jump    ri_p n_fake marginal     m_lo    m_hi
- 1:           log entrants per hour 7.4059921  0.0396640 0.80645     31       NA       NA      NA
- 2:                 active Apr 2024 0.1569664 -0.0273985 0.48387     31 -0.54759  -5.0044  4.1377
- 3:                 active Jun 2024 0.0573370  0.0223959 0.00000     31  0.63325  -3.7638  2.7829
- 4:                 active Sep 2024 0.0209237  0.0008313 0.83871     31  0.04230  -0.2536  0.1780
- 5:                 active Dec 2024 0.0325708 -0.0030925 0.25806     31 -0.04695  -0.4906  0.4410
- 6:                 active Mar 2025 0.0434649  0.0399199 0.12903     31  1.07001  -5.3122  6.6388
- 7:  any activity in sampled months 0.3012332  0.0426034 0.22581     31  1.39679  -4.6402  5.1498
- 8:   months active (of 10 sampled) 0.4902313  0.0537353 0.22581     31  1.87204  -6.6755  6.7193
- 9:         single tx in first week 0.6339418 -0.0851472 0.06452     31 -1.55563 -10.3027 12.0655
-10: bot-like (>= 100 txs in week 1) 0.0005049  0.0008111 0.00000     31  0.02136  -0.1433  0.1237
+ 1:           log entrants per hour 7.4059921  0.0396640 0.81250     31       NA       NA      NA
+ 2:                 active Apr 2024 0.1569664 -0.0273985 0.50000     31 -0.54759  -5.0044  4.1377
+ 3:                 active Jun 2024 0.0573370  0.0223959 0.03125     31  0.63325  -3.7638  2.7829
+ 4:                 active Sep 2024 0.0209237  0.0008313 0.84375     31  0.04230  -0.2536  0.1780
+ 5:                 active Dec 2024 0.0325708 -0.0030925 0.28125     31 -0.04695  -0.4906  0.4410
+ 6:                 active Mar 2025 0.0434649  0.0399199 0.15625     31  1.07001  -5.3122  6.6388
+ 7:  any activity in sampled months 0.3012332  0.0426034 0.25000     31  1.39679  -4.6402  5.1498
+ 8:   months active (of 10 sampled) 0.4902313  0.0537353 0.25000     31  1.87204  -6.6755  6.7193
+ 9:         single tx in first week 0.6339418 -0.0851472 0.09375     31 -1.55563 -10.3027 12.0655
+10: bot-like (>= 100 txs in week 1) 0.0005049  0.0008111 0.03125     31  0.02136  -0.1433  0.1237
 ## A. Arbitrum step 2, W = 12 h each side: entrants/hour 1295 -> 2136
                                   y    before      jump    ri_p n_fake marginal     m_lo     m_hi
- 1:           log entrants per hour 7.1659851  0.500918 0.12821     78       NA       NA       NA
- 2:                 active Apr 2024 0.1494277 -0.015306 0.48718     78 0.110583 0.085457 0.135459
- 3:                 active Jun 2024 0.1028720 -0.007940 0.52564     78 0.082721 0.061529 0.106454
- 4:                 active Sep 2024 0.0204340  0.010288 0.12821     78 0.046544 0.037563 0.056822
- 5:                 active Dec 2024 0.0287901  0.019378 0.03846     78 0.077970 0.051670 0.112020
- 6:                 active Mar 2025 0.0294923  0.041909 0.08974     78 0.135853 0.082492 0.181285
- 7:  any activity in sampled months 0.3374061  0.003984 0.88462     78 0.347516 0.273771 0.412828
- 8:   months active (of 10 sampled) 0.5725722  0.069911 0.35897     78 0.750000 0.623860 0.855247
- 9:         single tx in first week 0.5774875 -0.021852 0.74359     78 0.522030 0.462457 0.600155
-10: bot-like (>= 100 txs in week 1) 0.0007022  0.000702 0.24359     78 0.002484 0.001311 0.003709
+ 1:           log entrants per hour 7.1659851  0.500918 0.13924     78       NA       NA       NA
+ 2:                 active Apr 2024 0.1494277 -0.015306 0.49367     78 0.110583 0.085457 0.135459
+ 3:                 active Jun 2024 0.1028720 -0.007940 0.53165     78 0.082721 0.061529 0.106454
+ 4:                 active Sep 2024 0.0204340  0.010288 0.13924     78 0.046544 0.037563 0.056822
+ 5:                 active Dec 2024 0.0287901  0.019378 0.05063     78 0.077970 0.051670 0.112020
+ 6:                 active Mar 2025 0.0294923  0.041909 0.10127     78 0.135853 0.082492 0.181285
+ 7:  any activity in sampled months 0.3374061  0.003984 0.88608     78 0.347516 0.273771 0.412828
+ 8:   months active (of 10 sampled) 0.5725722  0.069911 0.36709     78 0.750000 0.623860 0.855247
+ 9:         single tx in first week 0.5774875 -0.021852 0.74684     78 0.522030 0.462457 0.600155
+10: bot-like (>= 100 txs in week 1) 0.0007022  0.000702 0.25316     78 0.002484 0.001311 0.003709
 ## A. Arbitrum step 2, W = 24 h each side: entrants/hour 1542 -> 2042
                                   y   before        jump    ri_p n_fake marginal      m_lo     m_hi
- 1:           log entrants per hour 7.340977  0.28068718 0.06061     66       NA        NA       NA
- 2:                 active Apr 2024 0.138367 -0.01142096 0.62121     66 0.091700  0.049911 0.131890
- 3:                 active Jun 2024 0.103944 -0.01687923 0.04545     66 0.034975 -0.015408 0.064926
- 4:                 active Sep 2024 0.022441  0.00841190 0.03030     66 0.056812  0.042152 0.080075
- 5:                 active Dec 2024 0.033041  0.01471789 0.00000     66 0.093179  0.059073 0.147306
- 6:                 active Mar 2025 0.031462  0.03927120 0.12121     66 0.191926  0.111794 0.294734
- 7:  any activity in sampled months 0.330777  0.00517505 0.90909     66 0.351923  0.239013 0.473825
- 8:   months active (of 10 sampled) 0.569479  0.04953487 0.33333     66 0.771881  0.560946 1.048857
- 9:         single tx in first week 0.558597 -0.01953616 0.74242     66 0.478772  0.313327 0.610101
-10: bot-like (>= 100 txs in week 1) 0.001861 -0.00005082 0.90909     66 0.001653 -0.003009 0.007845
+ 1:           log entrants per hour 7.340977  0.28068718 0.07463     66       NA        NA       NA
+ 2:                 active Apr 2024 0.138367 -0.01142096 0.62687     66 0.091700  0.049911 0.131890
+ 3:                 active Jun 2024 0.103944 -0.01687923 0.05970     66 0.034975 -0.015408 0.064926
+ 4:                 active Sep 2024 0.022441  0.00841190 0.04478     66 0.056812  0.042152 0.080075
+ 5:                 active Dec 2024 0.033041  0.01471789 0.01493     66 0.093179  0.059073 0.147306
+ 6:                 active Mar 2025 0.031462  0.03927120 0.13433     66 0.191926  0.111794 0.294734
+ 7:  any activity in sampled months 0.330777  0.00517505 0.91045     66 0.351923  0.239013 0.473825
+ 8:   months active (of 10 sampled) 0.569479  0.04953487 0.34328     66 0.771881  0.560946 1.048857
+ 9:         single tx in first week 0.558597 -0.01953616 0.74627     66 0.478772  0.313327 0.610101
+10: bot-like (>= 100 txs in week 1) 0.001861 -0.00005082 0.91045     66 0.001653 -0.003009 0.007845
 ## A. Arbitrum step 2, W = 72 h each side: entrants/hour 1522 -> 2384
-                                  y   before       jump   ri_p n_fake  marginal      m_lo     m_hi
- 1:           log entrants per hour 7.328040  0.4483891 0.0000     31        NA        NA       NA
- 2:                 active Apr 2024 0.142418 -0.0228350 0.5484     31  0.079224  0.044818 0.122579
- 3:                 active Jun 2024 0.096632 -0.0379723 0.0000     31 -0.008454 -0.035739 0.013984
- 4:                 active Sep 2024 0.023850  0.0025135 0.4194     31  0.030806  0.019743 0.047770
- 5:                 active Dec 2024 0.033398  0.0049307 0.1613     31  0.047044  0.029836 0.073507
- 6:                 active Mar 2025 0.028393  0.0932288 0.0000     31  0.286399  0.183677 0.428626
- 7:  any activity in sampled months 0.327690  0.0222091 0.4839     31  0.389152  0.272602 0.538355
- 8:   months active (of 10 sampled) 0.554297  0.0301064 0.2581     31  0.637615  0.462209 0.869020
- 9:         single tx in first week 0.560107 -0.0573303 0.2258     31  0.401449  0.260520 0.572680
-10: bot-like (>= 100 txs in week 1) 0.001397  0.0007065 0.0000     31  0.003352  0.001436 0.006678
+                                  y   before       jump    ri_p n_fake  marginal      m_lo     m_hi
+ 1:           log entrants per hour 7.328040  0.4483891 0.03125     31        NA        NA       NA
+ 2:                 active Apr 2024 0.142418 -0.0228350 0.56250     31  0.079224  0.044818 0.122579
+ 3:                 active Jun 2024 0.096632 -0.0379723 0.03125     31 -0.008454 -0.035739 0.013984
+ 4:                 active Sep 2024 0.023850  0.0025135 0.43750     31  0.030806  0.019743 0.047770
+ 5:                 active Dec 2024 0.033398  0.0049307 0.18750     31  0.047044  0.029836 0.073507
+ 6:                 active Mar 2025 0.028393  0.0932288 0.03125     31  0.286399  0.183677 0.428626
+ 7:  any activity in sampled months 0.327690  0.0222091 0.50000     31  0.389152  0.272602 0.538355
+ 8:   months active (of 10 sampled) 0.554297  0.0301064 0.28125     31  0.637615  0.462209 0.869020
+ 9:         single tx in first week 0.560107 -0.0573303 0.25000     31  0.401449  0.260520 0.572680
+10: bot-like (>= 100 txs in week 1) 0.001397  0.0007065 0.03125     31  0.003352  0.001436 0.006678
 ## A. DiD at Base's drop (W = 12 h): Base change minus Arbitrum change; RI over 78 fake times
                                   y      base   arbitrum      did    ri_p
- 1:           log entrants per hour  0.212684 -0.1232376 0.335921 0.30769
- 2:                 active Apr 2024 -0.002709 -0.0338470 0.031138 0.56410
- 3:                 active Jun 2024  0.001885 -0.0004757 0.002361 0.87179
- 4:                 active Sep 2024  0.012386  0.0039332 0.008453 0.50000
- 5:                 active Dec 2024 -0.002079 -0.0057279 0.003649 0.92308
- 6:                 active Mar 2025  0.010731 -0.0004134 0.011144 0.34615
- 7:  any activity in sampled months  0.039954 -0.0454953 0.085449 0.30769
- 8:   months active (of 10 sampled)  0.073574 -0.0411536 0.114728 0.53846
- 9:         single tx in first week  0.018613 -0.0063444 0.024958 0.79487
-10: bot-like (>= 100 txs in week 1)  0.014999  0.0004492 0.014550 0.05128
+ 1:           log entrants per hour  0.212684 -0.1232376 0.335921 0.31646
+ 2:                 active Apr 2024 -0.002709 -0.0338470 0.031138 0.56962
+ 3:                 active Jun 2024  0.001885 -0.0004757 0.002361 0.87342
+ 4:                 active Sep 2024  0.012386  0.0039332 0.008453 0.50633
+ 5:                 active Dec 2024 -0.002079 -0.0057279 0.003649 0.92405
+ 6:                 active Mar 2025  0.010731 -0.0004134 0.011144 0.35443
+ 7:  any activity in sampled months  0.039954 -0.0454953 0.085449 0.31646
+ 8:   months active (of 10 sampled)  0.073574 -0.0411536 0.114728 0.54430
+ 9:         single tx in first week  0.018613 -0.0063444 0.024958 0.79747
+10: bot-like (>= 100 txs in week 1)  0.014999  0.0004492 0.014550 0.06329
 ## B. Daily entrant cohorts (UTC entry day)
        chain        day      N single_tx_wk1 active_apr24 active_sep24 active_mar25 months_active_of5
  1: arbitrum 2024-03-04  27021        0.6754      0.09163     0.023352     0.022427           0.21465
@@ -224,23 +224,16 @@ C. Base entrants 2024-03-08..2024-03-21: 1169350; in campaign bursts 800751; fun
 3: 0x0000000000000000000000000000000000000000 2442 0.021
 4: 0x699f4bde550d034a65c53b310eee8ca89dc57ceb 2402 0.021
 5: 0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a 1927 0.017
-Share of post-drop (03-14..21) Base entrants in campaign bursts: 0.752
-## C. Entry and retention, pre (Mar 8-12) vs post (Mar 14-21), with and without campaign addresses
-                                                     set pre_per_day post_per_day pre_months post_months entry_ratio months_ratio
-1:                                          all entrants     20305.6       131416     0.5906     0.20275       6.472       0.3433
-2: genuine (main definition: not campaign, not bot-like)     18276.8        32149     0.5958     0.52512       1.759       0.8813
-3:                                  campaign bursts only      1942.4        98880     0.4930     0.09369      50.906       0.1900
-4:                    bot-like only (>= 100 txs, week 1)        88.8          553     1.6689     1.19033       6.227       0.7132
-5:                 excluding campaign bursts (bots kept)     18363.2        32536     0.6010     0.53420       1.772       0.8889
-6:        excluding campaign bursts and bursting funders     18217.4        27967     0.6000     0.51497       1.535       0.8583
-## C. Campaign rule bounds (entry ratios = post / pre entrants per day; months active of the five retention months)
-      chain                                    rule campaign_share_pre campaign_share_post genuine_entry_ratio campaign_entry_ratio genuine_months_pre genuine_months_post campaign_months_post
-1:     base      main: burst vs own pre-shock level            0.09554              0.7512               1.759              50.8838             0.5958              0.5251              0.09223
-2:     base       bound: size only (>= 5,000 a day)            0.06036              0.6879               2.131              73.7571             0.5938              0.5083              0.05992
-3:     base bound: burst funded by bursting funders            0.06036              0.6317               2.520              67.7332             0.5938              0.4356              0.06197
-4: arbitrum      main: burst vs own pre-shock level            0.17114              0.1724               1.248               1.2615             0.2413              0.2968              0.72792
-5: arbitrum       bound: size only (>= 5,000 a day)            0.12336              0.1801               1.169               1.8282             0.2497              0.3482              0.47584
-6: arbitrum bound: burst funded by bursting funders            0.17114              0.1161               1.334               0.8495             0.2413              0.3282              0.69872
+## C. Burst rule bounds (entry ratios = post / pre entrants per day; months active of the five retention months)
+      chain                                                       rule campaign_share_pre campaign_share_post genuine_entry_ratio campaign_entry_ratio all_entry_ratio genuine_months_pre genuine_months_post campaign_months_post  wedge
+1:     base                         main: burst vs own pre-shock level            0.09554             0.75116               1.759              50.8838           6.472             0.5958              0.5251              0.09223 3.6793
+2:     base                          bound: size only (>= 5,000 a day)            0.06036             0.68787               2.131              73.7571           6.472             0.5938              0.5083              0.05992 3.0373
+3:     base                    bound: burst funded by bursting funders            0.06036             0.63168               2.520              67.7332           6.472             0.5938              0.4356              0.06197 2.5687
+4:     base bound: burst funded by bursting funders (corrected funder)            0.08253             0.70308               2.075              55.1356           6.472             0.5986              0.5108              0.06861 3.1194
+5: arbitrum                         main: burst vs own pre-shock level            0.17114             0.17244               1.248               1.2615           1.252             0.2413              0.2968              0.72792 1.0028
+6: arbitrum                          bound: size only (>= 5,000 a day)            0.12336             0.18014               1.169               1.8282           1.252             0.2497              0.3482              0.47584 1.0706
+7: arbitrum                    bound: burst funded by bursting funders            0.17114             0.11612               1.334               0.8495           1.252             0.2413              0.3282              0.69872 0.9388
+8: arbitrum bound: burst funded by bursting funders (corrected funder)            0.17114             0.02974               1.464               0.2176           1.252             0.2413              0.3612              0.69987 0.8551
 ## D. Entrants by group and chain (03-08..21)
       chain                           grp      N share
 1: arbitrum bot-like (>= 100 txs, week 1)    707 0.001
@@ -251,33 +244,33 @@ Share of post-drop (03-14..21) Base entrants in campaign bursts: 0.752
 6:     base                      campaign 799416 0.684
 7:     base      genuine: bursting funder  37061 0.032
 8:     base                genuine: other 327884 0.280
-## D. Fee change over the daily windows (log, pooled fee per tx)
+## D. Fee change over the daily windows (log, median fee per tx)
              event                   pre                  post    dlf
-1:  Base (Ecotone) 2024-03-08 2024-03-12 2024-03-14 2024-03-21 -0.999
-2: Arbitrum step 1 2024-03-10 2024-03-13 2024-03-15 2024-03-18 -1.725
-3: Arbitrum step 2 2024-03-15 2024-03-18 2024-03-20 2024-03-21 -1.957
+1:  Base (Ecotone) 2024-03-08 2024-03-12 2024-03-14 2024-03-21 -4.239
+2: Arbitrum step 1 2024-03-10 2024-03-13 2024-03-15 2024-03-18 -1.812
+3: Arbitrum step 2 2024-03-15 2024-03-18 2024-03-20 2024-03-21 -2.126
 ## D. Daily entrants pre vs post: log change, entry elasticity, difference vs genuine (day bootstrap)
               event                           grp pre_per_day post_per_day     dlog        lo     hi entry_elasticity diff_vs_genuine  diff_lo  diff_hi
- 1:  Base (Ecotone) bot-like (>= 100 txs, week 1)       88.80       553.00  1.81958  1.355024 2.2730         -1.82169        1.254858  0.81619  1.66213
- 2:  Base (Ecotone)                      campaign     1940.00     98714.50  3.92904  1.864692 5.9254         -3.93360        3.364317  1.30840  5.38211
- 3:  Base (Ecotone)                       genuine    18276.80     32148.88  0.56472  0.444357 0.7073         -0.56538        0.000000  0.00000  0.00000
- 4:  Base (Ecotone)      genuine: bursting funder      145.80      4541.50  3.43216  2.159725 8.7440         -3.43614        2.867440  1.68553  8.10678
- 5:  Base (Ecotone)                genuine: other    18131.00     27607.38  0.42044  0.330661 0.5209         -0.42093       -0.144281 -0.22293 -0.07954
- 6: Arbitrum step 1 bot-like (>= 100 txs, week 1)       23.25        46.25  0.66704  0.102203 1.4858         -0.38673        0.520678 -0.14348  1.42183
- 7: Arbitrum step 1                      campaign     6948.50      3757.00 -0.61478 -2.480851 8.3929          0.35644       -0.761141 -2.76435  8.29937
- 8: Arbitrum step 1                       genuine    30604.50     35428.25  0.14636 -0.004611 0.2990         -0.08486        0.000000  0.00000  0.00000
- 9: Arbitrum step 1      genuine: bursting funder      989.25       800.00 -0.21210 -5.059893 7.0026          0.12297       -0.358455 -5.14240  6.85189
-10: Arbitrum step 1                genuine: other    29615.25     34628.25  0.15638  0.030042 0.2852         -0.09066        0.010017 -0.03340  0.05324
-11: Arbitrum step 2 bot-like (>= 100 txs, week 1)       46.25       139.50  1.08975  0.577545 1.6464         -0.55684        0.988731  0.44508  1.56585
-12: Arbitrum step 2                      campaign     3757.00     16755.00  1.49487  0.755667 3.2321         -0.76384        1.393845  0.57182  3.22191
-13: Arbitrum step 2                       genuine    35428.25     39194.50  0.10102 -0.011882 0.1957         -0.05162        0.000000  0.00000  0.00000
-14: Arbitrum step 2      genuine: bursting funder      800.00       757.50 -0.05452 -0.774770 4.8396          0.02786       -0.155542 -0.79870  4.67809
-15: Arbitrum step 2                genuine: other    34628.25     38437.00  0.10435  0.011097 0.1864         -0.05332        0.003324 -0.01937  0.02500
+ 1:  Base (Ecotone) bot-like (>= 100 txs, week 1)       88.80       553.00  1.81958  1.355024 2.2730         -0.42924        1.254858  0.81619  1.66213
+ 2:  Base (Ecotone)                      campaign     1940.00     98714.50  3.92904  1.864692 5.9254         -0.92687        3.364317  1.30840  5.38211
+ 3:  Base (Ecotone)                       genuine    18276.80     32148.88  0.56472  0.444357 0.7073         -0.13322        0.000000  0.00000  0.00000
+ 4:  Base (Ecotone)      genuine: bursting funder      145.80      4541.50  3.43216  2.159725 8.7440         -0.80966        2.867440  1.68553  8.10678
+ 5:  Base (Ecotone)                genuine: other    18131.00     27607.38  0.42044  0.330661 0.5209         -0.09918       -0.144281 -0.22293 -0.07954
+ 6: Arbitrum step 1 bot-like (>= 100 txs, week 1)       23.25        46.25  0.66704  0.102203 1.4858         -0.36805        0.520678 -0.14348  1.42183
+ 7: Arbitrum step 1                      campaign     6948.50      3757.00 -0.61478 -2.480851 8.3929          0.33922       -0.761141 -2.76435  8.29937
+ 8: Arbitrum step 1                       genuine    30604.50     35428.25  0.14636 -0.004611 0.2990         -0.08076        0.000000  0.00000  0.00000
+ 9: Arbitrum step 1      genuine: bursting funder      989.25       800.00 -0.21210 -5.059893 7.0026          0.11703       -0.358455 -5.14240  6.85189
+10: Arbitrum step 1                genuine: other    29615.25     34628.25  0.15638  0.030042 0.2852         -0.08628        0.010017 -0.03340  0.05324
+11: Arbitrum step 2 bot-like (>= 100 txs, week 1)       46.25       139.50  1.08975  0.577545 1.6464         -0.51265        0.988731  0.44508  1.56585
+12: Arbitrum step 2                      campaign     3757.00     16755.00  1.49487  0.755667 3.2321         -0.70323        1.393845  0.57182  3.22191
+13: Arbitrum step 2                       genuine    35428.25     39194.50  0.10102 -0.011882 0.1957         -0.04752        0.000000  0.00000  0.00000
+14: Arbitrum step 2      genuine: bursting funder      800.00       757.50 -0.05452 -0.774770 4.8396          0.02565       -0.155542 -0.79870  4.67809
+15: Arbitrum step 2                genuine: other    34628.25     38437.00  0.10435  0.011097 0.1864         -0.04909        0.003324 -0.01937  0.02500
 ## D. Hourly entrants, +-24 h: log change genuine vs campaign, RI over fake hours
              event genuine_dlog campaign_dlog    diff ri_p_genuine ri_p_campaign ri_p_diff n_fake
-1:  Base (Ecotone)       0.4673         5.826  5.3587            0        0.0000   0.07143     14
-2: Arbitrum step 1       0.3340         0.000 -0.3340            0        1.0000   0.92857     14
-3: Arbitrum step 2       0.1753         1.120  0.9446            0        0.5714   0.57143     14
+1:  Base (Ecotone)       0.4673         5.826  5.3587      0.06667       0.06667    0.1333     14
+2: Arbitrum step 1       0.3340         0.000 -0.3340      0.06667       1.00000    0.9333     14
+3: Arbitrum step 2       0.1753         1.120  0.9446      0.06667       0.60000    0.6000     14
 ## D. Base: change in daily txs (03-06..12 vs 03-14..20) by sender class
                                      cls    pre   post change share_of_change
 1:                     entrant: bot-like      0 248911 248911          0.2630
@@ -304,29 +297,309 @@ Share of post-drop (03-14..21) Base entrants in campaign bursts: 0.752
 15: Arbitrum step 2 10-25c 123755 0.1200  0.108 0.002 -3.02     -0.036 0.001
 16: Arbitrum step 2 25-50c  10421 0.3100  0.138 0.007 -3.05     -0.045 0.002
 17: Arbitrum step 2   >50c   2937 0.7100  0.163 0.014 -3.02     -0.054 0.005
-## E. Elasticity on log fee level (cells with N >= 500, inverse-variance weights); slope < 0 = more elastic at higher fees
-                        f1         f2
-Dependent Var.: elasticity elasticity
-                                     
-Constant        -0.0473***           
-                (0.0089)             
-log(lvl)        -0.0049       0.0068 
-                (0.0052)     (0.0113)
-Fixed-Effects:  ---------- ----------
-event                   No        Yes
-_______________ __________ __________
-S.E. type       Hete.-rob. Hete.-rob.
-Observations            11         11
-R2                 0.08053    0.26416
-Within R2               --    0.05055
----
-Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## E. Within-sender, Arbitrum (71172 senders active before both steps); placebo mean dy -0.462
-                grp     N lvl_step1 lvl_step2 dy_step1 dy_step2 dlf_step1 dlf_step2
-1: step-2 level <1c     2      1.10    0.0094    0.206    0.336     -4.30      1.51
-2:             1-2c    35      0.40    0.0170    0.296    0.188     -2.95     -1.33
-3:             2-5c  8306      0.49    0.0370    0.380    0.198     -2.62     -1.84
-4:             >=5c 62829      0.73    0.1100    0.602    0.290     -1.81     -2.26
+## E. Within-sender elasticity per event (sender-weighted over bins with N >= 500)
+             event senders bins elasticity        se  bin_min  bin_max
+1:  Base (Ecotone)  245606    3  -0.041345 0.0006623 -0.05959 -0.03625
+2: Arbitrum step 1  237159    3  -0.030068 0.0010777 -0.05014 -0.01099
+3: Arbitrum step 2  316933    5   0.002055 0.0214504 -0.05396  0.10401
+## F. V1 (LayerZero list) and V2a (components of >= 20 entrants), by chain, rule and period; ratio and diff with day-bootstrap 95% CIs
+       chain                                                         rule period days n_campaign n_genuine n_bot lz_campaign lz_genuine   lz_bot lz_ratio lz_ratio_lo lz_ratio_hi funder_lz_campaign funder_lz_genuine clu200_campaign clu200_genuine
+ 1:     base                           main: burst vs own pre-shock level    pre    5       9700     91384   444   0.0007216    0.07624 0.000000 0.009466   0.0000000     0.07690          0.0114468           0.02369        0.686082        0.15594
+ 2:     base                           main: burst vs own pre-shock level   post    8     789716    257191  4424   0.0012523    0.03657 0.002034 0.034243   0.0153484     0.14435          0.0013803           0.02129        0.924952        0.28340
+ 3:     base                          bound 1: size only (>= 5,000 a day)    pre    5       6128     94956   444   0.0000000    0.07344 0.000000 0.000000   0.0000000     0.00000          0.0104439           0.02327        0.663512        0.17733
+ 4:     base                          bound 1: size only (>= 5,000 a day)   post    8     723174    323733  4424   0.0010565    0.02975 0.002034 0.035511   0.0135103     0.19414          0.0012831           0.01729        0.960184        0.33657
+ 5:     base bound 2: burst funded by bursting funders (corrected funder)    pre    5       8379     92705   444   0.0000000    0.07523 0.000000 0.000000   0.0000000     0.00000          0.0109798           0.02355        0.717508        0.16065
+ 6:     base bound 2: burst funded by bursting funders (corrected funder)   post    8     739170    307737  4424   0.0011662    0.03098 0.002034 0.037645   0.0142922     0.21323          0.0012078           0.01831        0.949584        0.32961
+ 7: arbitrum                           main: burst vs own pre-shock level    pre    5      30782    148974   109   0.0000000    0.01528 0.000000 0.000000   0.0000000     0.00000          0.0020806           0.02309        0.116627        0.09956
+ 8: arbitrum                           main: burst vs own pre-shock level   post    7      54363    260389   511   0.0011589    0.01443 0.003914 0.080298   0.0146149     0.13157          0.0015974           0.02082        0.084598        0.15163
+ 9: arbitrum                          bound 1: size only (>= 5,000 a day)    pre    5      22188    157568   109   0.0000000    0.01445 0.000000 0.000000   0.0000000     0.00000          0.0027949           0.02172        0.023661        0.11358
+10: arbitrum                          bound 1: size only (>= 5,000 a day)   post    7      56790    257962   511   0.0001937    0.01477 0.003914 0.013114   0.0008592     0.05951          0.0304260           0.01664        0.027769        0.16477
+11: arbitrum bound 2: burst funded by bursting funders (corrected funder)    pre    5      30782    148974   109   0.0000000    0.01528 0.000000 0.000000   0.0000000     0.00000          0.0020806           0.02309        0.116627        0.09956
+12: arbitrum bound 2: burst funded by bursting funders (corrected funder)   post    7       9376    305376   511   0.0001067    0.01251 0.003914 0.008526   0.0065232     0.01041          0.0003232           0.01942        0.007892        0.14411
+    clu500_campaign clu500_genuine clu500_diff clu500_diff_lo clu500_diff_hi clu2000_campaign clu2000_genuine cluF_campaign cluF_genuine cluX_campaign cluX_genuine sync_campaign sync_genuine
+ 1:         0.82186         0.1799    0.641999        0.29427        0.74610          0.84072          0.2348       0.69990      0.08123      0.437216      0.05458     0.0000000     0.036823
+ 2:         0.93467         0.3082    0.626450        0.47245        0.65796          0.94076          0.3649       0.91549      0.18494      0.770804      0.12620     0.6740752     0.067238
+ 3:         0.85933         0.2016    0.657746        0.63334        0.69379          0.87435          0.2554       0.79308      0.09849      0.498531      0.06502     0.0000000     0.035437
+ 4:         0.96881         0.3607    0.608085        0.52471        0.63235          0.97056          0.4167       0.95935      0.23712      0.818217      0.15278     0.7351951     0.055438
+ 5:         0.87325         0.1844    0.688896        0.65405        0.74610          0.88435          0.2395       0.80523      0.08052      0.499344      0.05442     0.0000000     0.036298
+ 6:         0.95835         0.3542    0.604116        0.47173        0.64102          0.96345          0.4050       0.94840      0.22588      0.808096      0.14250     0.7180148     0.061371
+ 7:         0.12088         0.1193    0.001539       -0.09219        0.56742          0.15233          0.1802       0.08044      0.06043      0.114612      0.07598     0.0000000     0.001128
+ 8:         0.08936         0.1741   -0.084770       -0.15796        0.02024          0.12891          0.2490       0.01976      0.08578      0.039365      0.09643     0.0003679     0.002231
+ 9:         0.02952         0.1323   -0.102772       -0.12122       -0.07952          0.04083          0.1943       0.02118      0.06986      0.021047      0.09126     0.0000000     0.001066
+10:         0.03548         0.1868   -0.151309       -0.17434       -0.11737          0.05379          0.2667       0.02529      0.08519      0.019528      0.10134     0.0004050     0.002241
+11:         0.12088         0.1193    0.001539       -0.09219        0.56742          0.15233          0.1802       0.08044      0.06043      0.114612      0.07598     0.0000000     0.001128
+12:         0.01376         0.1640   -0.150207       -0.16215       -0.12918          0.14910          0.2307       0.01173      0.07630      0.004266      0.08910     0.0000000     0.001968
+## F. V2b address vs entity growth (main rule), by service threshold
+       chain service_threshold    class addr_per_day_pre addr_per_day_post ent_per_day_pre ent_per_day_post address_ratio entity_ratio  log_gap log_gap_lo log_gap_hi finite_draws
+ 1:     base               200      all            20306            131416         14354.8            25585         6.472        1.782  1.28954    0.37300    1.99674       1.0000
+ 2:     base               200 campaign             1940             98714           550.0             5660        50.884       10.291  1.59826    0.01487    2.31615       0.9895
+ 3:     base               200  genuine            18277             32149         13783.4            20293         1.759        1.472  0.17794    0.13760    0.21604       1.0000
+ 4:     base               500      all            20306            131416         13719.8            24060         6.472        1.754  1.30576    0.35855    2.06943       1.0000
+ 5:     base               500 campaign             1940             98714           288.8             4791        50.884       16.588  1.12084   -0.52769    2.35229       0.9895
+ 6:     base               500  genuine            18277             32149         13410.2            19615         1.759        1.463  0.18449    0.14155    0.22545       1.0000
+ 7:     base              2000      all            20306            131416         12804.2            22028         6.472        1.720  1.32492    0.37038    2.08197       1.0000
+ 8:     base              2000 campaign             1940             98714           256.0             4307        50.884       16.825  1.10670   -0.50899    2.27028       0.9895
+ 9:     base              2000  genuine            18277             32149         12528.8            18028         1.759        1.439  0.20083    0.15600    0.24580       1.0000
+10: arbitrum               200      all            35973             45038         28241.8            34687         1.252        1.228  0.01918   -0.03783    0.07303       1.0000
+11: arbitrum               200 campaign             6156              7766          4966.0             6933         1.261        1.396 -0.10140   -0.99142    0.10779       1.0000
+12: arbitrum               200  genuine            29795             37198         23352.0            27965         1.248        1.198  0.04166    0.01862    0.06322       1.0000
+13: arbitrum               500      all            35973             45038         27685.0            33866         1.252        1.223  0.02320   -0.03601    0.07965       1.0000
+14: arbitrum               500 campaign             6156              7766          4940.2             6894         1.261        1.396 -0.10098   -0.98773    0.11116       1.0000
+15: arbitrum               500  genuine            29795             37198         22819.4            27178         1.248        1.191  0.04714    0.02491    0.06756       1.0000
+16: arbitrum              2000      all            35973             45038         25886.6            31045         1.252        1.199  0.04302   -0.02816    0.11150       1.0000
+17: arbitrum              2000 campaign             6156              7766          4746.8             6594         1.261        1.389 -0.09647   -1.80569    0.13661       1.0000
+18: arbitrum              2000  genuine            29795             37198         21212.2            24636         1.248        1.161  0.07232    0.04678    0.09791       1.0000
+## F. Corrected funder: share of window entrants with a funder before the first outgoing tx, and how the ETH funder was found
+      chain period funder_seen eth_top_level eth_internal
+1:     base   post      0.9818        0.4894       0.4913
+2:     base    pre      0.9415        0.7367       0.1976
+3: arbitrum    pre      0.9193        0.8939       0.0000
+4: arbitrum   post      0.8261        0.8013       0.0000
+## F. V3 event markers (dashed lines in the hourly entrants figure)
+      chain                   t                              what
+1:     base 2024-03-13 13:55:00                    L1 Dencun fork
+2: arbitrum 2024-03-13 13:55:00                    L1 Dencun fork
+3:     base 2024-03-13 16:26:00 'EIP-4844 is Based' mint deployed
+4:     base 2024-03-14 00:00:00                    Base (Ecotone)
+5: arbitrum 2024-03-14 15:00:00                   Arbitrum step 1
+6: arbitrum 2024-03-19 08:00:00                   Arbitrum step 2
+## F. V4 Base burst entrants after the drop by target type
+                                                       type groups entrants   share months5        lz clu500    sync
+1: native or zero-value transfer to an account without code      4   680584 0.86037 0.05015 0.0004496 0.9739 0.77821
+2:                                                    other      9    43713 0.05526 0.46519 0.0030197 0.6798 0.01448
+3:                                        NFT mint or badge      2    37650 0.04760 0.24932 0.0034529 0.8186 0.01705
+4:                                  token transfer or claim      2    29092 0.03678 0.35257 0.0146432 0.5350 0.05187
+## F. V4 largest 20 Base burst groups after the drop
+                                      first_to  first_sel      N days months5         lz clu500     sync single_tx_wk1 contract  n_721   n_20                                                     type
+ 1: 0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50         0x 611878    3 0.03922 0.00037262 0.9802 0.829858     0.8584914        0      0      0 native or zero-value transfer to an account without code
+ 2: 0x5a1aa778dbbab6f7fe646248d591c401cf01f9f2         0x  65985    2 0.12269 0.00113662 0.9362 0.331363     0.8487080        0      0      0 native or zero-value transfer to an account without code
+ 3: 0x273ca93a52b817294830ed7572aa591ccfa647fd 0x1249c58b  36347    7 0.25556 0.00357664 0.8147 0.017663     0.8392440        1 941636      0                                        NFT mint or badge
+ 4: 0xafb89a09d82fbde58f18ac6437b3fc81724e4df6 0xa9059cbb  17896    3 0.32823 0.02374832 0.7891 0.084321     0.4506594        1      0 961541                                  token transfer or claim
+ 5: 0x3f433f14e6ace35bd11c6a8c6d8875daa68c6a80 0xa0712d68  11828    3 0.31468 0.00245181 0.9013 0.003974     0.7040920        1      0      0                                                    other
+ 6: 0x18dd5b087bca9920562aff7a0199b96b9230438b 0x095ea7b3  11196    7 0.39148 0.00008932 0.1287 0.000000     0.0025009        1      0 135750                                  token transfer or claim
+ 7: 0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad 0x3593564c   8317    2 0.71071 0.00372731 0.3816 0.000000     0.0821210        0      0      0                                                    other
+ 8: 0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24 0xb6f9de95   7122    5 0.03412 0.00000000 0.9816 0.000000     0.0000000        0      0      0                                                    other
+ 9: 0xc534bb3640a66faf5eae8699fece511e1c331cad 0xe7a79057   4505    1 0.48923 0.00621532 0.7061 0.029967     0.0588235        1      0      0                                                    other
+10: 0xecb03b9a0e7f7b5e261d3ef752865af6621a54fe 0x09c182c3   4172    2 0.64789 0.00000000 0.6625 0.108102     0.0023969        1      0      0                                                    other
+11: 0x26bbea7803dcac346d5f5f135b57cf2c752a02be 0x26c858a4   2878    1 0.73072 0.00521195 0.3690 0.000000     0.3651842        1      0      0                                                    other
+12: 0x26bbea7803dcac346d5f5f135b57cf2c752a02be 0xfa2b068f   2002    1 0.58142 0.01348651 0.2378 0.000000     0.6058941        1      0      0                                                    other
+13: 0x4869892c8088d9057ad7d0e5189ae8c3278f8877 0x8f1fda56   1795    1 0.80724 0.00000000 0.6585 0.000000     0.0005571        0      0      0                                                    other
+14: 0xc32d8100756ff66cb2a9121463183c2bb18ad9a4         0x   1432    1 0.82193 0.00209497 0.7458 0.000000     0.4252793        0      0      0 native or zero-value transfer to an account without code
+15: 0x28e43bb3ee202e1da587c88b0a8398309e8d4c2d 0xba41b0c6   1303    1 0.07521 0.00000000 0.9279 0.000000     0.9178818        1  67915      0                                        NFT mint or badge
+16: 0x3304e22ddaa22bcdc5fca2269b418046ae7b566a         0x   1289    1 0.66951 0.00000000 0.1311 0.000000     0.7354538        0      0      0 native or zero-value transfer to an account without code
+17: 0x6b2c0c7be2048daa9b5527982c29f48062b34d58 0xb80c2f09   1094    1 0.76417 0.00182815 0.2075 0.000000     0.0447898        1      0      0                                                    other
+## F. V5 Google Trends: sums by month and the peak day of each series (shared = one request with all four terms, common scale)
+   request          keyword 2024-02 2024-03 2024-04  peak_date peak days_nonzero
+1:  shared Arbitrum airdrop       0       3       1 2024-03-17    2            3
+2:  shared     Base airdrop       0      14       8 2024-03-31    4           14
+3:  shared           Dencun      38     284       1 2024-03-13  100           39
+4:  shared         EIP-4844       0       0       0 2024-02-15    0            0
+5:  single Arbitrum airdrop       0     163      58 2024-03-17  100            3
+6:  single     Base airdrop       0     386     237 2024-03-31  100           14
+7:  single           Dencun      38     284       1 2024-03-13  100           39
+## F. V6 fees, L1 rent and profit (US$ per day), fee per tx and the cost of an identity (US$)
+             event fees_pre fees_post rent_pre rent_post profit_pre profit_post fee_per_tx_pre fee_per_tx_post m_campaign m_genuine identity_cost_campaign_pre identity_cost_campaign_post dlog_fees dlog_rent margin_pre margin_post
+1:  Base (Ecotone)   423648    379169   293135      1596     130512      377574         0.9265         0.12430          1         2                     0.9265                     0.12430   -0.1109  -5.21330     0.3081      0.9958
+2: Arbitrum step 1   637391    167507   542142      7128      95249      160380         0.8355         0.12418          3         1                     2.5064                     0.37253   -1.3364  -4.33151     0.1494      0.9574
+3: Arbitrum step 2   167507     23814     7128      6580     160380       17234         0.1242         0.01319          3         1                     0.3725                     0.03957   -1.9507  -0.07993     0.9574      0.7237
+## G. Concentration of Base post-cut entrants in the largest entities
+      class entrants entities   top1  top10 top100
+1: campaign   789716    37293 0.1639 0.4986 0.8416
+2:  genuine   257191   149924 0.1820 0.2256 0.2803
+## G. Base burst entrants by day: share from entities that had burst entrants earlier
+          day burst_entrants entities repeat_entity_share new_entities
+1: 2024-03-14           7797     1945              0.2740         1936
+2: 2024-03-15          44402     4193              0.1584         4108
+3: 2024-03-16         605008     8859              0.3377         8550
+4: 2024-03-17          20480     3304              0.7342         3179
+5: 2024-03-18          11631     1863              0.6809         1796
+6: 2024-03-19           5794     1803              0.4693         1759
+7: 2024-03-20          71553    12936              0.2599        12671
+8: 2024-03-21          23051     3423              0.8073         3240
+## G. Cross-chain presence of post-cut entrants and their funders
+      chain   class3 entrants address_on_other_chain funder_seen funder_on_other_chain
+1: arbitrum      bot      511               0.064579     0.45597               0.05150
+2: arbitrum campaign    54363               0.013244     0.07803               0.05681
+3: arbitrum  genuine   260389               0.071109     0.37217               0.05957
+4:     base      bot     4424               0.045886     0.63065               0.05556
+5:     base campaign   789716               0.006263     0.95690               0.02278
+6:     base  genuine   257191               0.069198     0.46650               0.05552
+## G. Base post-cut entrants receiving tokens / ETH after entry
+     class3 entrants received_tokens received_eth
+1:  genuine   257191          0.5512      0.29346
+2:      bot     4424          0.9367      0.65936
+3: campaign   789716          0.8097      0.03984
+## G. Most common tokens received by burst entrants (all window days)
+      class3                                        tok recipients senders                                 top_sender share_of_burst                                      name
+ 1: campaign 0xd7d919ea0c33a97ad6e7bd4f510498e2ec98cb78     581613    1292 0x09350f89e2d7b6e96ba730783c2d76137b045fef        0.73648              PEN (memecoin, bulk airdrop)
+ 2: campaign 0xfc73b6b8de5a86311e6bb1fa5628dbd152849d90      89938       1 0x8a5f9a6b653ecbdb406f9eb5f0c8ddba10919aec        0.11389 'bloo foster coin' (phishing claim token)
+ 3: campaign 0x713eb9f3984f603789fe6f3c592a806f0f37849a      85757       1 0xe83f922c34a1962e9ae9f52b59e18239764f2818        0.10859             'AERO' (phishing claim token)
+ 4: campaign 0xcb50a5b07eca2230e45df637827cc69eaf8ac414      77703       1 0x0000000000000000000000000000000000000000        0.09839       'BLAST2L.COM coupon' (phishing NFT)
+ 5: campaign 0x250db3fdfeba4cd5ea9727fe90a14cf1d1bad03c      70222       1 0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4        0.08892            'Toshi' (phishing claim token)
+ 6: campaign 0x5c5450fd644ddba94cee81439ef8d59d6a50470f      63605       1 0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4        0.08054            'Toshi' (phishing claim token)
+ 7: campaign 0x3e116e35fd29ddb14990429653c6fae5a903ec21      49988       1 0x532f27101965dd16442e59d40670faf5ebb142e4        0.06330            'Brett' (phishing claim token)
+ 8: campaign 0x77f84966ebed8b0d65f9a537eb27f09264e2d12b      39584       1 0x532f27101965dd16442e59d40670faf5ebb142e4        0.05012                                      <NA>
+ 9: campaign 0xc62b981979a10d51f344d7bdc3d469d0ebbeddeb      14736       1 0xac1bd2486aaf3b5c0fc3fd868558b082a531b2b4        0.01866                                      <NA>
+10: campaign 0x6d6b007f4cc54c70d1c8982c632b69c36d79f2dc      13042       1 0x532f27101965dd16442e59d40670faf5ebb142e4        0.01651                                      <NA>
+## G. Transfers sent by the largest burst target 0xfb10c1
+                                          tok transfers recipients recipients_window_entrants
+1: 0xc915511616f60d435384d17020d6ed21bf718c0a      2002       2002                          1
+2: 0x064239de9a5e91f4e46ed2c6c69888532f007f45      2001       2001                          0
+3: 0xf6f14fa9a65a0f32805af8038c09de61d06de257      2001       2001                          0
+4: 0x9114cc1017735260ff21d6e332eceba06d69b446      1402       1402                          1
+5: 0xb04c4f1f1894f16f99673075498cc73a45137be8      1002       1002                          1
+6: 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee         1          1                          1
+7: 0x24fb02d2c2c3406ed1320da68a90a23bf4a1132c         1          1                          0
+8: 0x06ee1e02f261eb50f2e6bc1917fb20d0ccc04342         1          1                          0
+## G. Entrants per day by class around the first (March) and second (May) Base fee cuts
+                                     event                             class3     post     pre  ratio added_per_day wedge
+ 1:   1. March 2024 (L1 data cost, Dencun)                                all 131416.4 20305.6  6.472      111110.8 3.679
+ 2:   1. March 2024 (L1 data cost, Dencun) all new senders (none since 02-15) 156110.4 28760.0  5.428      127350.4 3.679
+ 3:   1. March 2024 (L1 data cost, Dencun)                                bot    553.0    88.8  6.227         464.2 3.679
+ 4:   1. March 2024 (L1 data cost, Dencun)                           campaign  98714.5  1940.0 50.884       96774.5 3.679
+ 5:   1. March 2024 (L1 data cost, Dencun)                            genuine  32148.9 18276.8  1.759       13872.1 3.679
+ 6: 2. May 2024 (gas limit raised by Base)                                all  96126.4 54326.3  1.769       41800.1 1.696
+ 7: 2. May 2024 (gas limit raised by Base) all new senders (none since 02-15)  96126.4 54326.3  1.769       41800.1 1.696
+ 8: 2. May 2024 (gas limit raised by Base)                                bot    697.3   256.1  2.722         441.1 1.696
+ 9: 2. May 2024 (gas limit raised by Base)                           campaign  50875.9 11364.4  4.477       39511.4 1.696
+10: 2. May 2024 (gas limit raised by Base)                            genuine  44553.3 42705.7  1.043        1847.6 1.696
+## G. May entrants: persistence, entities, one-hop link to a March burst operator
+   period   class3 entrants months4 single_tx_wk1 clu500 march_operator
+1:   post      bot     4881 0.45749        0.0000 0.6960     0.00102438
+2:   post campaign   356131 0.06751        0.2166 0.9151     0.00005616
+3:   post  genuine   311873 0.24446        0.4375 0.4612     0.00133067
+4:    pre      bot     1793 0.81260        0.0000 0.5031     0.00055772
+5:    pre campaign    79551 0.20438        0.3395 0.5390     0.00201129
+6:    pre  genuine   298940 0.22234        0.4390 0.3894     0.00257911
+March burst operators (non-service funders or sweep targets of >= 20 March burst entrants): 1573; active again in May: 61
+## G. Persistence on a common horizon (Sep 2024, Dec 2024, Mar 2025), Base entrants by event, period and class
+       event period   class3 entrants months_active_of3 any_active
+ 1: 1. March    pre      bot      444           0.60135    0.33559
+ 2: 1. March    pre campaign     9700           0.32753    0.20289
+ 3: 1. March    pre  genuine    91384           0.19915    0.14843
+ 4: 1. March   post      bot     4424           0.28278    0.18309
+ 5: 1. March   post campaign   789716           0.02798    0.02127
+ 6: 1. March   post  genuine   257191           0.17777    0.13241
+ 7:   2. May    pre      bot     1793           0.45343    0.27328
+ 8:   2. May    pre campaign    79551           0.10998    0.09550
+ 9:   2. May    pre  genuine   298940           0.14530    0.11085
+10:   2. May   post      bot     4881           0.22721    0.14075
+11:   2. May   post campaign   356131           0.03730    0.03434
+12:   2. May   post  genuine   311873           0.13552    0.10531
+May post-cut burst entrants: 356131 in 28581 entities; largest 10 hold 0.818, largest 100 0.909
+## G. First action of post-cut Base entrants by class and type
+       event   class3                          type      N   share
+ 1: 1. March campaign native or zero-value transfer 680418 0.86160
+ 2: 1. March campaign                 mint or claim  47843 0.06058
+ 3: 1. March campaign    token transfer or approval  29081 0.03682
+ 4: 1. March campaign           other contract call  17231 0.02182
+ 5: 1. March campaign                      DEX swap  15143 0.01918
+ 6: 1. March  genuine           other contract call  95035 0.36951
+ 7: 1. March  genuine native or zero-value transfer  92123 0.35819
+ 8: 1. March  genuine    token transfer or approval  37406 0.14544
+ 9: 1. March  genuine                      DEX swap  26378 0.10256
+10: 1. March  genuine                 mint or claim   6249 0.02430
+11:   2. May campaign                      DEX swap 209230 0.58751
+12:   2. May campaign                 mint or claim  66230 0.18597
+13:   2. May campaign native or zero-value transfer  45896 0.12887
+14:   2. May campaign           other contract call  27732 0.07787
+15:   2. May campaign    token transfer or approval   7043 0.01978
+16:   2. May  genuine           other contract call 104707 0.33574
+17:   2. May  genuine native or zero-value transfer  94896 0.30428
+18:   2. May  genuine                      DEX swap  54942 0.17617
+19:   2. May  genuine    token transfer or approval  49803 0.15969
+20:   2. May  genuine                 mint or claim   7525 0.02413
+## G. Largest May burst groups after the cut (first recipient x method)
+                                      first_to  first_sel     N days    share                   target                                                                                           method
+ 1: 0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24 0x7ff36ab5 74959    7 0.210482      Uniswap V2 Router02                                                                            swapExactETHForTokens
+ 2: 0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad 0x24856bc3 72226    4 0.202807 Uniswap Universal Router                                                                           execute(bytes,bytes[])
+ 3: 0x1349a9ddee26fe16d0d44e35b3cb9b0ca18213a4 0x2f52ebb7 52757    2 0.148139                     <NA>                                                        claim(uint256,bytes32[]) (Merkle airdrop)
+ 4: 0x394273231a8726af7f2cdb687977f513a28eb2a5         0x 43587    7 0.122390                     <NA>                                                                    native or zero-value transfer
+ 5: 0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad 0x3593564c 25595    3 0.071870 Uniswap Universal Router                                                                   execute(bytes,bytes[],uint256)
+ 6: 0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24 0xb6f9de95 21645    2 0.060778      Uniswap V2 Router02                                               swapExactETHForTokensSupportingFeeOnTransferTokens
+ 7: 0x683ba8d993614f36c67babd39712de338375d135 0x84bb1e42 11005    2 0.030902                     <NA> claim(address,uint256,address,uint256,(bytes32[],uint256,uint256,address),bytes) (thirdweb drop)
+ 8: 0x6bded42c6da8fbf0d2ba55b2fa120c5e0c8d7891 0x7ff36ab5  9742    1 0.027355                     <NA>                                                                            swapExactETHForTokens
+ 9: 0xd5005423bf4c937e6ca046b3c2a512229aa1589d 0xa6ec2245  5314    3 0.014921                     <NA>                                                                                             <NA>
+10: 0xd1253afc33386d9f0d546f1e5b105b328ba1557a 0x31318c19  5128    2 0.014399                     <NA>                                                                                             <NA>
+11: 0xcde172dc5ffc46d228838446c57c1227e0b82049 0xa9059cbb  4969    2 0.013953                     <NA>                                                                        transfer(address,uint256)
+12: 0xb4a8d45647445ea9fc3e1058096142390683dbc2 0xe0db3fcf  4778    3 0.013416                     <NA>                      deposit(address,address,address,uint256,uint256,int64,uint32,bytes,uint256)
+13: 0xdef1c0ded9bec7f1a1670819833240f027b25eff 0x415565b0  3838    1 0.010777        0x Exchange Proxy                                                                                   transformERC20
+14: 0x1d6b183bd47f914f9f1d3208edcf8befd7f84e63 0x57bc3d78  3142    1 0.008823                     <NA>                                                                                             <NA>
+15: 0xc649989246faa59bbefa7c65551cc4461e823320 0x6a627842  3004    1 0.008435                     <NA>                                                                                             <NA>
+## G. May entrants per day by chain and class
+           day campaign_arbitrum campaign_base genuine_arbitrum genuine_base
+ 1: 2024-05-21              2010          2345            71195        43643
+ 2: 2024-05-22              6496          7800            75610        45623
+ 3: 2024-05-23              6803         17050           136816        42218
+ 4: 2024-05-24             37897         23047           115221        41037
+ 5: 2024-05-25             12672         12128           127459        38657
+ 6: 2024-05-26              4573             0           120450        44530
+ 7: 2024-05-27             13484         17181            78548        43232
+ 8: 2024-05-28             28194         32841            66613        44275
+ 9: 2024-05-29            192713         40998            82227        55045
+10: 2024-05-30             85464         67797            65755        42998
+11: 2024-05-31             34470         46300           203290        42896
+12: 2024-06-01            381677         55050            63947        39175
+13: 2024-06-02            190722         36405            52779        44784
+14: 2024-06-03             12739         38270           200780        43153
+15: 2024-06-04             15118         71311           191594        43822
+## G. Second cut: Base entry ratios relative to Arbitrum, by class and window variant (day-bootstrap 95% CI)
+           variant                   pre                  post   class3 base_ratio arbitrum_ratio relative rel_lo rel_hi
+ 1:           main 2024-05-21 2024-05-27 2024-05-29 2024-06-04 campaign      4.477        10.8763   0.4116 0.1359  1.661
+ 2:           main 2024-05-21 2024-05-27 2024-05-29 2024-06-04  genuine      1.043         1.1862   0.8795 0.5886  1.482
+ 3:           main 2024-05-21 2024-05-27 2024-05-29 2024-06-04      all      1.769         2.1927   0.8070 0.5758  1.110
+ 4:  post to 06-02 2024-05-21 2024-05-27 2024-05-29 2024-06-02 campaign      4.339        14.7622   0.2939 0.1043  1.002
+ 5:  post to 06-02 2024-05-21 2024-05-27 2024-05-29 2024-06-02  genuine      1.053         0.9033   1.1659 0.6872  1.949
+ 6:  post to 06-02 2024-05-21 2024-05-27 2024-05-29 2024-06-02      all      1.750         2.3418   0.7474 0.5118  1.094
+ 7:  post to 05-30 2024-05-21 2024-05-27 2024-05-29 2024-05-30 campaign      4.787        11.5997   0.4127 0.1410  1.294
+ 8:  post to 05-30 2024-05-21 2024-05-27 2024-05-29 2024-05-30  genuine      1.148         0.7141   1.6075 1.1764  2.124
+ 9:  post to 05-30 2024-05-21 2024-05-27 2024-05-29 2024-05-30      all      1.912         1.8431   1.0373 0.6860  1.668
+10: pre from 05-24 2024-05-24 2024-05-27 2024-05-29 2024-06-04 campaign      3.887         7.6015   0.5113 0.1590  2.306
+11: pre from 05-24 2024-05-24 2024-05-27 2024-05-29 2024-06-04  genuine      1.064         1.1131   0.9561 0.6259  1.588
+12: pre from 05-24 2024-05-24 2024-05-27 2024-05-29 2024-06-04      all      1.741         1.9871   0.8763 0.6202  1.235
+## G. Hourly RD in log(1 + entrants per hour) by class at the five cuts
+                        event   class3      jump      se per_hour_before per_hour_after
+ 1:            Base (Ecotone) campaign  4.739850 0.67035           37.74         701.57
+ 2:            Base (Ecotone)  genuine  0.304204 0.10124          709.23        1104.83
+ 3:           Arbitrum step 1 campaign -0.723063 0.70402            0.00          82.57
+ 4:           Arbitrum step 1  genuine  0.601078 0.09026         1466.46        1742.00
+ 5:           Arbitrum step 2 campaign -0.006908 0.51192          142.86         403.91
+ 6:           Arbitrum step 2  genuine  0.212784 0.09326         1374.60        1788.66
+ 7: Base gas limit 60M to 75M campaign  1.504819 0.75501          920.34        1804.09
+ 8: Base gas limit 60M to 75M  genuine  0.529282 0.19577         1893.34        2081.94
+ 9: Base gas limit 75M to 90M campaign -1.240905 0.39555         2300.51        1723.49
+10: Base gas limit 75M to 90M  genuine  0.012510 0.03818         1873.77        1708.40
+## H. Fee per tx (median; mean in p_mean_*), dollar stakes of each cut, and entry responses with day-bootstrap 95% CIs
+      short   p_pre   p_post   dlp p_mean_pre p_mean_post q_nonburst stake_individual nonburst_ratio nonburst_lo nonburst_hi eta_nonburst
+1: Base Mar 0.58880 0.007875 4.314     0.8968     0.14047          2          1.16186          1.759      1.5519       1.986      0.13090
+2:    Arb 1 0.55016 0.082512 1.897     0.8444     0.12418          1          0.46765          1.158      0.9994       1.366      0.07714
+3:    Arb 2 0.08251 0.009072 2.208     0.1242     0.01466          1          0.07344          1.106      0.9781       1.212      0.04576
+4: Base May 0.03396 0.002240 2.719     0.1250     0.04273          2          0.06345          1.043      0.9678       1.146      0.01558
+      short m_burst ids_per_entity_day_median ids_per_entity_day_acct_weighted stake_operator_acct_weighted burst_ratio burst_lo burst_hi burst_finite_draws
+1: Base Mar       1                         1                          28447.8                     16526.13     50.8838  6.10476  344.547             0.9925
+2:    Arb 1       3                         1                             49.3                        69.17      0.5407  0.08869    6.373             0.9445
+3:    Arb 2       3                         1                            157.8                        34.77      4.4597  2.17362   20.078             0.9960
+4: Base May       2                         1                          25011.2                      1586.88      4.4768  2.78912    8.773             1.0000
+Chetty delta_min (frictions as a share of fee spending) reconciling the two Base cuts: 1.115; eta at delta_min: 0.086
+Dollar frictions per individual entrant consistent with both Base cuts (response in March, none in May): F in [0.032, 0.581) US$
+## H. Value of an identity: break-even band unlocked by each cut and the added burst operators / accounts
+      short band_low band_high added_entities_per_day added_accounts_per_day entities_per_cent accounts_per_cent
+1: Base Mar 0.007875   0.58880                 4501.9                  96774             77.50           1665.86
+2:    Arb 1 0.247536   1.65049                -2145.2                  -3192            -15.29            -22.75
+3:    Arb 2 0.027217   0.24754                10935.2                  12998            496.34            589.96
+4: Base May 0.004481   0.06793                 -730.7                  39511           -115.17           6227.51
+## H. Table 1: the fee cuts
+      short                              time_utc                                                          origin            set_by median_fee_pre median_fee_post dlog_fee stake_individual stake_operator_acct_weighted
+1: Base Mar                      2024-03-14 00:00 Ethereum Dencun (EIP-4844) passed through: Base Ecotone upgrade cost pass-through        0.58880        0.007875   -4.314          1.16186                     16526.13
+2:    Arb 1                      2024-03-14 15:00               Ethereum Dencun passed through: Arbitrum ArbOS 20 cost pass-through        0.55016        0.082512   -1.897          0.46765                        69.17
+3:    Arb 2                      2024-03-19 08:00       Arbitrum governance: minimum L2 base fee 0.1 to 0.01 gwei          platform        0.08251        0.009072   -2.208          0.07344                        34.77
+4: Base May 2024-05-28 19:00 and 2024-05-30 20:00    Base raised the block gas limit 60M to 75M to 90M (capacity)          platform        0.03396        0.002240   -2.719          0.06345                      1586.88
+## H. Platform economics of the four cuts (US$ per day)
+      short            set_by fees_pre fees_post rent_pre rent_post profit_pre profit_post dlog_fees dlog_rent dlog_profit margin_pre margin_post
+1: Base Mar cost pass-through   404630    434754 279948.3    1518.1     124682      433236   0.07181   -5.2171      1.2455     0.3081      0.9965
+2:    Arb 1 cost pass-through   653136    167507 555994.2    7127.9      97142      160380  -1.36076   -4.3567      0.5014     0.1487      0.9574
+3:    Arb 2          platform   167507     30581   7127.9    7964.1     160380       22616  -1.70066    0.1109     -1.9589     0.9574      0.7396
+4: Base May          platform   327807    121149    620.2     996.7     327187      120152  -0.99541    0.4745     -1.0018     0.9981      0.9918
 
 ## sessionInfo
 ```
@@ -341,7 +614,7 @@ LAPACK: /opt/homebrew/Cellar/r/4.5.3/lib/R/lib/libRlapack.dylib;  LAPACK version
 locale:
 [1] en_US/en_US/en_US/C/en_US/en_US
 
-time zone: America/New_York
+time zone: UTC
 tzcode source: internal
 
 attached base packages:
@@ -352,12 +625,12 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.1     nanoparquet_0.5.2    timeDate_4052.112    dplyr_1.2.0          farver_2.1.2         S7_0.2.1             duckdb_1.5.0         pROC_1.19.0.1        caret_7.0-1          digest_0.6.39        rpart_4.1.24        
-[12] DRDID_1.2.3          timechange_0.4.0     estimability_1.5.1   lifecycle_1.0.5      dreamerr_1.5.0       survival_3.8-6       magrittr_2.0.4       compiler_4.5.3       rlang_1.1.7          tools_4.5.3          yaml_2.3.12         
-[23] labeling_0.4.3       plyr_1.8.9           RColorBrewer_1.1-3   withr_3.0.2          purrr_1.2.1          numDeriv_2016.8-1.1  nnet_7.3-20          grid_4.5.3           stats4_4.5.3         xtable_1.8-8         future_1.70.0       
-[34] BMisc_1.4.8          globals_0.19.1       emmeans_2.0.2        scales_1.4.0         iterators_1.0.14     MASS_7.3-65          cli_3.6.5            mvtnorm_1.3-6        ragg_1.5.1           generics_0.1.4       otel_0.2.0          
-[45] future.apply_1.20.2  bigmemory.sri_0.1.8  reshape2_1.4.5       DBI_1.3.0            stringr_1.6.0        splines_4.5.3        parallel_4.5.3       fastglm_0.0.4        stringmagic_1.2.0    vctrs_0.7.1          hardhat_1.4.2       
-[56] Matrix_1.7-4         sandwich_3.1-1       did_2.3.0            Formula_1.2-5        listenv_0.10.1       systemfonts_1.3.2    foreach_1.5.2        trust_0.1-9          gower_1.0.2          tidyr_1.3.2          recipes_1.3.1       
-[67] glue_1.8.0           bigmemory_4.6.4      parallelly_1.46.1    codetools_0.2-20     lubridate_1.9.5      stringi_1.8.7        gtable_0.3.6         tibble_3.3.1         pillar_1.11.1        ipred_0.9-15         lava_1.8.2          
-[78] R6_2.6.1             textshaping_1.0.5    rprojroot_2.1.1      lattice_0.22-9       class_7.3-23         Rcpp_1.1.1           uuid_1.2-2           coda_0.19-4.1        nlme_3.1-168         prodlim_2026.03.11   zoo_1.8-15          
-[89] pkgconfig_2.0.3      ModelMetrics_1.2.2.2
+[12] DRDID_1.2.3          timechange_0.4.0     estimability_1.5.1   lifecycle_1.0.5      dreamerr_1.5.0       survival_3.8-6       magrittr_2.0.4       compiler_4.5.3       rlang_1.1.7          tools_4.5.3          igraph_2.2.2        
+[23] yaml_2.3.12          labeling_0.4.3       plyr_1.8.9           RColorBrewer_1.1-3   withr_3.0.2          purrr_1.2.1          numDeriv_2016.8-1.1  nnet_7.3-20          grid_4.5.3           stats4_4.5.3         xtable_1.8-8        
+[34] future_1.70.0        BMisc_1.4.8          globals_0.19.1       emmeans_2.0.2        scales_1.4.0         iterators_1.0.14     MASS_7.3-65          cli_3.6.5            mvtnorm_1.3-6        ragg_1.5.1           generics_0.1.4      
+[45] otel_0.2.0           future.apply_1.20.2  bigmemory.sri_0.1.8  reshape2_1.4.5       DBI_1.3.0            stringr_1.6.0        splines_4.5.3        parallel_4.5.3       fastglm_0.0.4        stringmagic_1.2.0    vctrs_0.7.1         
+[56] hardhat_1.4.2        Matrix_1.7-4         sandwich_3.1-1       did_2.3.0            Formula_1.2-5        listenv_0.10.1       systemfonts_1.3.2    foreach_1.5.2        trust_0.1-9          gower_1.0.2          tidyr_1.3.2         
+[67] recipes_1.3.1        glue_1.8.0           bigmemory_4.6.4      parallelly_1.46.1    codetools_0.2-20     lubridate_1.9.5      stringi_1.8.7        gtable_0.3.6         tibble_3.3.1         pillar_1.11.1        ipred_0.9-15        
+[78] lava_1.8.2           R6_2.6.1             textshaping_1.0.5    rprojroot_2.1.1      lattice_0.22-9       class_7.3-23         Rcpp_1.1.1           uuid_1.2-2           coda_0.19-4.1        nlme_3.1-168         prodlim_2026.03.11  
+[89] zoo_1.8-15           pkgconfig_2.0.3      ModelMetrics_1.2.2.2
 ```

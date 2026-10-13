@@ -1,0 +1,17 @@
+ ,First cut: March 2024 (L1 data cost),Second cut: May 2024 (capacity raised by Base)
+"Median fee per tx, before -> after (US$)",0.589 -> 0.0079,0.034 -> 0.0022
+"Burst accounts per day, before -> after","1,940 -> 98,714 (x50.9)","11,364 -> 50,876 (x4.5)"
+"Burst entities per day, before -> after","289 -> 4,791 (x16.59)","4,828 -> 4,097 (x0.85)"
+"Non-burst entrants per day, before -> after","18,277 -> 32,149 (x1.76)","42,706 -> 44,553 (x1.04)"
+"All entrants per day, ratio",x6.47,x1.77
+Overstatement of participation growth (all / non-burst ratio),3.68,1.70
+Burst share of entrants after the cut,75%,53%
+Share held by the largest 10 / 100 burst entities,50% / 84%,82% / 91%
+Burst accounts in a funding cluster of >= 20,93.5%,91.5%
+"Months active of Sep 2024, Dec 2024, Mar 2025 (mean, 0-3): burst / non-burst",0.03 / 0.18,0.04 / 0.14
+March burst operators active again in May,"","61 of 1,573 (3.9%)"
+May burst accounts funded or swept by a March burst operator,"",0.006%
+Burst accounts' first action: transfer / DEX swap / mint or claim / other,90% / 2% / 6% / 2%,15% / 59% / 19% / 8%
+"Non-burst entry jump in the cut hour (hourly RD, log points)",0.30 (0.10),0.53 (0.20) / 0.01 (0.04)
+Relative to Arbitrum: burst accounts (95% CI),"","x0.41 [0.14, 1.66]"
+Relative to Arbitrum: non-burst entrants (95% CI),"","x0.88 [0.59, 1.48]"

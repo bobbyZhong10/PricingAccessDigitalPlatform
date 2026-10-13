@@ -3,6 +3,7 @@
 #  B  blob adoption (first drop in 2024-03-01..05-15): stacked 2SLS of log txs on log fee; detected and documented dates
 #  C  does the elasticity vary with the pre-drop fee level?
 #  D  Callaway-Sant'Anna staggered DiD with protocol-upgrade dates
+#  E  second Base event (gas limit raised 05-28/05-30): daily event study and DiD against chains without a fee drop nearby; Base vs Arbitrum
 source(here::here("code", "00_setup.R"))
 sink(file.path(DIR_LOG, "07_analysis_multichain.md"), split = TRUE)
 cat("# 07 multichain\nRun ", format(Sys.time(), usetz = TRUE), "\n", sep = "")
@@ -21,7 +22,7 @@ W <- 14
 # Chain c with a drop on d0 against its controls, days in the window except d0:
 #   y_kd = b * 1[k = c, d > d0] + chain FE + date FE + e_kd,   y = log median fee, log txs, log active addresses; robust SEs
 # Needs >= 2W - 4 treated days and >= 3 controls. Elasticity = b(log txs) / b(log fee), likewise for active addresses.
-# Permutation p: the log-txs regression at placebo dates (weekly 01-20..12-20, > 21 days from the chain's events); p = share of |b_placebo| >= |b|.
+# Permutation p: the log-txs regression at placebo dates (weekly 01-20..12-20, > 21 days from the chain's events); p = (1 + #{|b_placebo| >= |b|}) / (1 + K), K placebos.
 RA <- list()
 for (i in seq_len(nrow(EV))) {
   ch <- EV$chain[i]; d0 <- EV$date[i]; own <- EV[chain == ch, date]
@@ -40,12 +41,18 @@ for (i in seq_len(nrow(EV))) {
   }
   fk <- b[-(1:3)]
   RA[[i]] <- data.table(chain = ch, date = d0, drop_log = EV$drop[i], pre_level = EV$pre_level[i], post_level = EV$post_level[i], n_ctrl = nc[1], b_cost = b[1],
-                        b_tx = b[2], se_tx = s[2], b_daa = b[3], se_daa = s[3], perm_p_tx = mean(abs(fk) >= abs(b[2]), na.rm = TRUE), n_placebo = sum(!is.na(fk)))
+                        b_tx = b[2], se_tx = s[2], b_daa = b[3], se_daa = s[3], perm_p_tx = if (any(!is.na(fk))) (1 + sum(abs(fk) >= abs(b[2]), na.rm = TRUE)) / (1 + sum(!is.na(fk))) else NA_real_, n_placebo = sum(!is.na(fk)))
 }
 RA <- rbindlist(RA)
 RA[, `:=`(el_tx = b_tx / b_cost, el_daa = b_daa / b_cost)]
 cat("## A. Per-event daily DiD; elasticity = beta / beta_cost\n"); print(RA)
 fwrite(RA, file.path(DIR_TAB, "multichain_events.csv"))
+# Second drops: each rollup's first two drops with an estimate (Ink and Taiko lose their first, which has no controls); is the address response smaller at the second?
+SD <- RA[!is.na(b_daa), .SD[order(date)][1:min(.N, 2)], by = chain][, drop_no := seq_len(.N), by = chain][, if (.N == 2) .SD, by = chain]
+SD <- dcast(SD, chain ~ drop_no, value.var = c("date", "b_cost", "b_daa", "b_tx"))[, smaller_address_response_2nd := b_daa_2 < b_daa_1]
+cat(sprintf("## A. Second drop has the smaller address response in %d of %d rollups (%d of %d whose first drop was in March 2024)\n", SD[, sum(smaller_address_response_2nd)], nrow(SD),
+            SD[date_1 < as.IDate("2024-04-01"), sum(smaller_address_response_2nd)], SD[date_1 < as.IDate("2024-04-01"), .N])); print(SD)
+fwrite(SD, file.path(DIR_TAB, "multichain_second_drops.csv"))
 
 # ---- B. blob adoption: stacked DiD and 2SLS ----
 nonrollup <- c("celo", "polygon_pos")   # not Ethereum rollups in spring 2024
@@ -88,17 +95,17 @@ for (nm in names(SETS)[1:3]) {
                          first_stage_F = c(NA, NA, NA, fitstat(iv, "ivwald1")[[1]]$stat, fitstat(iva, "ivwald1")[[1]]$stat))
 }
 PB <- rbindlist(PB)
-# Per event (detected dates), chain and day FE, robust SEs: reduced form log txs_kd = b * tr x post + FE + e_kd, and the 2SLS of log txs on log fee
+# Per event (detected dates), robust SEs (for the figure):
+#   log txs_kd = e * log fee_kd + chain FE + date FE + u_kd,   log fee instrumented by tr_k x post_d
 SA <- ST[["detected blob-adoption dates"]]
 per <- list()
 for (e in unique(SA$ev)) {
   d <- SA[ev == e]
   f <- try(feols(ly ~ 1 | chain + date | lc ~ tr:post, data = d, vcov = "hetero"), silent = TRUE); ok <- !inherits(f, "try-error")
-  fr <- feols(ly ~ tr:post | chain + date, data = d, vcov = "hetero")
-  per[[e]] <- data.table(event = e, pre_level = exp(d$lvl[1]), b_tx = coef(fr)[[1]], se_tx = se(fr)[[1]], elasticity = if (ok) coef(f)[[1]] else NA_real_, se_el = if (ok) se(f)[[1]] else NA_real_)
+  per[[e]] <- data.table(event = e, pre_level = exp(d$lvl[1]), elasticity = if (ok) coef(f)[[1]] else NA_real_, se_el = if (ok) se(f)[[1]] else NA_real_)
 }
 per <- rbindlist(per)
-cat("## B. Per-event: txs reduced form and 2SLS elasticity\n"); print(per[order(-pre_level)])
+cat("## B. Per-event 2SLS elasticity\n"); print(per[order(-pre_level)])
 
 # ---- C. level test ----
 # Stacked 2SLS over the level set, FE event x chain and event x day, SEs clustered by chain:
@@ -110,18 +117,18 @@ cat(sprintf("## C. Level test, %d drops (pre-drop levels $%.4f to $%.2f); negati
             uniqueN(S2$ev), min(exp(S2$lvl)), max(exp(S2$lvl)))); print(etable(f_lv, se.below = TRUE))
 b <- coef(f_lv); cat(sprintf("Implied elasticity at $0.50: %.3f; at $0.05: %.3f; at $0.01: %.3f\n", b[["fit_lc"]] + b[["fit_lcx"]] * log(0.5), b[["fit_lc"]] + b[["fit_lcx"]] * log(0.05), b[["fit_lc"]] + b[["fit_lcx"]] * log(0.01)))
 PB <- rbind(PB, data.table(set = "level test", n_events = uniqueN(S2$ev), n_chains = uniqueN(S2$chain), term = c("log cost", "log cost x log(pre-drop level)"), est = unname(b), se = unname(se(f_lv)), first_stage_F = NA))
-fwrite(PB, file.path(DIR_TAB, "multichain_pooled.csv")); fwrite(per[, c(list(chain = sub(" .*", "", event), date = as.IDate(sub(".* ", "", event))), .SD), .SDcols = !"event"], file.path(DIR_TAB, "multichain_blob_events.csv"))
-# Figure 3: per-rollup elasticities at blob adoption and the pooled estimate
+fwrite(PB, file.path(DIR_TAB, "multichain_pooled.csv"))
+# Figure: per-rollup elasticities at blob adoption and the pooled estimate
 pool <- PB[set == "detected blob-adoption dates" & term == "2SLS elasticity txs"]
-F3 <- rbind(per[, .(lab = sprintf("%s, %s (median fee before: $%.2f)", tools::toTitleCase(sub(" .*", "", event)), format(as.IDate(sub(".* ", "", event)), "%d %b"), pre_level),
+FR <- rbind(per[, .(lab = sprintf("%s, %s (median fee before: $%.2f)", tools::toTitleCase(sub(" .*", "", event)), format(as.IDate(sub(".* ", "", event)), "%d %b"), pre_level),
                     est = elasticity, se = se_el, pre_level, pooled = FALSE)],
             data.table(lab = sprintf("Pooled, %d rollups", nrow(per)), est = pool$est, se = pool$se, pre_level = 0, pooled = TRUE))
-F3[, lab := factor(lab, F3[order(-pooled, pre_level), lab])]   # highest pre-drop fee on top, pooled at the bottom
-g <- ggplot(F3, aes(est, lab, colour = pooled)) + geom_vline(xintercept = 0, colour = COL[["ink2"]], linewidth = 0.3) +
+FR[, lab := factor(lab, FR[order(-pooled, pre_level), lab])]   # highest pre-drop fee on top, pooled at the bottom
+g <- ggplot(FR, aes(est, lab, colour = pooled)) + geom_vline(xintercept = 0, colour = COL[["ink2"]], linewidth = 0.3) +
   geom_linerange(aes(xmin = est - 1.96 * se, xmax = est + 1.96 * se), linewidth = 0.6) + geom_point(aes(shape = pooled, size = pooled)) +
   scale_colour_manual(values = c(COL[["main"]], COL[["ink"]]), guide = "none") + scale_shape_manual(values = c(16, 18), guide = "none") + scale_size_manual(values = c(2.2, 3.6), guide = "none") +
   labs(x = "Elasticity of daily transactions with respect to the median fee (2SLS, 95% CI)", y = NULL) + THEME_FIG + theme(panel.grid.major.y = element_blank())
-ggsave(file.path(DIR_FIG, "fig3_multichain_elasticities.png"), g, width = 8.5, height = 4.2, dpi = 200, bg = "white")
+ggsave(file.path(DIR_FIG, "multichain_elasticities.png"), g, width = 8.5, height = 4.2, dpi = 200, bg = "white")
 
 # ---- D. staggered DiD (Callaway and Sant'Anna 2021) ----
 # Cohort = documented blob-adoption date (robustness: detected date for rollups without one). Fee-series break dates are not used as cohorts: a late
@@ -143,7 +150,7 @@ for (nm in names(ADOPT)) {
   cat(sprintf("D. %s (few rollups per cohort: small-group inference, no pre-test Wald statistic): treated %s; never treated %s\n", nm, paste(Pw[g > 0, unique(chain)], collapse = ", "), paste(Pw[g == 0, unique(chain)], collapse = ", ")))
   r <- list()
   for (y in c("lc", "ly", "la")) {
-    set.seed(20240314)
+    set.seed(SEED)
     a <- suppressWarnings(did::att_gt(yname = y, tname = "t", idname = "id", gname = "g", data = as.data.frame(Pw[is.finite(get(y))]), control_group = "notyettreated",
                                       est_method = "reg", base_period = "universal", bstrap = TRUE, cband = FALSE, print_details = FALSE))
     ag <- did::aggte(a, type = "dynamic", min_e = 0, max_e = 14, balance_e = 14, na.rm = TRUE)
@@ -154,4 +161,50 @@ for (nm in names(ADOPT)) {
 CS <- rbindlist(CS)
 cat("## D. Callaway-Sant'Anna ATT over event days 0..14 (not-yet-treated controls) and implied elasticities\n"); print(CS)
 fwrite(CS, file.path(DIR_TAB, "multichain_callaway_santanna.csv"))
+
+# ---- E. second Base event: gas limit raised 05-28 19:00 and 05-30 20:00 UTC (announced on 05-29; the second step was pre-announced) ----
+# Days 05-14..06-11, day 0 = 05-29 (05-28 is partly treated). Controls: chains with no drop day within W + 3 days of 05-29 and cost data on >= 2W days of the window.
+# Event study:  y_kd = sum_{s != -2} b_s * 1[k = base, d - 05-29 = s] + chain FE + date FE + e_kd   (reference day -2 = 05-27). With one treated chain each b_s
+# rests on one observation, so inference uses placebos: the same event study with each control chain as the treated chain (Base dropped); band = min..max.
+# Pooled DiD without 05-28:  y_kd = b * 1[k = base, d >= 05-29] + chain FE + date FE + e_kd;  also Base vs Arbitrum only.
+# Permutation p: each control chain in turn as the treated chain in the pooled DiD (Base dropped); p = (1 + #{|b_perm| >= |b|}) / (1 + K), K control chains.
+# Elasticity (2SLS, same sample):  y_kd = e * log fee_kd + chain FE + date FE + u_kd,  log fee instrumented by 1[k = base, d >= 05-29]; SEs clustered by date.
+dE <- as.IDate("2024-05-29")
+ctrlE <- setdiff(unique(P$chain), c("base", ALLD[abs(as.integer(date - dE)) <= W + 3, chain]))
+ctrlE <- ctrlE[ctrlE %in% P[chain %in% ctrlE & date >= dE - 15 & date <= dE + 13, .(m = sum(is.finite(lc))), by = chain][m >= 2 * W, chain]]
+dM <- P[(chain == "base" | chain %in% ctrlE) & date >= dE - 15 & date <= dE + 13 & is.finite(lc) & is.finite(ly) & is.finite(la)][, s := as.integer(date - dE)]
+cat(sprintf("E. Base May event: %d control chains (%s)\n", length(ctrlE), paste(ctrlE, collapse = ", ")))
+RE <- list(); ESM <- list()
+for (y in c("lc", "ly", "la")) {
+  lab <- c(lc = "log median fee", ly = "log txs", la = "log active addresses")[[y]]
+  fe <- feols(as.formula(paste(y, "~ i(s, chain == 'base', ref = -2) | chain + date")), data = dM)
+  es <- data.table(s = as.integer(sub("s::(-?\\d+):.*", "\\1", names(coef(fe)))), est = unname(coef(fe)))
+  PL <- list()
+  for (k in seq_along(ctrlE)) { fp <- feols(as.formula(sprintf("%s ~ i(s, chain == '%s', ref = -2) | chain + date", y, ctrlE[k])), data = dM[chain != "base"])
+    PL[[k]] <- data.table(s = as.integer(sub("s::(-?\\d+):.*", "\\1", names(coef(fp)))), pl = unname(coef(fp))) }
+  PL <- rbindlist(PL)[, .(pl_min = min(pl), pl_max = max(pl)), by = s]
+  ESM[[y]] <- merge(rbind(es, data.table(s = -2L, est = 0)), rbind(PL, data.table(s = -2L, pl_min = 0, pl_max = 0)), by = "s")[, y := lab]
+  d2 <- dM[s != -1][, treat := as.integer(chain == "base" & s >= 0)]
+  f <- feols(as.formula(paste(y, "~ treat | chain + date")), data = d2, cluster = ~date)
+  fa <- feols(as.formula(paste(y, "~ treat | chain + date")), data = d2[chain %in% c("base", "arbitrum")], vcov = "hetero")
+  bp <- rep(NA_real_, length(ctrlE))
+  for (k in seq_along(ctrlE)) bp[k] <- coef(feols(as.formula(paste(y, "~ treat | chain + date")), data = dM[chain != "base" & s != -1][, treat := as.integer(chain == ctrlE[k] & s >= 0)]))[["treat"]]
+  fi <- feols(as.formula(paste(y, "~ 1 | chain + date | lc ~ treat")), data = d2, cluster = ~date)
+  RE[[y]] <- data.table(outcome = lab, b_all_controls = coef(f)[["treat"]], se = se(f)[["treat"]], perm_p = (1 + sum(abs(bp) >= abs(coef(f)[["treat"]]))) / (1 + length(bp)), n_perm = length(bp),
+                        b_vs_arbitrum = coef(fa)[["treat"]], se_vs_arbitrum = se(fa)[["treat"]], elasticity = coef(fi)[["fit_lc"]], se_elasticity = se(fi)[["fit_lc"]])
+}
+RE <- rbindlist(RE)[outcome == "log median fee", se_elasticity := NA_real_]   # fee on itself: elasticity 1 by construction
+ESM <- rbindlist(ESM)
+cat("## E. Base May event: pooled DiD (all controls; Base vs Arbitrum) and permutation p\n"); print(RE)
+cat("## E. Event study by day (reference day -2 = 05-27; day -1 = 05-28 is partly treated); placebo range over control chains\n")
+print(dcast(ESM, s ~ y, value.var = c("est", "pl_min", "pl_max"))[, lapply(.SD, round, 3)])
+fwrite(RE, file.path(DIR_TAB, "may_daily_did.csv")); fwrite(ESM, file.path(DIR_TAB, "may_daily_event_study.csv"))
+# Figure: daily event study of the May event (Base minus control rollups, day -2 = 0); grey band = range of the same estimate with each control chain as placebo
+FM <- ESM[, `:=`(y = factor(y, c("log median fee", "log txs", "log active addresses")), ref = s == -2)]
+g <- ggplot(FM, aes(s, est)) + geom_ribbon(aes(ymin = pl_min, ymax = pl_max), fill = COL[["band"]]) + geom_hline(yintercept = 0, colour = COL[["ink2"]], linewidth = 0.3) +
+  geom_vline(xintercept = -0.5, colour = COL[["ink"]], linewidth = 0.4) +
+  geom_point(aes(shape = ref), colour = COL[["main"]], fill = "white", size = 2.2, stroke = 0.8) + scale_shape_manual(values = c(16, 21), guide = "none") +
+  facet_wrap(~ y, nrow = 1, scales = "free_y") + labs(x = "Days from 29 May 2024 (gas limit raised 28 May 19:00 and 30 May 20:00 UTC)",
+                                                      y = "Base minus control rollups, log points\n(day -2 = 0; band: placebo range)") + THEME_FIG
+ggsave(file.path(DIR_FIG, "may_event_study.png"), g, width = 10, height = 3.6, dpi = 200, bg = "white")
 cat("\n## sessionInfo\n```\n"); print(sessionInfo()); cat("```\n"); sink()
