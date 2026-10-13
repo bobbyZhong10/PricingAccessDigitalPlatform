@@ -1,5 +1,5 @@
 # 02 build panels
-Run 2026-10-12 20:07:48 UTC
+Run 2026-10-12 22:40:42 UTC
 A base: 1464 hours; system txs removed 2635201 (3.1% of raw txs)
 A arbitrum: 1464 hours; system txs removed 20663038 (22.1% of raw txs)
 B: control hours 1512; ETH/USD days 56
@@ -36,8 +36,12 @@ other attached packages:
 [1] jsonlite_2.0.0      ggplot2_4.0.2       fixest_0.14.2       data.table_1.18.2.1 here_1.0.2         
 
 loaded via a namespace (and not attached):
- [1] gtable_0.3.6        dplyr_1.2.0         compiler_4.5.3      tidyselect_1.2.1    Rcpp_1.1.1          scales_1.4.0        yaml_2.3.12         lattice_0.22-9      coda_0.19-4.1       R6_2.6.1            generics_0.1.4      Formula_1.2-5      
-[13] tibble_3.3.1        rprojroot_2.1.1     lubridate_1.9.5     DBI_1.3.0           pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.7         nanoparquet_0.5.2   S7_0.2.1            stringmagic_1.2.0   otel_0.2.0          timechange_0.4.0   
-[25] estimability_1.5.1  cli_3.6.5           withr_3.0.2         magrittr_2.0.4      emmeans_2.0.2       grid_4.5.3          mvtnorm_1.3-6       xtable_1.8-8        sandwich_3.1-1      lifecycle_1.0.5     nlme_3.1-168        vctrs_0.7.1        
-[37] glue_1.8.0          duckdb_1.5.0        farver_2.1.2        numDeriv_2016.8-1.1 zoo_1.8-15          dreamerr_1.5.0      tools_4.5.3         pkgconfig_2.0.3    
+ [1] tidyselect_1.2.1     nanoparquet_0.5.2    timeDate_4052.112    dplyr_1.2.0          farver_2.1.2         S7_0.2.1             duckdb_1.5.0         pROC_1.19.0.1        caret_7.0-1          digest_0.6.39        rpart_4.1.24        
+[12] DRDID_1.2.3          timechange_0.4.0     estimability_1.5.1   lifecycle_1.0.5      dreamerr_1.5.0       survival_3.8-6       magrittr_2.0.4       compiler_4.5.3       rlang_1.1.7          tools_4.5.3          yaml_2.3.12         
+[23] plyr_1.8.9           RColorBrewer_1.1-3   withr_3.0.2          purrr_1.2.1          numDeriv_2016.8-1.1  nnet_7.3-20          grid_4.5.3           stats4_4.5.3         xtable_1.8-8         future_1.70.0        BMisc_1.4.8         
+[34] globals_0.19.1       emmeans_2.0.2        scales_1.4.0         iterators_1.0.14     MASS_7.3-65          cli_3.6.5            mvtnorm_1.3-6        generics_0.1.4       otel_0.2.0           future.apply_1.20.2  bigmemory.sri_0.1.8 
+[45] reshape2_1.4.5       DBI_1.3.0            stringr_1.6.0        splines_4.5.3        parallel_4.5.3       fastglm_0.0.4        stringmagic_1.2.0    vctrs_0.7.1          hardhat_1.4.2        Matrix_1.7-4         sandwich_3.1-1      
+[56] did_2.3.0            Formula_1.2-5        listenv_0.10.1       foreach_1.5.2        trust_0.1-9          gower_1.0.2          tidyr_1.3.2          recipes_1.3.1        glue_1.8.0           bigmemory_4.6.4      parallelly_1.46.1   
+[67] codetools_0.2-20     lubridate_1.9.5      stringi_1.8.7        gtable_0.3.6         tibble_3.3.1         pillar_1.11.1        ipred_0.9-15         lava_1.8.2           R6_2.6.1             rprojroot_2.1.1      lattice_0.22-9      
+[78] class_7.3-23         Rcpp_1.1.1           uuid_1.2-2           coda_0.19-4.1        nlme_3.1-168         prodlim_2026.03.11   zoo_1.8-15           pkgconfig_2.0.3      ModelMetrics_1.2.2.2
 ```

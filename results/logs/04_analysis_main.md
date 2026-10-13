@@ -1,13 +1,13 @@
 # 04 main analysis
-Run 2026-10-12 21:40:10 UTC
+Run 2026-10-12 22:51:46 UTC
 Hourly panel: 2160 chain-hours, 2024-03-01..2024-04-14 23:00:00 UTC
 ## Summary: hourly transactions, fee per transaction (US$) and active senders, mean and SD across hours
       chain                period hours txs_mean txs_sd fee_usd_mean fee_usd_sd senders_mean senders_sd
-1:     base         7 days before   168    18100  10500       0.9900     0.2790         6300        845
-2:     base          7 days after   168    57200  20000       0.2630     0.3950        19100      13000
-3: arbitrum  7 days before step 1   168    30600   8100       0.8680     0.2180        10000       2600
-4: arbitrum between steps 1 and 2   113    49200  13300       0.1310     0.0648        12800       2860
-5: arbitrum   7 days after step 2   168    64500  14600       0.0153     0.0109        16700       4400
+1:     base         7 days before   168    18109  10452      0.99046    0.27925         6299      845.2
+2:     base          7 days after   168    57241  20028      0.26304    0.39466        19142    12986.8
+3: arbitrum  7 days before step 1   168    30555   8101      0.86841    0.21807        10046     2598.0
+4: arbitrum between steps 1 and 2   113    49230  13277      0.13134    0.06478        12816     2861.9
+5: arbitrum   7 days after step 2   168    64475  14564      0.01528    0.01094        16677     4404.6
 RI: 59/58/58 fake event hours per event
 ## A. RD in time (+-36 h), with market controls, and placebo RDs on L1 and Bitcoin: estimate (NW SE) [RI p]
                                                  y           Base (Ecotone)          Arbitrum step 1          Arbitrum step 2
@@ -24,9 +24,9 @@ RI: 59/58/58 fake event hours per event
 11: log txs, RD with market controls (L1, Bitcoin)  0.786 (0.327) [RI 0.00]  0.749 (0.087) [RI 0.00]  0.097 (0.117) [RI 0.45]
 ## A. Elasticities = RD log txs (or senders) / RD log fee per tx
              event rd_log_fee rd_log_txs rd_log_senders elasticity_txs elasticity_senders
-1:  Base (Ecotone)      -2.03      0.787          0.870        -0.3870            -0.4280
-2: Arbitrum step 1      -1.82      0.761          0.496        -0.4180            -0.2730
-3: Arbitrum step 2      -1.88      0.138          0.185        -0.0733            -0.0984
+1:  Base (Ecotone)     -2.033     0.7867         0.8695       -0.38696           -0.42771
+2: Arbitrum step 1     -1.820     0.7614         0.4960       -0.41845           -0.27259
+3: Arbitrum step 2     -1.880     0.1378         0.1849       -0.07329           -0.09838
 ## B. Median fee per tx (US$) and mean txs per hour by chain and period
       chain   pre Base only Arb step 1   both
 1: arbitrum 0.804    0.7480      0.123 0.0141
@@ -35,23 +35,23 @@ RI: 59/58/58 fake event hours per event
 1: arbitrum 32054     33163      49230 66863
 2:     base 17500     49826      56915 95685
 ## B. DiD Base vs Arbitrum, hours in [2024-03-07, 2024-03-14 15:00:00): 366 chain-hours (15 Base post hours)
-                                         y     est   se_nw  se_day
-1:                                 log txs 1.01000 0.07070 0.05610
-2:         log txs, high-frequency senders 0.42500 0.08620 0.08030
-3:                  log txs, other senders 1.13000 0.07590 0.05660
-4:                          log failed txs 1.22000 0.15100 0.13100
-5:                            failed share 0.00638 0.00422 0.00356
-6:                         log new senders 0.79600 0.10300 0.08870
-7: log distinct senders (sum over classes) 0.76500 0.05640 0.04720
+                                         y      est    se_nw   se_day
+1:                                 log txs 1.010197 0.070749 0.056057
+2:         log txs, high-frequency senders 0.425463 0.086218 0.080349
+3:                  log txs, other senders 1.125993 0.075854 0.056637
+4:                          log failed txs 1.219867 0.151132 0.130905
+5:                            failed share 0.006379 0.004217 0.003557
+6:                         log new senders 0.796455 0.102753 0.088706
+7: log distinct senders (sum over classes) 0.765398 0.056360 0.047175
 ## B. Staggered TWFE with both drops (two units; heterogeneous-timing caveat)
-                                         y     est  se_day
-1:                                 log txs 0.33300 0.07250
-2:         log txs, high-frequency senders 0.25800 0.04220
-3:                  log txs, other senders 0.41700 0.07400
-4:                          log failed txs 0.36900 0.11000
-5:                            failed share 0.00832 0.00675
-6:                         log new senders 0.20500 0.08330
-7: log distinct senders (sum over classes) 0.10700 0.07060
+                                         y      est   se_day
+1:                                 log txs 0.333212 0.072472
+2:         log txs, high-frequency senders 0.258463 0.042156
+3:                  log txs, other senders 0.417072 0.073986
+4:                          log failed txs 0.369369 0.109575
+5:                            failed share 0.008319 0.006754
+6:                         log new senders 0.205455 0.083332
+7: log distinct senders (sum over classes) 0.106822 0.070554
 Base pre-drop burst hours excluded from the event study: 03-13 19:00
 ## B. Event study by day (ref = day -1; day 0 = the 15 hours before Arbitrum's drop)
    day_rel Active senders All transactions Failed transactions New senders Transactions, high-frequency senders Transactions, other senders
@@ -71,22 +71,22 @@ Base pre-drop burst hours excluded from the event study: 03-13 19:00
 4:     other_call    0.611 0.588
 5:           swap    0.058 0.139
 ## C. RD in time by type (successful txs); elasticity = d log txs / d log fee per tx
-              event           type d_log_txs se_txs   ri_p d_log_fee elasticity
- 1:  Base (Ecotone)        approve    0.6720 0.1320 0.0000     -3.02   -0.22300
- 2:  Base (Ecotone) erc20_transfer    1.1300 0.1520 0.0000     -3.41   -0.33100
- 3:  Base (Ecotone)         native    0.5840 0.1210 0.0169     -2.76   -0.21100
- 4:  Base (Ecotone)     other_call    1.0400 0.3140 0.0000     -2.06   -0.50600
- 5:  Base (Ecotone)           swap    0.7570 0.1700 0.0000     -2.72   -0.27800
- 6: Arbitrum step 1        approve    0.4760 0.0458 0.0172     -2.68   -0.17800
- 7: Arbitrum step 1 erc20_transfer    0.5190 0.1170 0.0000     -2.63   -0.19700
- 8: Arbitrum step 1         native    0.6310 0.1530 0.0000     -2.93   -0.21500
- 9: Arbitrum step 1     other_call    0.7090 0.0880 0.0000     -1.73   -0.41000
-10: Arbitrum step 1           swap    0.7370 0.0997 0.0000     -1.86   -0.39700
-11: Arbitrum step 2        approve    0.1500 0.1090 0.2070     -1.78   -0.08420
-12: Arbitrum step 2 erc20_transfer    0.0101 0.0466 0.9660     -1.78   -0.00566
-13: Arbitrum step 2         native    0.1420 0.1730 0.3280     -1.67   -0.08500
-14: Arbitrum step 2     other_call    0.2600 0.0934 0.0517     -1.98   -0.13100
-15: Arbitrum step 2           swap   -0.5760 0.1830 0.0000     -1.56    0.37000
+              event           type d_log_txs  se_txs    ri_p d_log_fee elasticity
+ 1:  Base (Ecotone)        approve   0.67213 0.13189 0.00000    -3.020  -0.222542
+ 2:  Base (Ecotone) erc20_transfer   1.12891 0.15225 0.00000    -3.411  -0.330916
+ 3:  Base (Ecotone)         native   0.58449 0.12117 0.01695    -2.764  -0.211458
+ 4:  Base (Ecotone)     other_call   1.04377 0.31412 0.00000    -2.062  -0.506257
+ 5:  Base (Ecotone)           swap   0.75662 0.17021 0.00000    -2.720  -0.278199
+ 6: Arbitrum step 1        approve   0.47624 0.04583 0.01724    -2.677  -0.177887
+ 7: Arbitrum step 1 erc20_transfer   0.51863 0.11654 0.00000    -2.626  -0.197461
+ 8: Arbitrum step 1         native   0.63120 0.15311 0.00000    -2.931  -0.215381
+ 9: Arbitrum step 1     other_call   0.70919 0.08795 0.00000    -1.731  -0.409727
+10: Arbitrum step 1           swap   0.73712 0.09970 0.00000    -1.858  -0.396684
+11: Arbitrum step 2        approve   0.14993 0.10949 0.20690    -1.780  -0.084234
+12: Arbitrum step 2 erc20_transfer   0.01007 0.04660 0.96552    -1.781  -0.005655
+13: Arbitrum step 2         native   0.14231 0.17344 0.32759    -1.675  -0.084969
+14: Arbitrum step 2     other_call   0.26037 0.09337 0.05172    -1.985  -0.131171
+15: Arbitrum step 2           swap  -0.57551 0.18297 0.00000    -1.556   0.369942
 
 ## sessionInfo
 ```

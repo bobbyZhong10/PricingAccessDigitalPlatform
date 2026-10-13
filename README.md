@@ -21,11 +21,11 @@ proposal/                            research proposal (Markdown and PDF)
 ## How to run
 
 1. Open `PricingAccessDigitalPlatform.Rproj` in RStudio, or run `Rscript code/0X_....R` from the project root.
-2. Run the scripts in order. Each one sources `code/00_setup.R` first and runs standalone. `00_setup.R` stops with an `install.packages()` command if any package is missing.
+2. Run the scripts in order. Each one sources `code/00_setup.R` first and runs standalone. The scripts define no functions and run top to bottom; every regression is preceded by its equation in a comment. `00_setup.R` stops with an `install.packages()` command if any package is missing.
 
 | Script | What it does | Needs |
 |---|---|---|
-| `00_setup.R` | Packages, paths, constants (event times, campaign rule), helpers | |
+| `00_setup.R` | Packages, paths, constants (event times, campaign rule), figure theme | |
 | `01_download.R` | Public data → `data/raw`. Each section is skipped if its files exist | Internet, ~80 min |
 | `02_build_panels.R` | `data/raw` → `data/panel/panel.rds` | `data/raw`, ~3 min |
 | `03_validate_panels.R` | Checks every panel table, cross-checks counts against growthepie and the fee break at each event hour, writes `contract.yaml` | `panel.rds` |
