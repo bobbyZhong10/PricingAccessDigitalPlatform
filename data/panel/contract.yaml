@@ -1,6 +1,6 @@
-created: 2026-10-13 18:03:35 UTC
+created: 2026-10-17 01:44:41 UTC
 file: panel.rds
-md5: c4455151878a434626a94339f7a0ca8d
+md5: f98681401ad7246837e92dd3c6a1786f
 all_valid: yes
 failures: []
 objects:
@@ -104,6 +104,7 @@ objects:
     - other_chain_funder
     - tok_after
     - eth_after
+    - f_service
   sender_window:
     valid: yes
     rows: 3319464
@@ -260,6 +261,7 @@ objects:
     - cid500
     - march_operator
     - f_eth_via
+    - f_service
     - first_to
     - first_sel
   may_ops:
@@ -300,3 +302,156 @@ objects:
     - p50
     - p75
     - chain
+  entity_daily:
+    valid: yes
+    rows: 3936
+    keys:
+    - event
+    - chain
+    - rule
+    - subset
+    - class
+    - day
+    columns:
+    - day
+    - class
+    - n_addr
+    - n_ent
+    - event
+    - chain
+    - rule
+    - subset
+    - largest_target
+  entrant_funding:
+    valid: yes
+    rows: 62
+    keys:
+    - period
+    - class3
+    - grp
+    - via
+    columns:
+    - period
+    - class3
+    - grp
+    - via
+    - 'n'
+    - funded
+    - eth_p10
+    - eth_p50
+    - eth_p90
+    - eth_mean
+    - eth_sum
+    - eth_unswept
+    - fee_int_sum
+    - n_top_sum
+    - n_int_sum
+    - swept
+    - initiators
+    - top_initiator_share
+    - top_level_funders
+  lookalike:
+    valid: yes
+    rows: 21
+    keys:
+    - event
+    - chain
+    - period
+    - class3
+    columns:
+    - period
+    - class3
+    - n_plain
+    - self
+    - prefix4
+    - suffix4
+    - both4
+    - event
+    - chain
+  long_daily:
+    valid: yes
+    rows: 1092
+    keys:
+    - grouping
+    - chain
+    - day
+    columns:
+    - day
+    - senders
+    - new
+    - heavy
+    - wave_new
+    - wave_heavy
+    - waves
+    - largest_wave
+    - size_new
+    - grouping
+    - chain
+  long_waves:
+    valid: yes
+    rows: 5761
+    keys:
+    - grouping
+    - chain
+    - day
+    - first_to
+    - first_sel
+    columns:
+    - grouping
+    - chain
+    - day
+    - first_to
+    - first_sel
+    - 'n'
+    - n_heavy
+    - base
+  long_floor_daily:
+    valid: yes
+    rows: 2912
+    keys:
+    - floor
+    - chain
+    - day
+    columns:
+    - floor
+    - chain
+    - day
+    - wave_new
+    - wave_heavy
+  funder_labels:
+    valid: yes
+    rows: 64
+    keys:
+    - chain
+    - address
+    columns:
+    - chain
+    - address
+    - name_tag
+    - category
+    - source
+  recipient_labels:
+    valid: yes
+    rows: 50
+    keys:
+    - chain
+    - address
+    columns:
+    - chain
+    - address
+    - name_tag
+    - category
+    - first_call
+    - source
+  event_calendar:
+    valid: yes
+    rows: 19
+    keys:
+    - date
+    - event
+    columns:
+    - date
+    - time_utc
+    - event
+    - relevance
+    - source

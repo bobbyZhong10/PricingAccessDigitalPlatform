@@ -1,0 +1,13 @@
+measure,before,after,variant,ratio
+"addresses, cluster of 20+",17035.7647058824,20514.7283236994,before vs after the first step hour,1.20421528929757
+"addresses, alone",17244.192513369,16796.8092485549,before vs after the first step hour,0.974056003813039
+"addresses, cluster of 2-19",8604.57754010695,7212.76300578035,before vs after the first step hour,0.838247197164627
+"addresses, all",42884.5347593583,44524.3005780347,before vs after the first step hour,1.03823676362301
+"funding entities, all",21438.4171122995,20268.3468208093,before vs after the first step hour,0.945421796517853
+"funding entities, components below 20",21329.7112299465,20139.8843930636,before vs after the first step hour,0.944217395910525
+"addresses, cluster of 20+",16628.5714285714,19658,step days 05-28..30 left out,1.18218213058419
+"addresses, alone",17340.5714285714,15675.4,step days 05-28..30 left out,0.903972516970935
+"addresses, cluster of 2-19",8736.57142857143,7432.6,step days 05-28..30 left out,0.850745634116031
+"addresses, all",42705.7142857143,42766,step days 05-28..30 left out,1.00141165451261
+"funding entities, all",21666.8571428571,19478.2,step days 05-28..30 left out,0.898985942980721
+"funding entities, components below 20",21553.5714285714,19310.2,step days 05-28..30 left out,0.895916487158244

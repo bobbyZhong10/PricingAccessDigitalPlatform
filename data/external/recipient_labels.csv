@@ -1,0 +1,51 @@
+chain,address,name_tag,category,first_call,source
+base,0xfd92f4e91d54b9ef91cc3f97c011a6af0c2a7eda,OKX,exchange,ETH transfer,basescan
+base,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,Uniswap: Universal Router,dex router,execute,evm-labels (Ethereum tag); sourcify (UniversalRouter)
+base,0x833589fcd6edb6e08f4c7c32d4f71b54bda02913,Circle: USDC Token,stablecoin or WETH,transfer,evm-labels (Base tag)
+base,0x50b6ebc2103bfec165949cc946d739d5650d7ae4,Stargate: RouterETH,bridge,swapETH,sourcify (RouterETH; imports IStargateRouter)
+base,0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca,Base: USDbC Token,stablecoin or WETH,approve,evm-labels (Base tag)
+base,0x0389879e0156033202c44bf784ac18fc02edee4f,Sushi: RouteProcessor4,dex aggregator,processRoute,sourcify (RouteProcessor4; a route processor for the Sushi Aggregator)
+base,0xf70da97812cb96acdf810712aa562db8dfa3dbef,Relay: Solver,bridge,ETH transfer with request data,basescan
+base,0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24,Uniswap: V2 Router 02,dex router,swapExactETHForTokensSupportingFeeOnTransferTokens,sourcify (UniswapV2Router02)
+base,0xafb89a09d82fbde58f18ac6437b3fc81724e4df6,The Doge NFT: DOG Token,other token,approve,evm-labels (Base tag); rpc (name The Doge NFT; symbol DOG)
+base,0xdef1c0ded9bec7f1a1670819833240f027b25eff,0x: Exchange Proxy,dex aggregator,transformERC20,evm-labels (Ethereum tag); sourcify (ZeroEx)
+base,0x3304e22ddaa22bcdc5fca2269b418046ae7b566a,Binance 73,exchange,ETH transfer,basescan
+base,0x28e43bb3ee202e1da587c88b0a8398309e8d4c2d,BLOBz Base (NFT),nft mint or claim,mint,sourcify (BLOBzBase; ERC721A); rpc (symbol BLOBZASE)
+base,0xecb03b9a0e7f7b5e261d3ef752865af6621a54fe,Sigma trading bot router,trading bot,SigmaBuy,evm-labels (Ethereum tag MEV Bot: 0xecb...4fe); 4byte (SigmaBuy)
+base,0xbaed383ede0e5d9d72430661f3285daa77e9439f,Bybit: Hot Wallet 6,exchange,ETH transfer,basescan
+base,0x18dd5b087bca9920562aff7a0199b96b9230438b,Propy (PRO) Token,other token,transfer,sourcify (OptimismMintableERC20); rpc (name Propy; symbol PRO)
+base,0xe4edb277e41dc89ab076a1f049f4a3efa700bce8,Orbiter Finance: Bridge 2,bridge,ETH transfer,basescan
+base,0x19ceead7105607cd444f5ad10dd51356436095a1,Odos: Router V2,dex aggregator,swapCompact,sourcify (OdosRouterV2)
+base,0x3a23f943181408eac424116af7b7790c94cb97a5,Socket: Gateway,bridge,gateway route call,evm-labels (Arbitrum tag); sourcify (SocketGateway)
+base,0x1b1d2149d656f8ca33fb633e6f642b5a2426b53d,ChangeNOW: Hot Wallet,exchange,ETH transfer,basescan
+base,0x80c67432656d59144ceff962e8faf8926599bcf8,Orbiter Finance: Bridge 1,bridge,ETH transfer,basescan
+base,0x4200000000000000000000000000000000000006,Wrapped Ether (WETH),stablecoin or WETH,deposit,evm-labels (Base tag); sourcify (WETH9)
+base,0x1195cf65f83b3a5768f3c496d3a05ad6412c64b7,Layer3: CUBE (quest credential),nft mint or claim,mint call,rpc (name Layer3 CUBE; EIP-1967 implementation verified on sourcify as CUBE)
+base,0x739120ade7ed878fca5bbdb806263a8258fe2360,Coinbase 22,exchange,ETH transfer,basescan
+base,0x3f433f14e6ace35bd11c6a8c6d8875daa68c6a80,Box (NFT),nft mint or claim,mint,sourcify (Box); 4byte (mint)
+base,0x2f59e9086ec8130e21bd052065a9e6b2497bb102,unverified proxy (depositNative),unidentified,depositNative,rpc (proxy; implementation not verified); 4byte (depositNative)
+base,0xe3b53af74a4bf62ae5511055290838050bf764df,Stargate: STG Token,bridge,sendTokens,evm-labels (Base tag); sourcify (StargateToken); 4byte (sendTokens)
+base,0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a,Coinbase 14,exchange,ETH transfer,basescan
+base,0x6131b5fae19ea4f9d964eac0408e4408b66337b5,KyberSwap: Meta Aggregation Router v2,dex aggregator,swap,evm-labels (Ethereum tag); sourcify (MetaAggregationRouterV2)
+base,0x1d6b183bd47f914f9f1d3208edcf8befd7f84e63,COIN Earnings (thirdweb drop),nft mint or claim,claim,rpc (name COIN Earnings; minimal proxy of DropERC1155 verified on sourcify); 4byte (claim)
+base,0x47fbe95e981c0df9737b6971b451fb15fdc989d9,Dmail (messaging app),app,send_mail,sourcify (Dmail); 4byte (send_mail)
+base,0xb4807865a786e9e9e26e6a9610f2078e7fc507fb,Coinbase 36,exchange,ETH transfer,basescan
+base,0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae,LI.FI: Diamond,bridge,bridge or swap call,sourcify (LiFiDiamond)
+base,0x542ffb7d78d78f957895891b6798b3d60e979b64,unverified proxy (claim),nft mint or claim,claim,rpc (proxy; implementation not verified); 4byte (claim)
+base,0x6dcbce46a8b494c885d0e7b6817d2b519df64467,Coinbase 25,exchange,ETH transfer,basescan
+base,0x1985ea6e9c68e1c272d8209f3b478ac2fdb25c87,Coinbase 35,exchange,ETH transfer,basescan
+base,0xcf77a3ba9a5ca399b7c97c74d54e5b1beb874e43,Aerodrome: Router,dex router,swapExactETHForTokens,sourcify (Router; Velodrome-derived Protocol Router); 4byte (swapExactETHForTokens with route structs)
+base,0xc9df8c29336f9d5027187f5e56cc1689a40d54f1,unverified proxy,unidentified,unknown method,rpc (proxy; implementation not verified)
+base,0xd34ea7278e6bd48defe656bbe263aef11101469c,Coinbase 27,exchange,ETH transfer,basescan
+base,0x327df1e6de05895d2ab08513aadd9313fe505d86,PancakeSwap: Router (V2),dex router,swapExactETHForTokens,sourcify (PancakeRouter)
+base,0x26bbea7803dcac346d5f5f135b57cf2c752a02be,Manifold: ERC1155 Lazy Payable Claim,nft mint or claim,mintBatch,sourcify (ERC1155LazyPayableClaim; Manifold sources)
+base,0x1111111254eeb25477b68fb85ed929f73a960582,1inch: Aggregation Router V5,dex aggregator,swap,evm-labels (Ethereum tag); sourcify (AggregationRouterV5)
+base,0x68f216bde507f6ce6c66955d1b4216a402e94cf3,Pike it Up! (PIU) Token,nft mint or claim,claimTokens,rpc (name Pike it Up!; EIP-1967 implementation verified on sourcify as PIUToken); 4byte (claimTokens)
+base,0x4869892c8088d9057ad7d0e5189ae8c3278f8877,unverified proxy,unidentified,unknown method,rpc (proxy; implementation not verified)
+base,0x69460570c93f9de5e2edbc3052bf10125f0ca22d,Rango: Diamond,bridge,stargateBridge,sourcify (RangoDiamond); 4byte (stargateBridge)
+base,0x532f27101965dd16442e59d40670faf5ebb142e4,Brett: BRETT Token,other token,transfer,evm-labels (Base tag); sourcify (BrettToken)
+base,0x4e3ae00e8323558fa5cac04b152238924aa31b60,MEXC 15,exchange,ETH transfer,evm-labels (Ethereum tag; same address on Base has no code)
+base,0x678aa4bf4e210cf2166753e054d5b7c31cc7fa86,PancakeSwap: Smart Router,dex router,multicall,sourcify (SmartRouter)
+base,0xb3da098a7251a647892203e0c256b4398d131a54,Mint A Penny (NFT),nft mint or claim,mint,sourcify (PennyFrame); rpc (name Mint A Penny)
+base,0x7ed613ab8b2b4c6a781ddc97ea98a666c6437511,All Your Base: AYB Token,other token,transfer,evm-labels (Base tag); sourcify (AllYourBase)
+base,0xc32d8100756ff66cb2a9121463183c2bb18ad9a4,untagged account without code,unidentified,ETH transfer,rpc (no code); no tag found

@@ -5,13 +5,14 @@
 #   03_validate_panels      checks panel.rds -> data/panel/contract.yaml
 #   04_analysis_main        hourly RD in time at the five cuts; Base vs Arbitrum DiD at the March drops
 #   05_analysis_robustness  specification grid, alternative controls, placebo
-#   06_analysis_users       entry, retention, burst accounts and bots, validation, second cut, dollar stakes
+#   06_analysis_users       entry, retention, burst accounts and bots, validation, second cut, dollar stakes; the long series of new addresses, the
+#                           Base March entry effect against L1 with its inference, the breakdown of counted new addresses and the threats
 #   07_analysis_multichain  multi-rollup replication (growthepie), Base May daily DiD
-#   08_paper_exhibits       paper Tables 1-6 and the index of all exhibits -> results/paper
+#   08_paper_exhibits       paper Tables 1-5 and the index of all exhibits -> results/paper
 # Each script writes its printed output to results/logs/<script>.md (via sink) and ends with sessionInfo().
 
 Sys.setenv(TZ = "UTC")   # all times are UTC; set before the packages below load, as some cache the system time zone
-PKGS <- c("here", "data.table", "fixest", "did", "ggplot2", "nanoparquet", "jsonlite", "yaml", "lubridate", "scales", "DBI", "duckdb", "igraph")
+PKGS <- c("here", "data.table", "fixest", "did", "ggplot2", "gridExtra", "nanoparquet", "jsonlite", "yaml", "lubridate", "scales", "DBI", "duckdb", "igraph")
 miss <- PKGS[!vapply(PKGS, requireNamespace, logical(1), quietly = TRUE)]
 if (length(miss)) stop("Install missing packages first: install.packages(c(", paste0('"', miss, '"', collapse = ", "), "))")
 suppressPackageStartupMessages({
@@ -50,6 +51,7 @@ WAVE_SIZE_ALT <- 5000               # bound 1 (size only): first-action group of
 FUNDER_BURST_MIN <- 100             # bound 2: burst mostly funded by addresses that fund >= 100 entrants that day and >= 3x their pre-shock median
 # Validation of the burst construct (06 section F)
 HUB_MIN <- c(200, 500, 2000)        # service: funder with >= this many distinct recipients (sweep target: senders) of ETH on 2024-02-15..03-07; 500 is the main threshold
+HUB_MIN_EXTRA <- c(50, 100)         # lower service thresholds, used only for the range of entity counts across linkage rules (02 section C3)
 CLUSTER_MIN <- 20                   # multi-identity entity: funder-entrant-sweep component with >= 20 entrants (Arbitrum Foundation threshold)
 SYNC_MIN <- 10                      # synchronized entry: first tx in a block shared with >= 10 other entrants with the same recipient x method
 BOOT_REPS <- 2000                   # day-block bootstrap replications for the validation statistics
@@ -68,6 +70,17 @@ SWAP_SELECTORS <- c("0x3593564c", "0x24856bc3", "0x7ff36ab5", "0x18cbafe5", "0x3
 # claim(uint256,address,uint256,bytes32[]) and claim(uint256,bytes32[]) (Merkle airdrops), claim(address,uint256,address,uint256,(bytes32[],uint256,uint256,address),bytes) (thirdweb drops)
 CLAIM_MINT_SELECTORS <- c("0x1249c58b", "0xa0712d68", "0x40c10f19", "0x4e71d92d", "0x2e7ba6ef", "0x2f52ebb7", "0x84bb1e42")
 RETENTION_MONTHS_MAY <- c("2024-07", "2024-09", "2024-12", "2025-03")
+# Long series of new addresses, both chains (01 section T, 02 section I, 06 section K). New address on day d: a sender whose first outgoing tx on d follows
+# LONG_LOOKBACK days without one (the same definition at every date and on both chains). Analysis period LONG_FROM..LONG_END; earlier days give the lookback
+# and the waves' trailing baselines.
+LONG_LOOKBACK <- 60; LONG_START <- as.Date("2023-12-01"); LONG_FROM <- as.IDate("2024-01-01"); LONG_END <- as.Date("2024-06-30")
+WAVE_TRAIL <- 28      # wave: first-action group with >= SPIKE_MIN new addresses on a day and >= SPIKE_K x its median over the previous WAVE_TRAIL days (zeros included)
+WAVE_FLOORS <- c(50, 100, 250, 500, 1000, 2000, 5000, 10000)   # size floors in place of SPIKE_MIN for the wave rule's robustness range (02 section I, 06 section R)
+CROSS_FEE <- 0.05     # fee regime: a chain crosses into the cent regime on the first day from which its daily median fee per tx (US$) stays below this for 7 days
+SHIFT_DAYS <- 28      # regime test: mean over the SHIFT_DAYS days from a date minus the mean over the SHIFT_DAYS days before it
+ANTICIP_DAYS <- as.IDate(c("2024-03-12", "2024-03-13", "2024-03-14"))   # no waves on either Layer-2 just before the March cuts: left out of the windows before a date (06 section K)
+LONG_CONTROL <- "ethereum"        # comparison chain for the long series: Ethereum L1 (v1.0 eth tables), whose fees stayed at dollars through 2024-01..06
+LONG_CONTROL_SELECTOR <- TRUE     # read L1 call data for the method selector (1.1-1.5 GB a day before Dencun, about 175 GB in all); FALSE: L1 first-action groups by recipient only
 # sender windows for the fee-level analysis: before/after each drop, plus a placebo pair without a fee change (Arbitrum step 2: post1 -> post2)
 FEE_WINDOWS <- data.table(chain = rep(c("base", "arbitrum"), c(4, 5)), window = c("pre", "post", "placebo_pre", "placebo_post", "pre1", "post1", "post2", "placebo_pre", "placebo_post"),
   start = as.IDate(c("2024-03-06", "2024-03-14", "2024-02-22", "2024-03-01", "2024-03-10", "2024-03-15", "2024-03-20", "2024-02-22", "2024-02-27")),

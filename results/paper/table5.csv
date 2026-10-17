@@ -1,17 +1,12 @@
- ,First cut: March 2024 (L1 data cost),Second cut: May 2024 (capacity raised by Base)
-"Median fee per tx, before -> after (US$)",0.589 -> 0.0079,0.034 -> 0.0022
-"Burst accounts per day, before -> after","1,940 -> 98,714 (x50.9)","11,364 -> 50,876 (x4.5)"
-"Burst entities per day, before -> after","289 -> 4,791 (x16.59)","4,828 -> 4,097 (x0.85)"
-"Non-burst entrants per day, before -> after","18,277 -> 32,149 (x1.76)","42,706 -> 44,553 (x1.04)"
-"All entrants per day, ratio",x6.47,x1.77
-Overstatement of participation growth (all / non-burst ratio),3.68,1.70
-Burst share of entrants after the cut,75%,53%
-Share held by the largest 10 / 100 burst entities,50% / 84%,82% / 91%
-Burst accounts in a funding cluster of >= 20,93.5%,91.5%
-"Months active of Sep 2024, Dec 2024, Mar 2025 (mean, 0-3): burst / non-burst",0.03 / 0.18,0.04 / 0.14
-March burst operators active again in May,"","61 of 1,573 (3.9%)"
-May burst accounts funded or swept by a March burst operator,"",0.006%
-Burst accounts' first action: transfer / DEX swap / mint or claim / other,90% / 2% / 6% / 2%,15% / 59% / 19% / 8%
-"Non-burst entry jump in the cut hour (hourly RD, log points)",0.30 (0.10),0.53 (0.20) / 0.01 (0.04)
-Relative to Arbitrum: burst accounts (95% CI),"","x0.41 [0.14, 1.66]"
-Relative to Arbitrum: non-burst entrants (95% CI),"","x0.88 [0.59, 1.48]"
+Threat,Evidence,Source
+A Base-specific shock: the cut day hour by hour,"Base non-burst entrants on 14 March against the same hours of 8-13 March: +0.06 log in hours 00-05 (median fee 0.14 cents), +0.32 in 06-11, +0.41 in 12-14, +0.50 in 15-23. Base minus not-yet-cut Arbitrum: +0.33 in 06-11 (placebo days -0.40 to 0.20), +0.26 in 12-14; entities +0.24 in 06-11 (placebo days -0.45 to 0.16). Arbitrum rose +0.15 in 12-14, before its own 15:00 cut.","cut_day_hours.csv, cut_day_hours_placebo_days.csv"
+A Base-specific shock: the memecoin boom (first recipients),"NFT mints and claims, other tokens and a trading-bot contract: x6.8, 21% of the rise in non-burst entrants and 17% of the rise in funding entities. Without them: x1.49 (entities x1.33).",entry_by_recipient_category.csv
+A Base-specific shock: swap-like first actions,"A DEX-swap selector or a first recipient named as a DEX router, aggregator or trading bot: x1.27, 9% of the rise; without them x1.70.",entry_by_first_action.csv
+A Base-specific shock: exchange inflows,"Non-burst entrants by source of their first ETH: exchange withdrawals x1.34, direct transfers from other addresses x1.98, all x1.61. Without bridge and exchange first recipients: x1.59.","entrant_funding_source.csv, entry_by_recipient_category.csv"
+A Base-specific shock: the ETH rally,"Mean daily gap (Base minus L1 entry outside waves, relative to the week before the cut) while ETH rose to its 11 March peak: -0.09.",timing_eth.csv
+"A shock common to OP-stack chains (OP Mainnet, same cut, same second)","OP Mainnet minus L1, 6 days: transactions +0.53 (above 61 of 61 pre-cut placebos), active addresses +0.14 (75th percentile). Base minus OP Mainnet, active addresses: +0.74; without 16 March and Base's new addresses in waves +0.39 (95th percentile).","op_mainnet_vs_l1.csv, base_minus_op_adjusted.csv"
+Ethereum L1 as the comparison,"L1's fee fell 42% (Base's 99%); L1's own entry outside waves rose 0.07. Active addresses, donor pool of 6 chains whose fees fell less than 1 log: L1 minus the donor mean +0.17 (90th percentile); Base minus the donor mean +1.04 against +0.88 minus L1; Base minus each donor 0.72 to 1.50, each above all pre-cut placebos.","fee_path_march.csv, inference_primary.csv, donor_pool_daa.csv"
+"Delay, not new entry","Base minus L1 against 28 days before (c-42..c-15): run-up -0.05, after +0.64, net +0.30 over the 28 days around the cut (a path, without tests).",entry_delay_test.csv
+Batch accounts the rules miss; the choice of floor,"Wave and burst floors from 50 to 10,000 a day: estimate x1.46 to x1.93, each above all 61 pre-cut placebos; implied entity effect x1.35 to x1.45. Clusters of 20+ hold 49% of the non-burst rise.","inference_wave_size_floors.csv, entrant_entities_nonburst.csv"
+Returners counted as new,"Window entrants never active on Base, outside bursts: x1.61.",headline_one_sample.csv
+Entrant quality,"Share of non-burst entrants active later (Sep 2024, Dec 2024 or Mar 2025): 14.7% before, 13.2% after (x0.90 [0.82, 0.97]).",entrant_persistence_cut.csv

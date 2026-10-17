@@ -1,0 +1,6 @@
+design,result,assumption
+"Event-study leads, days -14..-1 (Base minus L1)",1 of 14 leads outside the 5th-95th pre-cut band,no trend in Base minus L1 before the cut
+"Shift outside waves over the 6 low-fee days, Base minus L1 (7 days alongside)","x1.57; above all 61 pre-cut placebos (6 non-overlapping); 3.1 placebo SDs; 7 days x1.64, above all 59",L1 tracks Base's counterfactual; placebo windows exchangeable with the cut window
+"Run-up dip vs after (28 days around the cut, vs c-42..c-15)","dip -0.05, after 0.64, net 0.30",a delay would show as a dip that offsets the rise
+"Hours 00-14 of the cut day, Base minus not-yet-cut Arbitrum",entrants at never-burst groups +0.29 (placebo days -0.14..0.07); funding entities (non-burst) +0.12 (placebo days -0.50..0.19); new senders +0.94 (placebo days -0.37..0.38),Arbitrum's hours before its own cut track Base's
+"Base minus OP Mainnet, same upgrade, 7 days (active addresses)","+0.72 log, placebo percentile 1.00","same fee change in week one; counts include batch accounts (activity, not participants)"

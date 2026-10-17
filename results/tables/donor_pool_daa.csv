@@ -1,0 +1,35 @@
+series,placebo,shift_6d,placebo_K,rank,placebo_pct
+base minus ethereum,pre-cut dates,0.877465942143843,61,1,1
+base minus ethereum,all dates,0.877465942143843,139,1,1
+base minus donor_mean,pre-cut dates,1.04294746261324,61,1,1
+base minus donor_mean,all dates,1.04294746261324,139,1,1
+base minus celo,pre-cut dates,1.18561800307365,61,1,1
+base minus celo,all dates,1.18561800307365,139,1,1
+base minus linea,pre-cut dates,0.975634732300388,61,1,1
+base minus linea,all dates,0.975634732300388,139,3,0.985611510791367
+base minus metis,pre-cut dates,1.4966009503084,61,1,1
+base minus metis,all dates,1.4966009503084,139,1,1
+base minus polygon_pos,pre-cut dates,1.10332011416367,61,1,1
+base minus polygon_pos,all dates,1.10332011416367,139,1,1
+base minus ronin,pre-cut dates,0.781461073721235,61,1,1
+base minus ronin,all dates,0.781461073721235,139,1,1
+base minus scroll,pre-cut dates,0.715049902112092,61,1,1
+base minus scroll,all dates,0.715049902112092,139,1,1
+L1 minus donor_mean,pre-cut dates,0.165481520469397,61,7,0.901639344262295
+L1 minus donor_mean,all dates,0.165481520469397,139,11,0.928057553956835
+base,pre-cut dates,1.02682563320765,61,1,1
+base,all dates,1.02682563320765,139,1,1
+ethereum,pre-cut dates,0.149359691063808,61,2,0.983606557377049
+ethereum,all dates,0.149359691063808,139,3,0.985611510791367
+celo,pre-cut dates,-0.158792369866001,61,53,0.147540983606557
+celo,all dates,-0.158792369866001,139,126,0.100719424460432
+linea,pre-cut dates,0.0511909009072635,61,32,0.491803278688525
+linea,all dates,0.0511909009072635,139,57,0.597122302158273
+metis,pre-cut dates,-0.469775317100748,61,52,0.163934426229508
+metis,all dates,-0.469775317100748,139,121,0.136690647482014
+polygon_pos,pre-cut dates,-0.0764944809560202,61,56,0.0983606557377049
+polygon_pos,all dates,-0.0764944809560202,139,128,0.0863309352517986
+ronin,pre-cut dates,0.245364559486417,61,1,1
+ronin,all dates,0.245364559486417,139,1,1
+scroll,pre-cut dates,0.31177573109556,61,14,0.786885245901639
+scroll,all dates,0.31177573109556,139,16,0.892086330935252

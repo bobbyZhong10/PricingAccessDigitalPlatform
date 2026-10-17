@@ -110,6 +110,16 @@ for (ch in CHAINS) {
     cat(sprintf("C %s: services at h = %d: %d funders, %d sweep targets; entrants in components of >= %d: %.3f\n", ch, h, DG[deg_pre >= h & role == "funder", .N],
                 DG[deg_pre >= h & role == "sweep", .N], CLUSTER_MIN, W[, mean(get(paste0("csize", h)) >= CLUSTER_MIN)]))
   }
+  # the same components at lower service thresholds (more addresses treated as services, fewer links), for the linkage range in section C3 only
+  for (h in HUB_MIN_EXTRA) {
+    svc <- DG[deg_pre >= h, paste(role, addr)]
+    ED <- rbind(W[!is.na(f_eth) & !(paste("funder", f_eth) %in% svc), .(u = a, v = f_eth)], W[!is.na(sweep_to) & !(paste("sweep", sweep_to) %in% svc), .(u = a, v = sweep_to)])
+    G <- igraph::graph_from_data_frame(ED, directed = FALSE, vertices = data.frame(name = unique(c(W$a, ED$u, ED$v))))
+    cm <- igraph::components(G)$membership
+    W[, (paste0("cid", h)) := unname(cm[a])]
+    cat(sprintf("C %s: services at h = %d: %d funders, %d sweep targets; largest component %d entrants\n", ch, h, DG[deg_pre >= h & role == "funder", .N],
+                DG[deg_pre >= h & role == "sweep", .N], W[, max(table(get(paste0("cid", h))))]))
+  }
   # sensitivity: funder edges only (h = 500); entrants in the largest h = 500 component
   svc <- DG[deg_pre >= 500 & role == "funder", addr]
   ED <- W[!is.na(f_eth) & !(f_eth %in% svc), .(u = a, v = f_eth)]
@@ -117,9 +127,11 @@ for (ch in CHAINS) {
   cm <- igraph::components(G)$membership
   W[, cidF500 := unname(cm[a])][, csizeF500 := .N, by = cidF500][, in_largest500 := as.integer(csize500 == max(csize500))]
   W[, fn := fifelse(!is.na(f_eth) & !(f_eth %in% svc), f_eth, NA_character_)]   # non-service ETH funder (h = 500), used for the cross-chain flags below
+  W[, f_service := fifelse(!is.na(f_eth) & f_eth %in% svc, f_eth, NA_character_)]   # service ETH funder (h = 500): an exchange, bridge or app address, kept to label funders (06 section M)
 
   X <- merge(X, W[, .(a, first_to, first_sel, funder_any, wave, batch, wave_size, wave_funded, f_eth_via, funder2_seen = as.integer(!is.na(funder2)), lz, funder_lz,
-                      wave_funded2, sync, cid200, cid500, cid2000, csize200, csize500, csize2000, csizeF500, in_largest500, fn, f_eth, sweep_to, blk0)], by = "a", all.x = TRUE)
+                      wave_funded2, sync, cid200, cid500, cid2000, csize200, csize500, csize2000, csizeF500, in_largest500, fn, f_eth, f_service, sweep_to, blk0)], by = "a", all.x = TRUE)
+  X <- merge(X, W[, c("a", paste0("cid", HUB_MIN_EXTRA)), with = FALSE], by = "a", all.x = TRUE)   # section C3 only; not kept in the panel
   X[!is.na(wave), class3 := fcase(bot_wk1 == 1, "bot", wave == 1, "campaign", default = "genuine")]   # bot > campaign > genuine
   stopifnot(!anyDuplicated(X$a), !(SYSTEM_SENDERS[[ch]] %in% X$a)); entrants[[ch]] <- X
   cat(sprintf("C %s: campaign bursts (>= %d entrants/day and >= %dx pre-shock median): campaign share pre %.3f, post %.3f\n", ch, SPIKE_MIN, SPIKE_K,
@@ -147,7 +159,59 @@ fb_sent <- RC[fr == "0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50", .(transfers = 
 mar_base <- entrants$base[!is.na(wave), .(a, class3, f_eth, sweep_to)]   # March Base window entrants, for the link to the May event (section H)
 cat(sprintf("C2: Base entrants receiving tokens after entry: %.3f; ETH: %.3f; %d token x class cells with >= 1,000 recipients\n",
             entrants$base[!is.na(wave), mean(tok_after)], entrants$base[!is.na(wave), mean(eth_after)], nrow(receipts_by_token)))
-rm(RC, RA); invisible(gc())
+
+# ---- C3. robustness inputs for the composition results: entity counts under alternative linkage rules, funding of Base entrants, look-alike addresses ----
+# entity_daily: window entrants (n_addr) and distinct entities (n_ent) per entry day and class (all, campaign, genuine, bot) under each linkage rule, for all
+# entrants and without the largest post-cut burst target (largest_target) or the largest component (h = 500). Entities are counted per day, as in 06 section F.
+#   h<k>: funder-entrant-sweep components with services at threshold k (section C); campaign: burst entrants grouped by first-action group (recipient x method),
+#   the others by component (h = 500); singleton: every non-burst entrant is its own entity, the others by component (h = 500); campaign+singleton: both.
+# The May window is added in section H.
+RULES <- c(paste0("h", sort(c(HUB_MIN_EXTRA, HUB_MIN))), "campaign", "singleton", "campaign+singleton")
+SUBSETS <- c("all", "without largest target", "without largest component")
+entity_daily <- list(); lookalike <- list()
+for (ch in CHAINS) {
+  X <- entrants[[ch]][!is.na(wave)][, pair := paste(first_to, first_sel)]
+  tt <- X[day >= as.IDate(fifelse(ch == "base", "2024-03-14", "2024-03-15")) & class3 == "campaign", .N, by = first_to][which.max(N), first_to]
+  for (r in RULES) {
+    X[, id := switch(r, campaign = fifelse(class3 == "campaign", paste("c", pair), paste("k", cid500)), singleton = fifelse(class3 == "genuine", paste("s", a), paste("k", cid500)),
+                     `campaign+singleton` = fcase(class3 == "campaign", paste("c", pair), class3 == "genuine", paste("s", a), default = paste("k", cid500)),
+                     as.character(get(paste0("cid", sub("^h", "", r)))))]
+    for (s in SUBSETS) {
+      Z <- switch(s, all = X, `without largest target` = X[!(first_to %in% tt)], `without largest component` = X[in_largest500 == 0])
+      entity_daily[[length(entity_daily) + 1]] <- rbind(Z[, .(class = "all", n_addr = .N, n_ent = uniqueN(id)), by = day], Z[, .(n_addr = .N, n_ent = uniqueN(id)), by = .(day, class = class3)])[
+        , `:=`(event = "march", chain = ch, rule = r, subset = s, largest_target = tt)]
+    }
+  }
+  # lookalike: entrants whose first action is a plain transfer (empty calldata); share sent to themselves (self), and among transfers to another address the
+  # share whose address matches the recipient's in its first and last four hex digits, as address-poisoning senders' addresses do (chance match 16^-4 on each
+  # side); pre 03-08..12, post 03-14..21 (03-13 left out)
+  lookalike[[ch]] <- X[first_sel %in% "0x" & !is.na(first_to)][, period := fcase(day <= as.IDate("2024-03-12"), "pre", day >= as.IDate("2024-03-14"), "post", default = NA_character_)][!is.na(period),
+    .(n_plain = .N, self = mean(a == first_to), prefix4 = mean((substr(a, 3, 6) == substr(first_to, 3, 6))[a != first_to]), suffix4 = mean((substr(a, 39, 42) == substr(first_to, 39, 42))[a != first_to]),
+      both4 = mean((substr(a, 3, 6) == substr(first_to, 3, 6) & substr(a, 39, 42) == substr(first_to, 39, 42))[a != first_to])), by = .(period, class3)][, `:=`(event = "march", chain = ch)]
+}
+# entrant_funding (Base): ETH an entrant received before its first outgoing tx (top-level transfers from 03-08, 01 section O; internal transfers from 03-06,
+# 01 section S), the fee of the internal funding txs divided over the window entrants each paid (ETH), and whether the entrant ever sent ETH out (sweep, to 04-15).
+# Summarized by period (pre 03-08..12, post 03-14..21), class, first-action group (the 20 largest post-cut burst groups by name, the rest pooled by class) and
+# how the first ETH funder was found (top-level, internal, none). init: the account that initiated an entrant's first internal funding tx.
+IN <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, "val_internal_base.parquet")))
+XB <- entrants$base[!is.na(wave)][, `:=`(period = fcase(day <= as.IDate("2024-03-12"), "pre", day >= as.IDate("2024-03-14"), "post", default = NA_character_), pair = paste(first_to, first_sel))][!is.na(period)]
+FT <- merge(RC[tok == ETH_TOK, .(a, blk = as.numeric(blk), v = as.numeric(v))], XB[, .(a, blk0)], by = "a")[blk <= blk0, .(eth_top = sum(v), n_top = .N), by = a]
+FI <- merge(IN[, .(a, ord = as.numeric(ord), init, v = as.numeric(v) / 1e18, fee_share = as.numeric(tx_fee) / n_paid)], XB[, .(a, blk0)], by = "a")[floor(ord / 1e5) <= blk0][order(ord),
+  .(eth_int = sum(v), fee_int = sum(fee_share, na.rm = TRUE), n_int = .N, init = init[1]), by = a]   # traces report wei, transfers and fees ETH; fee missing for 1% of funding txs
+XB <- merge(merge(XB, FT, by = "a", all.x = TRUE), FI, by = "a", all.x = TRUE)
+for (v in c("eth_top", "n_top", "eth_int", "fee_int", "n_int")) XB[is.na(get(v)), (v) := 0]
+XB[, eth_in := eth_top + eth_int]
+TOP20 <- XB[period == "post" & class3 == "campaign", .N, by = pair][order(-N)][1:min(20, .N), pair]
+XB[, grp := fifelse(class3 == "campaign" & pair %in% TOP20, pair, paste("other", class3))]
+entrant_funding <- XB[, .(n = .N, funded = mean(eth_in > 0), eth_p10 = quantile(eth_in[eth_in > 0], 0.1, names = FALSE), eth_p50 = quantile(eth_in[eth_in > 0], 0.5, names = FALSE),
+                          eth_p90 = quantile(eth_in[eth_in > 0], 0.9, names = FALSE), eth_mean = mean(eth_in), eth_sum = sum(eth_in), eth_unswept = sum(eth_in[is.na(sweep_to)]),
+                          fee_int_sum = sum(fee_int), n_top_sum = sum(n_top),
+                          n_int_sum = sum(n_int), swept = mean(!is.na(sweep_to)), initiators = uniqueN(init[!is.na(init)]),
+                          top_initiator_share = if (any(!is.na(init))) max(table(init)) / sum(!is.na(init)) else NA_real_, top_level_funders = uniqueN(f_eth[f_eth_via %in% "top-level"])),
+                      by = .(period, class3, grp, via = fifelse(is.na(f_eth_via), "none", f_eth_via))][order(period, class3, -n)]
+cat(sprintf("C3: entity counts for %d rules x %d subsets; Base entrants funded before entry: %.3f (top-level %.3f, internal %.3f); internal funding transfers %d\n",
+            length(RULES), length(SUBSETS), XB[, mean(eth_in > 0)], XB[, mean(eth_top > 0)], XB[, mean(eth_int > 0)], nrow(IN)))
+rm(RC, RA, IN, FT, FI, XB, X, Z); invisible(gc())
 
 # ---- D. sender-level aggregates from sender-days (system sender dropped) ----
 # sender_window: txs and fees per sender and FEE_WINDOWS window, for senders with >= 2 txs and positive fees in some window (integer sender id).
@@ -176,7 +240,7 @@ sender_window <- rbindlist(sender_window)
 entrants <- rbindlist(entrants, use.names = TRUE)[, .(chain, day, hr, act_2024_04, act_2024_06, act_2024_09, act_2024_12, act_2025_03, months_active, any_later, n_week1, single_tx_wk1, bot_wk1,
                                      wave, batch, wave_size, wave_funded, class3, first_to, first_sel, funder_any,
                                      f_eth_via, funder2_seen, lz, funder_lz, wave_funded2, sync, cid200, cid500, cid2000, csize200, csize500, csize2000, csizeF500, in_largest500,
-                                     other_chain_addr, other_chain_funder, tok_after, eth_after)]   # entrant addresses are not needed downstream
+                                     other_chain_addr, other_chain_funder, tok_after, eth_after, f_service)]   # entrant addresses are not needed downstream; service funders are public addresses
 
 # ---- E. Base campaign-wallet activity ----
 base_hourly_campaign <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, "base_hourly_campaign.parquet")))[order(hr)]
@@ -217,6 +281,9 @@ l2_economics_daily <- dcast(EC[, .(chain = origin_key, date = as.IDate(date), me
 l2_economics_daily <- l2_economics_daily[date >= as.IDate(PULL_START) & date <= as.IDate(MAY_PULL[2])][order(chain, date)]   # through the May event window
 setnames(l2_economics_daily, c("fees_paid_usd", "rent_paid_usd"), c("fees_usd", "rent_usd"))
 gtrends_daily <- fread(here("data", "external", "gtrends_daily.csv"))[, date := as.IDate(date)]   # validation V5: browser capture in data/external (01 section M)
+funder_labels <- fread(here("data", "external", "funder_labels.csv"))[, address := tolower(address)]   # names of the service funders of window entrants (block-explorer tags; see data/external/README.md)
+recipient_labels <- fread(here("data", "external", "recipient_labels.csv"))[, address := tolower(address)]   # names of the most common first recipients of Base's non-burst entrants (data/external/README.md)
+event_calendar <- fread(here("data", "external", "event_calendar.csv"), colClasses = list(character = "time_utc"))[, date := as.IDate(date)]   # dated events around the cuts, with sources (data/external/README.md)
 cat(sprintf("G: %d first-action targets (%d contracts); %d chain-days of fees, rent and profit; %d Google Trends rows\n", nrow(campaign_targets), sum(campaign_targets$contract),
             nrow(l2_economics_daily), nrow(gtrends_daily)))
 
@@ -251,6 +318,33 @@ ED <- rbind(M[!is.na(f_eth) & !(f_eth %in% svf), .(u = a, v = f_eth)], M[!is.na(
 G <- igraph::graph_from_data_frame(ED, directed = FALSE, vertices = data.frame(name = unique(c(M$a, ED$u, ED$v))))
 cm <- igraph::components(G)$membership
 M[, cid500 := unname(cm[a])][, csize500 := .N, by = cid500]
+M[, f_service := fifelse(!is.na(f_eth) & f_eth %in% svf, f_eth, NA_character_)]   # service ETH funder (May degrees, h = 500), as for March (06 section Q)
+# entity_daily and lookalike for the May window (section C3), with May service degrees; post = from 05-29 (05-28, the first step's day, is left out)
+for (h in setdiff(c(HUB_MIN_EXTRA, HUB_MIN), 500)) {
+  ED <- rbind(M[!is.na(f_eth) & !(f_eth %in% DGm[deg_pre >= h & role == "funder", addr]), .(u = a, v = f_eth)], M[!is.na(sweep_to) & !(sweep_to %in% DGm[deg_pre >= h & role == "sweep", addr]), .(u = a, v = sweep_to)])
+  G <- igraph::graph_from_data_frame(ED, directed = FALSE, vertices = data.frame(name = unique(c(M$a, ED$u, ED$v))))
+  cm <- igraph::components(G)$membership
+  M[, (paste0("cid", h)) := unname(cm[a])]
+}
+M[, `:=`(pair = paste(first_to, first_sel), in_largest500 = as.integer(csize500 == max(csize500)))]
+tt <- M[day >= MAY_PRE_END + 2 & class3 == "campaign", .N, by = first_to][which.max(N), first_to]
+for (r in RULES) {
+  M[, id := switch(r, campaign = fifelse(class3 == "campaign", paste("c", pair), paste("k", cid500)), singleton = fifelse(class3 == "genuine", paste("s", a), paste("k", cid500)),
+                   `campaign+singleton` = fcase(class3 == "campaign", paste("c", pair), class3 == "genuine", paste("s", a), default = paste("k", cid500)),
+                   as.character(get(paste0("cid", sub("^h", "", r)))))]
+  for (s in SUBSETS) {
+    Z <- switch(s, all = M, `without largest target` = M[!(first_to %in% tt)], `without largest component` = M[in_largest500 == 0])
+    entity_daily[[length(entity_daily) + 1]] <- rbind(Z[, .(class = "all", n_addr = .N, n_ent = uniqueN(id)), by = day], Z[, .(n_addr = .N, n_ent = uniqueN(id)), by = .(day, class = class3)])[
+      , `:=`(event = "may", chain = "base", rule = r, subset = s, largest_target = tt)]
+  }
+}
+for (ch in CHAINS) lookalike[[paste("may", ch)]] <- (if (ch == "base") M else MS$arbitrum)[first_sel %in% "0x" & !is.na(first_to)][
+  , period := fcase(day <= MAY_PRE_END, "pre", day >= MAY_PRE_END + 2, "post", default = NA_character_)][!is.na(period),
+  .(n_plain = .N, self = mean(a == first_to), prefix4 = mean((substr(a, 3, 6) == substr(first_to, 3, 6))[a != first_to]), suffix4 = mean((substr(a, 39, 42) == substr(first_to, 39, 42))[a != first_to]),
+    both4 = mean((substr(a, 3, 6) == substr(first_to, 3, 6) & substr(a, 39, 42) == substr(first_to, 39, 42))[a != first_to])), by = .(period, class3)][, `:=`(event = "may", chain = ch)]
+entity_daily <- rbindlist(entity_daily, use.names = TRUE)[order(event, chain, rule, subset, class, day)]
+lookalike <- rbindlist(lookalike, use.names = TRUE)[order(event, chain, period, class3)]
+cat(sprintf("H: entity_daily %d rows; lookalike %d rows\n", nrow(entity_daily), nrow(lookalike)))
 # Link to March operators, one hop: a March burst operator is a non-service funder or sweep target of >= CLUSTER_MIN March burst entrants; a May entrant
 # links to one if its own non-service funder or sweep target is such an operator. (Components of a joint March + May graph are not used: one giant
 # component, glued by thousands of incidental shared funders and sweep targets, absorbs most entrants of both periods.)
@@ -261,7 +355,7 @@ OPS <- rbind(MB[!is.na(f_eth) & !(f_eth %in% svf2), .(v = f_eth)], MB[!is.na(swe
 M[, `:=`(fn = fifelse(!is.na(f_eth) & !(f_eth %in% svf2), f_eth, NA_character_), sn = fifelse(!is.na(sweep_to) & !(sweep_to %in% svs2), sweep_to, NA_character_))]
 M[, march_operator := as.integer(fn %in% OPS | sn %in% OPS)]
 ops_back <- sum(OPS %in% c(M$fn, M$sn))
-may_entrants <- rbind(M[, c("chain", "day", "hr", "class3", "wave", "n_week1", "months4", acts_may, "csize500", "cid500", "march_operator", "f_eth_via", "first_to", "first_sel"), with = FALSE],
+may_entrants <- rbind(M[, c("chain", "day", "hr", "class3", "wave", "n_week1", "months4", acts_may, "csize500", "cid500", "march_operator", "f_eth_via", "f_service", "first_to", "first_sel"), with = FALSE],
                       MS$arbitrum[, .(chain, day, hr, class3)], fill = TRUE)[order(chain, hr)]   # Arbitrum, the comparison chain: entry time and class only (the other columns are NA)
 may_ops <- data.table(march_burst_operators = length(OPS), active_again_in_may = ops_back)
 eth_usd_daily_may <- fread(file.path(DIR_RAW, "eth_usd_daily_may.csv"))[, .(day = as.IDate(day), close)]; stopifnot(!anyDuplicated(eth_usd_daily_may$day))   # 01 section P
@@ -278,9 +372,62 @@ fee_quantiles_hourly <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RA
 setattr(fee_quantiles_hourly$hr, "tzone", "UTC"); stopifnot(!anyDuplicated(fee_quantiles_hourly, by = c("chain", "hr")))
 cat(sprintf("H: fee quantiles for %d chain-hours\n", nrow(fee_quantiles_hourly)))
 
+# ---- I. long series of new addresses (01 section T): one wave rule at every date ----
+# Wave: a first-action group with >= SPIKE_MIN new addresses on day d and >= SPIKE_K x its median over d - WAVE_TRAIL .. d - 1 (days without the group, or with
+# the group pooled for having fewer than 10 new addresses, count as zero). The baseline trails every date in the same way, so it is not anchored to any cut.
+# Size-only variant: groups with >= WAVE_SIZE_ALT new addresses a day. Two groupings:
+#   "target x method": recipient x method selector (as the burst rule), Base and Arbitrum (and Ethereum L1 if LONG_CONTROL_SELECTOR);
+#   "target": recipient only, Base, Arbitrum and Ethereum L1 (the comparison chain); recipient sums leave out groups pooled by section T and contract creations.
+# long_daily (grouping x chain x day, LONG_FROM..LONG_END): senders; new addresses; heavy new addresses (>= BOT_MIN_WEEK1 txs that day); new and heavy new
+# addresses in waves; number of waves and the largest; new addresses in size-only waves. long_waves: every wave group-day (main rule), for leave-one-out in 06 section K.
+# long_floor_daily (floor x chain x day; recipient x method groups; Base and the comparison chain): new and heavy new addresses in waves when the size floor
+# SPIKE_MIN is replaced by each of WAVE_FLOORS (the SPIKE_MIN row reproduces long_daily). The trailing median is taken by a non-equi join of each candidate
+# group-day with the same group's previous WAVE_TRAIL days (days without the group count as zero, as above).
+long_daily <- list(); long_waves <- list()
+for (gp in c("target x method", "target")) for (ch in if (gp == "target") c(CHAINS, LONG_CONTROL) else c(CHAINS, if (LONG_CONTROL_SELECTOR) LONG_CONTROL)) {
+  LG <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, sprintf("long_entrants_%s.parquet", ch))))[, `:=`(day = as.IDate(day), n = as.numeric(n), n_heavy = as.numeric(n_heavy))]
+  LS <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, sprintf("long_senders_%s.parquet", ch))))[, `:=`(day = as.IDate(day), senders = as.numeric(senders), new_senders = as.numeric(new_senders))]
+  HV <- LG[day >= LONG_FROM & day <= LONG_END, .(heavy = sum(n_heavy)), by = day]
+  LG <- if (gp == "target") LG[!is.na(first_to), .(n = sum(n), n_heavy = sum(n_heavy), first_sel = NA_character_), by = .(day, first_to)][, g := first_to] else
+          LG[!is.na(first_to) | !is.na(first_sel)][, g := paste(first_to, first_sel)]
+  setkey(LG, g)
+  CAN <- LG[n >= SPIKE_MIN & day >= LONG_FROM & day <= LONG_END][, base := NA_real_]   # candidate group-days
+  for (i in seq_len(nrow(CAN))) {
+    h <- LG[.(CAN$g[i])][day >= CAN$day[i] - WAVE_TRAIL & day < CAN$day[i], n]
+    set(CAN, i, "base", median(c(h, rep(0, WAVE_TRAIL - length(h)))))
+  }
+  W <- CAN[n >= SPIKE_K * base]
+  long_waves[[paste(gp, ch)]] <- W[, .(grouping = gp, chain = ch, day, first_to, first_sel, n, n_heavy, base)]
+  D <- merge(LS[day >= LONG_FROM & day <= LONG_END, .(day, senders, new = new_senders)], HV, by = "day", all.x = TRUE)
+  D <- merge(D, W[, .(wave_new = sum(n), wave_heavy = sum(n_heavy), waves = .N, largest_wave = max(n)), by = day], by = "day", all.x = TRUE)
+  D <- merge(D, LG[n >= WAVE_SIZE_ALT & day >= LONG_FROM & day <= LONG_END, .(size_new = sum(n)), by = day], by = "day", all.x = TRUE)
+  for (v in c("heavy", "wave_new", "wave_heavy", "waves", "largest_wave", "size_new")) D[is.na(get(v)), (v) := 0]
+  long_daily[[paste(gp, ch)]] <- D[, `:=`(grouping = gp, chain = ch)]
+  cat(sprintf("I %s, %s: %d days; new addresses per day %.0f; in waves %.3f (size-only %.3f); %d wave group-days\n", gp, ch, nrow(D), D[, mean(new)], D[, sum(wave_new) / sum(new)],
+              D[, sum(size_new) / sum(new)], nrow(W)))
+}
+long_daily <- rbindlist(long_daily, use.names = TRUE)[order(grouping, chain, day)]; long_waves <- rbindlist(long_waves, use.names = TRUE)[order(grouping, chain, day, -n)]
+long_floor_daily <- list()
+for (ch in c("base", LONG_CONTROL)) {
+  LG <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, sprintf("long_entrants_%s.parquet", ch))))[, `:=`(day = as.IDate(day), n = as.numeric(n), n_heavy = as.numeric(n_heavy))]
+  LG <- LG[!is.na(first_to) | !is.na(first_sel)][, g := paste(first_to, first_sel)]
+  for (fl in WAVE_FLOORS) {
+    CAN <- LG[n >= fl & day >= LONG_FROM & day <= LONG_END, .(g, d0 = day, n, n_heavy)][, `:=`(id = .I, lo = d0 - WAVE_TRAIL)]
+    H <- LG[CAN, on = .(g, day >= lo, day < d0), .(id = i.id, h = x.n), nomatch = NULL]   # the group's counts on d0 - WAVE_TRAIL .. d0 - 1
+    CAN <- merge(CAN, H[, .(base = median(c(h, rep(0, WAVE_TRAIL - .N)))), by = id], by = "id", all.x = TRUE)[is.na(base), base := 0]
+    long_floor_daily[[paste(ch, fl)]] <- CAN[n >= SPIKE_K * base, .(floor = fl, chain = ch, wave_new = sum(n), wave_heavy = sum(n_heavy)), by = .(day = d0)]
+  }
+}
+long_floor_daily <- rbindlist(long_floor_daily)
+long_floor_daily <- merge(CJ(floor = WAVE_FLOORS, chain = c("base", LONG_CONTROL), day = seq(LONG_FROM, as.IDate(LONG_END), by = 1)), long_floor_daily, by = c("floor", "chain", "day"), all.x = TRUE)
+for (v in c("wave_new", "wave_heavy")) long_floor_daily[is.na(get(v)), (v) := 0]
+cat(sprintf("I: wave volume at %d size floors, Base and %s: %d rows\n", length(WAVE_FLOORS), LONG_CONTROL, nrow(long_floor_daily)))
+rm(LG, LS, HV, CAN, W, D, H); invisible(gc())
+
 # ---- save ----
 PANELS <- c("l2_hourly", "l2_hourly_type", "l2_newsenders", "control_hourly", "eth_usd_daily", "entrants", "sender_window", "base_tx_by_class", "base_hourly_campaign",
-            "multichain_daily", "multichain_drops", "lz_meta", "campaign_targets", "l2_economics_daily", "gtrends_daily", "receipts_by_token", "fb_sent", "may_hourly", "may_entrants", "may_ops", "eth_usd_daily_may", "may_blocks", "fee_quantiles_hourly")
+            "multichain_daily", "multichain_drops", "lz_meta", "campaign_targets", "l2_economics_daily", "gtrends_daily", "receipts_by_token", "fb_sent", "may_hourly", "may_entrants", "may_ops", "eth_usd_daily_may", "may_blocks", "fee_quantiles_hourly",
+            "entity_daily", "entrant_funding", "lookalike", "long_daily", "long_waves", "long_floor_daily", "funder_labels", "recipient_labels", "event_calendar")
 saveRDS(mget(PANELS), PANEL_FILE, compress = "xz")
 cat(sprintf("Saved %s (%.1f MB): %s\n", basename(PANEL_FILE), file.size(PANEL_FILE) / 1e6, paste(PANELS, collapse = ", ")))
 cat("\n## sessionInfo\n```\n"); print(sessionInfo()); cat("```\n"); sink()

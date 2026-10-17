@@ -1,0 +1,91 @@
+event,outcome,estimator,estimate,se,ri_p,n_fake,p_floor
+Base (Ecotone),new senders,RD +-36 h (04 section A),0.817149410670333,0.150330251699813,0.3,19,0.05
+Base (Ecotone),new senders,"local randomization, W = 12 h",0.7701397749488,,0.25,19,0.05
+Base (Ecotone),new senders,"local randomization, W = 24 h",1.00881833968019,,0.3,19,0.05
+Base (Ecotone),window entrants,RD +-36 h (04 section A),0.263364466495775,0.118872150119757,0.45,19,0.05
+Base (Ecotone),window entrants,"local randomization, W = 12 h",0.252334742454059,,0.4,19,0.05
+Base (Ecotone),window entrants,"local randomization, W = 24 h",0.74449710072812,,0.35,19,0.05
+Base (Ecotone),non-burst entrants (day classes),RD +-36 h (04 section A),0.304203969009044,0.101240535518292,0.1,19,0.05
+Base (Ecotone),non-burst entrants (day classes),"local randomization, W = 12 h",0.141748914450796,,0.5,19,0.05
+Base (Ecotone),non-burst entrants (day classes),"local randomization, W = 24 h",0.464404062578675,,0.05,19,0.05
+Base (Ecotone),entrants at never-burst groups,RD +-36 h (04 section A),0.309269342558344,0.100918452384259,0.05,19,0.05
+Base (Ecotone),entrants at never-burst groups,"local randomization, W = 12 h",0.215077651810349,,0.35,19,0.05
+Base (Ecotone),entrants at never-burst groups,"local randomization, W = 24 h",0.453544873835586,,0.05,19,0.05
+Base (Ecotone),funding entities (non-burst),RD +-36 h (04 section A),0.322962414095907,0.127834135576094,0.15,19,0.05
+Base (Ecotone),funding entities (non-burst),"local randomization, W = 12 h",0.195105162575283,,0.35,19,0.05
+Base (Ecotone),funding entities (non-burst),"local randomization, W = 24 h",0.403955552384362,,0.05,19,0.05
+Base (Ecotone),non-burst entrants alone in their component,RD +-36 h (04 section A),0.236935004248159,0.134641827307207,0.2,19,0.05
+Base (Ecotone),non-burst entrants alone in their component,"local randomization, W = 12 h",0.169261498084459,,0.4,19,0.05
+Base (Ecotone),non-burst entrants alone in their component,"local randomization, W = 24 h",0.342251048170328,,0.05,19,0.05
+Arbitrum step 1,new senders,RD +-36 h (04 section A),0.541353376016753,0.102728595813022,0.1,19,0.05
+Arbitrum step 1,new senders,"local randomization, W = 12 h",0.272488720453289,,0.65,19,0.05
+Arbitrum step 1,new senders,"local randomization, W = 24 h",0.417821685342443,,0.1,19,0.05
+Arbitrum step 1,window entrants,RD +-36 h (04 section A),0.533112595550545,0.0901677177521445,0.1,19,0.05
+Arbitrum step 1,window entrants,"local randomization, W = 12 h",0.231177868622012,,0.6,19,0.05
+Arbitrum step 1,window entrants,"local randomization, W = 24 h",0.332289740821183,,0.2,19,0.05
+Arbitrum step 1,non-burst entrants (day classes),RD +-36 h (04 section A),0.601077933217422,0.0902578653660897,0.05,19,0.05
+Arbitrum step 1,non-burst entrants (day classes),"local randomization, W = 12 h",0.228640276391377,,0.55,19,0.05
+Arbitrum step 1,non-burst entrants (day classes),"local randomization, W = 24 h",0.330898671042585,,0.05,19,0.05
+Arbitrum step 1,entrants at never-burst groups,RD +-36 h (04 section A),0.548460075899611,0.104862103693524,0.05,19,0.05
+Arbitrum step 1,entrants at never-burst groups,"local randomization, W = 12 h",0.212087529382058,,0.55,19,0.05
+Arbitrum step 1,entrants at never-burst groups,"local randomization, W = 24 h",0.430163434021147,,0.05,19,0.05
+Arbitrum step 1,funding entities (non-burst),RD +-36 h (04 section A),0.480081799548761,0.0715256494060549,0.05,19,0.05
+Arbitrum step 1,funding entities (non-burst),"local randomization, W = 12 h",0.174183159890983,,0.6,19,0.05
+Arbitrum step 1,funding entities (non-burst),"local randomization, W = 24 h",0.223131386234073,,0.05,19,0.05
+Arbitrum step 1,non-burst entrants alone in their component,RD +-36 h (04 section A),0.52687087336963,0.0793614640016318,0.05,19,0.05
+Arbitrum step 1,non-burst entrants alone in their component,"local randomization, W = 12 h",0.2218863511127,,0.55,19,0.05
+Arbitrum step 1,non-burst entrants alone in their component,"local randomization, W = 24 h",0.259602380259177,,0.05,19,0.05
+Arbitrum step 2,new senders,RD +-36 h (04 section A),0.0466982658892044,0.157658042364052,0.9,19,0.05
+Arbitrum step 2,new senders,"local randomization, W = 12 h",0.229496056100695,,0.65,19,0.05
+Arbitrum step 2,new senders,"local randomization, W = 24 h",0.161937245706628,,0.5,19,0.05
+Arbitrum step 2,window entrants,RD +-36 h (04 section A),0.290533552086623,0.122719262496863,0.2,19,0.05
+Arbitrum step 2,window entrants,"local randomization, W = 12 h",0.488695030801496,,0.1,19,0.05
+Arbitrum step 2,window entrants,"local randomization, W = 24 h",0.293622604839622,,0.2,19,0.05
+Arbitrum step 2,non-burst entrants (day classes),RD +-36 h (04 section A),0.212783920173142,0.0932587814500083,0.1,19,0.05
+Arbitrum step 2,non-burst entrants (day classes),"local randomization, W = 12 h",0.507087863382762,,0.1,19,0.05
+Arbitrum step 2,non-burst entrants (day classes),"local randomization, W = 24 h",0.176109520311188,,0.1,19,0.05
+Arbitrum step 2,entrants at never-burst groups,RD +-36 h (04 section A),0.181307878566974,0.0970699534865077,0.25,19,0.05
+Arbitrum step 2,entrants at never-burst groups,"local randomization, W = 12 h",0.464829337017298,,0.2,19,0.05
+Arbitrum step 2,entrants at never-burst groups,"local randomization, W = 24 h",0.183765078044869,,0.05,19,0.05
+Arbitrum step 2,funding entities (non-burst),RD +-36 h (04 section A),0.111589371834332,0.113222323104193,0.2,19,0.05
+Arbitrum step 2,funding entities (non-burst),"local randomization, W = 12 h",0.478760484991169,,0.1,19,0.05
+Arbitrum step 2,funding entities (non-burst),"local randomization, W = 24 h",0.122701582750527,,0.1,19,0.05
+Arbitrum step 2,non-burst entrants alone in their component,RD +-36 h (04 section A),0.141899614132123,0.113766554227075,0.2,19,0.05
+Arbitrum step 2,non-burst entrants alone in their component,"local randomization, W = 12 h",0.502840977554278,,0.05,19,0.05
+Arbitrum step 2,non-burst entrants alone in their component,"local randomization, W = 24 h",0.114072456259848,,0.3,19,0.05
+Base gas limit 60M to 75M,new senders,RD +-36 h (04 section A),0.597336814512428,0.252291990642717,0.0666666666666667,29,0.0333333333333333
+Base gas limit 60M to 75M,new senders,"local randomization, W = 12 h",0.479242910431113,,0.133333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,new senders,"local randomization, W = 24 h",0.376455403019295,,0.1,29,0.0333333333333333
+Base gas limit 60M to 75M,window entrants,RD +-36 h (04 section A),0.597336814512428,0.252291990642717,0.0666666666666667,29,0.0333333333333333
+Base gas limit 60M to 75M,window entrants,"local randomization, W = 12 h",0.479242910431113,,0.133333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,window entrants,"local randomization, W = 24 h",0.376455403019295,,0.1,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants (day classes),RD +-36 h (04 section A),0.529281584705621,0.195766526471257,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants (day classes),"local randomization, W = 12 h",0.243760505639989,,0.266666666666667,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants (day classes),"local randomization, W = 24 h",0.26768417512827,,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,entrants at never-burst groups,RD +-36 h (04 section A),0.684468909582237,0.233645007276378,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,entrants at never-burst groups,"local randomization, W = 12 h",0.344483874405413,,0.233333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,entrants at never-burst groups,"local randomization, W = 24 h",0.407205440146923,,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,funding entities (non-burst),RD +-36 h (04 section A),0.407489387631299,0.12434646142649,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,funding entities (non-burst),"local randomization, W = 12 h",0.133063941515233,,0.4,29,0.0333333333333333
+Base gas limit 60M to 75M,funding entities (non-burst),"local randomization, W = 24 h",0.210663618740166,,0.0666666666666667,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants alone in their component,RD +-36 h (04 section A),0.46443423802729,0.155988364968665,0.0333333333333333,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants alone in their component,"local randomization, W = 12 h",0.193658874173689,,0.366666666666667,29,0.0333333333333333
+Base gas limit 60M to 75M,non-burst entrants alone in their component,"local randomization, W = 24 h",0.267672840276358,,0.0666666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,new senders,RD +-36 h (04 section A),-0.552917345328716,0.169412845908934,0.0666666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,new senders,"local randomization, W = 12 h",-0.575887706776248,,0.0666666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,new senders,"local randomization, W = 24 h",-0.248053656407397,,0.366666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,window entrants,RD +-36 h (04 section A),-0.552917345328716,0.169412845908934,0.0666666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,window entrants,"local randomization, W = 12 h",-0.575887706776248,,0.0666666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,window entrants,"local randomization, W = 24 h",-0.248053656407397,,0.366666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants (day classes),RD +-36 h (04 section A),0.0125100668860723,0.0381799370090144,1,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants (day classes),"local randomization, W = 12 h",-0.249870075367577,,0.266666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants (day classes),"local randomization, W = 24 h",0.00807206611957678,,0.966666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,entrants at never-burst groups,RD +-36 h (04 section A),0.102575729446753,0.045337256584361,0.3,29,0.0333333333333333
+Base gas limit 75M to 90M,entrants at never-burst groups,"local randomization, W = 12 h",-0.223579620469227,,0.4,29,0.0333333333333333
+Base gas limit 75M to 90M,entrants at never-burst groups,"local randomization, W = 24 h",0.0774295002578906,,0.466666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,funding entities (non-burst),RD +-36 h (04 section A),0.0247670382084536,0.049615390371539,0.9,29,0.0333333333333333
+Base gas limit 75M to 90M,funding entities (non-burst),"local randomization, W = 12 h",-0.216279546655728,,0.266666666666667,29,0.0333333333333333
+Base gas limit 75M to 90M,funding entities (non-burst),"local randomization, W = 24 h",0.030612111439523,,0.833333333333333,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants alone in their component,RD +-36 h (04 section A),0.0793363016733013,0.0711936480729464,0.633333333333333,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants alone in their component,"local randomization, W = 12 h",-0.221074543091188,,0.333333333333333,29,0.0333333333333333
+Base gas limit 75M to 90M,non-burst entrants alone in their component,"local randomization, W = 24 h",0.0277199581104997,,0.833333333333333,29,0.0333333333333333

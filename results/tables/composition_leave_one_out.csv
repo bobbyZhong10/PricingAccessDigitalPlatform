@@ -1,0 +1,145 @@
+event,variant,dropped,metric,value
+march,all,"",burst entry ratio,50.8837628865979
+march,all,"",non-burst entry ratio,1.75899911363039
+march,all,"",all-entrant ratio,6.4719276948231
+march,all,"",wedge (all / non-burst),3.67932402277663
+march,all,"",burst share of post-cut entrants,0.751158293629694
+march,all,"",largest 10 entities' share of burst,0.498608360473892
+march,all,"",largest 100 entities' share of burst,0.841555698504273
+march,all,"",burst in components >= 20,0.934672717787154
+march,all,"",non-burst in components >= 20,0.308222293937191
+march,all,"",burst synchronized,0.67407523717387
+march,all,"",non-burst synchronized,0.0672379671139348
+march,all,"",burst months active of 3,0.0279758799365848
+march,all,"",non-burst months active of 3,0.177774494441874
+march,all,"",burst on LayerZero list,0.00125234894569693
+march,all,"",non-burst on LayerZero list,0.0365720417899538
+march,all,"",burst first action plain transfer,0.861598346747438
+march,without largest burst day,2024-03-16,burst entry ratio,13.6014727540501
+march,without largest burst day,2024-03-16,non-burst entry ratio,1.77182470204225
+march,without largest burst day,2024-03-16,all-entrant ratio,2.92021483165798
+march,without largest burst day,2024-03-16,wedge (all / non-burst),1.64813981219027
+march,without largest burst day,2024-03-16,burst share of post-cut entrants,0.444996952372692
+march,without largest burst day,2024-03-16,largest 10 entities' share of burst,0.554047469519458
+march,without largest burst day,2024-03-16,largest 100 entities' share of burst,0.73735842519003
+march,without largest burst day,2024-03-16,burst in components >= 20,0.796067306234706
+march,without largest burst day,2024-03-16,non-burst in components >= 20,0.298990219822395
+march,without largest burst day,2024-03-16,burst synchronized,0.152927864521298
+march,without largest burst day,2024-03-16,non-burst synchronized,0.0662952228442362
+march,without largest burst day,2024-03-16,burst months active of 3,0.0971804144920631
+march,without largest burst day,2024-03-16,non-burst months active of 3,0.181539859627762
+march,without largest burst day,2024-03-16,burst on LayerZero list,0.00408753275440154
+march,without largest burst day,2024-03-16,non-burst on LayerZero list,0.0378281565004875
+march,without largest burst day,2024-03-16,burst first action plain transfer,0.459000151590619
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst entry ratio,11.4682345360825
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,non-burst entry ratio,1.75636893883849
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,all-entrant ratio,2.70290568825412
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,wedge (all / non-burst),1.53891681211443
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst share of post-cut entrants,0.405381952352754
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,largest 10 entities' share of burst,0.560524083219561
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,largest 100 entities' share of burst,0.728238579222078
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst in components >= 20,0.777860180799721
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,non-burst in components >= 20,0.307331053980171
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst synchronized,0.138392129762286
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,non-burst synchronized,0.0670488087913457
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst months active of 3,0.104502014192048
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,non-burst months active of 3,0.177984252213802
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst on LayerZero list,0.00428121154915808
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,non-burst on LayerZero list,0.0366280111215819
+march,without largest burst target,0xfb10c144539af9a7b905a28f8ad07fb0cf85ae50,burst first action plain transfer,0.385921443700944
+march,without largest component,"",burst entry ratio,69.1390936505277
+march,without largest component,"",non-burst entry ratio,1.64487840272218
+march,without largest component,"",all-entrant ratio,6.33472978148101
+march,without largest component,"",wedge (all / non-burst),3.85118424012219
+march,without largest component,"",burst share of post-cut entrants,0.756024786121238
+march,without largest component,"",largest 10 entities' share of burst,0.415976834982569
+march,without largest component,"",largest 100 entities' share of burst,0.811773632225059
+march,without largest component,"",burst in components >= 20,0.921869557447608
+march,without largest component,"",non-burst in components >= 20,0.154280906567289
+march,without largest component,"",burst synchronized,0.705539552873971
+march,without largest component,"",non-burst synchronized,0.0747756398068221
+march,without largest component,"",burst months active of 3,0.0261424248757394
+march,without largest component,"",non-burst months active of 3,0.179240978058334
+march,without largest component,"",burst on LayerZero list,0.000746623535148855
+march,without largest component,"",non-burst on LayerZero list,0.0436076358519983
+march,without largest component,"",burst first action plain transfer,0.87754465353942
+march,size-only rule,"",burst entry ratio,73.7571393603133
+march,size-only rule,"",non-burst entry ratio,2.13080926955643
+march,size-only rule,"",all-entrant ratio,6.4719276948231
+march,size-only rule,"",wedge (all / non-burst),3.03730971480633
+march,size-only rule,"",burst share of post-cut entrants,0.687865191837775
+march,size-only rule,"",largest 10 entities' share of burst,0.516134429611684
+march,size-only rule,"",largest 100 entities' share of burst,0.878686180642556
+march,size-only rule,"",burst in components >= 20,0.968811102169049
+march,size-only rule,"",non-burst in components >= 20,0.36072627751882
+march,size-only rule,"",burst synchronized,0.735195125930965
+march,size-only rule,"",non-burst synchronized,0.0554376600470141
+march,size-only rule,"",burst months active of 3,0.0199288138124435
+march,size-only rule,"",non-burst months active of 3,0.16496001334433
+march,size-only rule,"",burst on LayerZero list,0.00105645391012398
+march,size-only rule,"",non-burst on LayerZero list,0.0297498247012198
+march,size-only rule,"",burst first action plain transfer,0.937114719279178
+may,all,"",burst entry ratio,4.47676333421327
+may,all,"",non-burst entry ratio,1.0432628621128
+may,all,"",all-entrant ratio,1.76942758569911
+may,all,"",wedge (all / non-burst),1.69605154171375
+may,all,"",burst share of post-cut entrants,0.529259828945511
+may,all,"",largest 10 entities' share of burst,0.818117490474011
+may,all,"",largest 100 entities' share of burst,0.908876228129537
+may,all,"",burst in components >= 20,0.915067770005981
+may,all,"",non-burst in components >= 20,0.461174901322013
+may,all,"",burst synchronized,
+may,all,"",non-burst synchronized,
+may,all,"",burst months active of 3,0.0373036888111397
+may,all,"",non-burst months active of 3,0.135523113575077
+may,all,"",burst on LayerZero list,
+may,all,"",non-burst on LayerZero list,
+may,all,"",burst first action plain transfer,0.128873925606027
+may,without largest burst day,2024-06-04,burst entry ratio,4.17706879863232
+may,without largest burst day,2024-06-04,non-burst entry ratio,1.04611683503936
+may,without largest burst day,2024-06-04,all-entrant ratio,1.70974631240511
+may,without largest burst day,2024-06-04,wedge (all / non-burst),1.6343741493662
+may,without largest burst day,2024-06-04,burst share of post-cut entrants,0.511066651115637
+may,without largest burst day,2024-06-04,largest 10 entities' share of burst,0.834523558738853
+may,without largest burst day,2024-06-04,largest 100 entities' share of burst,0.92287409592023
+may,without largest burst day,2024-06-04,burst in components >= 20,0.929997893406362
+may,without largest burst day,2024-06-04,non-burst in components >= 20,0.461214470380637
+may,without largest burst day,2024-06-04,burst synchronized,
+may,without largest burst day,2024-06-04,non-burst synchronized,
+may,without largest burst day,2024-06-04,burst months active of 3,0.043760971841865
+may,without largest burst day,2024-06-04,non-burst months active of 3,0.138059548369527
+may,without largest burst day,2024-06-04,burst on LayerZero list,
+may,without largest burst day,2024-06-04,non-burst on LayerZero list,
+may,without largest burst day,2024-06-04,burst first action plain transfer,0.13896496032582
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst entry ratio,3.24709934507423
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,non-burst entry ratio,1.06481193218804
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,all-entrant ratio,1.55040674106627
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,wedge (all / non-burst),1.45603809855925
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst share of post-cut entrants,0.45818980349864
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,largest 10 entities' share of burst,0.813050210986799
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,largest 100 entities' share of burst,0.897820448298556
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst in components >= 20,0.905354031977082
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,non-burst in components >= 20,0.46374558116046
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst synchronized,
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,non-burst synchronized,
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst months active of 3,0.0450698772792381
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,non-burst months active of 3,0.134884246338676
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst on LayerZero list,
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,non-burst on LayerZero list,
+may,without largest burst target,0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad,burst first action plain transfer,0.177677983817893
+may,without largest component,"",burst entry ratio,2.07703479667006
+may,without largest component,"",non-burst entry ratio,0.9584085540654
+may,without largest component,"",all-entrant ratio,1.21214646176176
+may,without largest component,"",wedge (all / non-burst),1.26474921015683
+may,without largest component,"",burst share of post-cut entrants,0.38450728429829
+may,without largest component,"",largest 10 entities' share of burst,0.555460240338521
+may,without largest component,"",largest 100 entities' share of burst,0.766185364869054
+may,without largest component,"",burst in components >= 20,0.781958030867713
+may,without largest component,"",non-burst in components >= 20,0.237261594604163
+may,without largest component,"",burst synchronized,
+may,without largest component,"",non-burst synchronized,
+may,without largest component,"",burst months active of 3,0.0912479004620786
+may,without largest component,"",non-burst months active of 3,0.160640528690348
+may,without largest component,"",burst on LayerZero list,
+may,without largest component,"",non-burst on LayerZero list,
+may,without largest component,"",burst first action plain transfer,0.0164214502490611

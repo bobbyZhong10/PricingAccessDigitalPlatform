@@ -19,6 +19,3 @@ proposal/
 
 # macOS
 .DS_Store
-
-# local tool settings and worktrees
-.claude/

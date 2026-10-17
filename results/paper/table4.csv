@@ -1,13 +1,12 @@
-Characteristic,Burst accounts,Non-burst entrants
-"Entrants per day, before -> after the cut","1,940 -> 98,714 (x50.9)","18,277 -> 32,149 (x1.76)"
-"Entities per day, before -> after the cut","289 -> 4,791 (x16.6)","13,410 -> 19,615 (x1.46)"
-Entry ratio across the three classification rules,x51 to x74,x1.76 to x2.13
-Share of all entrants after the cut (range across rules),69% to 75%,""
-In a funding cluster of >= 20 entrants,93.5%,30.8%
-First tx in the same block as >= 10 others with the same target and method,67.4%,6.7%
-Share held by the largest 10 / 100 entities,50% / 84%,23% / 28%
-First action: zero-value or native transfer to an account without code,86%,""
-"Months active of Sep 2024, Dec 2024, Mar 2025 (mean, 0-3)",0.03,0.18
-On the LayerZero provisional Sybil list,0.13%,3.66%
-Address also enters on Arbitrum / funder also funds Arbitrum entrants,0.6% / 2.3%,6.9% / 5.6%
-Received tokens / ETH after entry (to 15 Apr),81% / 4%,55% / 29%
+Characteristic,Burst,Non-burst,Bot-like
+"Entrants per day, before -> after","1,617 -> 115,852 (x71.7)","17,959 -> 28,928 (x1.6)",94 -> 451 (x4.8)
+"Funding entities per day, before -> after","241 -> 3,661 (x15.2)","13,063 -> 18,027 (x1.4)",50 -> 168 (x3.4)
+Share of entrants after the cut,80%,20%,0%
+Share of the added entrants,91%,9%,0%
+In a funding cluster of 20+,95%,30%,64%
+First tx in a same-block group of 10+,73%,6%,4%
+Held by the 10 / 100 largest components,52% / 88%,21% / 28%,56% / 68%
+"Months active of Sep 2024, Dec 2024, Mar 2025 (0-3)",0.02,0.18,0.28
+On the LayerZero provisional Sybil list,0.1%,4.1%,0.3%
+Address / funder also enters Arbitrum,0.5% / 2.3%,7.5% / 5.9%,6.3% / 5.1%
+Received tokens / ETH after entry,88% / 3%,55% / 28%,91% / 59%

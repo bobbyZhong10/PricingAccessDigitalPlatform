@@ -1,0 +1,65 @@
+chain,address,name_tag,category,source
+base,0xe93685f3bba03016f02bd1828badd6195988d950,LayerZero: Executor,bridge,basescan
+base,0x3304e22ddaa22bcdc5fca2269b418046ae7b566a,Binance 73,exchange,basescan
+base,0xfd92f4e91d54b9ef91cc3f97c011a6af0c2a7eda,OKX,exchange,basescan
+base,0x91d66b38ae24292e9e12dd962bbb3aecf4ab769a,Coinbase: Deposit Funder 1,exchange deposit funder,basescan
+base,0x80c67432656d59144ceff962e8faf8926599bcf8,Orbiter Finance: Bridge 1,bridge,basescan
+base,0xe4edb277e41dc89ab076a1f049f4a3efa700bce8,Orbiter Finance: Bridge 2,bridge,basescan
+base,0xbaed383ede0e5d9d72430661f3285daa77e9439f,Bybit: Hot Wallet 6,exchange,basescan
+base,0x4b34f943181408eac424116af7b7790c94cba8b6,,untagged,basescan
+base,0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a,Coinbase 14,exchange,basescan
+base,0x6dcbce46a8b494c885d0e7b6817d2b519df64467,Coinbase 25,exchange,basescan
+base,0xd34ea7278e6bd48defe656bbe263aef11101469c,Coinbase 27,exchange,basescan
+base,0x685ee51518320a6625fa2bb523b2eab385df68b3,,untagged,basescan
+base,0x739120ade7ed878fca5bbdb806263a8258fe2360,Coinbase 22,exchange,basescan
+base,0x1985ea6e9c68e1c272d8209f3b478ac2fdb25c87,Coinbase 35,exchange,basescan
+base,0xb4807865a786e9e9e26e6a9610f2078e7fc507fb,Coinbase 36,exchange,basescan
+base,0x428ab2ba90eba0a4be7af34c9ac451ab061ac010,Across Protocol: Relayer,bridge,basescan
+base,0x1b1d2149d656f8ca33fb633e6f642b5a2426b53d,ChangeNOW: Hot Wallet,exchange,basescan
+base,0x5e809a85aa182a9921edd10a4163745bb3e36284,Owlto Finance: Bridge 2,bridge,basescan
+base,0xaf8ae6955d07776ab690e565ba6fbc79b8de3a5d,Rhino.fi,bridge,basescan
+base,0x0487bc0f676433e1e245450a94ce1052758bd182,,untagged,basescan
+base,0x41ee28ee05341e7fdddc8d433ba66054cd302ca1,,untagged,basescan
+base,0x15652636f3898f550b257b89926d5566821c32e1,Across Protocol: Relayer 2,bridge,basescan
+base,0x00051d55999c7cd91b17af7276cbecd647dbc000,,untagged,basescan
+base,0x710bda329b2a6224e4b44833de30f38e7f81d564,Hop Protocol: ETH Bonder,bridge,basescan
+base,0x2fc617e933a52713247ce25730f6695920b3befe,Layerswap 1,bridge,basescan
+base,0x555ce236c0220695b68341bc48c68d52210cc35b,,untagged,basescan
+base,0xc3f6b6c4309ba9a9887216dbebf39fac78406696,,untagged,basescan
+base,0x406c22b8740ae955b04fd11c2061e053807e2a69,BingX 9,exchange,basescan
+base,0x230a1ac45690b9ae1176389434610b9526d2f21b,,untagged,basescan
+base,0xf70da97812cb96acdf810712aa562db8dfa3dbef,Relay: Solver,bridge,basescan
+base,0xef1ec136931ab5728b0783fd87d109c9d15d31f1,,untagged,basescan
+base,0x4c968f6beecf1906710b08e8b472b8ba6e75f957,gaszip.base.eth,bridge,basescan
+base,0x592d963a4e48f5c2d960558db82ec4277970752b,,untagged,basescan
+base,0x1651d700cd4020334bd185ba4c6e0271ffc0c732,BingX 16,exchange,basescan
+base,0x00000000000007736e2f9aa5630b8c812e1f3fc9,Chaineye: Mini Bridge,bridge,basescan
+base,0x009905bf008cca637185eeafe8f51bb56dd2aca7,RetroBridge: Hot Wallet,bridge,basescan
+base,0xcaa06bbda74a0d8ba47c2d0b1e0488d7205c7cf7,,untagged,basescan
+base,0x2368dedde9707b63d4d2accf5510846fd8374f4e,,untagged,basescan
+base,0x71b70232ba6228e2e378cce858c54cb01fd04171,,untagged,basescan
+arbitrum,0xb38e8c17e38363af6ebdcb3dae12e0243582891d,Binance Hot Wallet,exchange,evm-labels arbitrum
+arbitrum,0x9b64203878f24eb0cdf55c8c6fa7d08ba0cf77e5,MEXC,exchange,evm-labels arbitrum
+arbitrum,0x5bdf85216ec1e38d6458c870992a69e38e03f7ef,Bitget 5,exchange,evm-labels ethereum
+arbitrum,0x80c67432656d59144ceff962e8faf8926599bcf8,Orbiter Finance: Bridge,bridge,evm-labels arbitrum
+arbitrum,0x00f3e09abe73aec2d6ad7b8820049b60ebc73f94,,untagged,none
+arbitrum,0xae45a8240147e6179ec7c9f92c5a18f9a97b3fca,Crypto.com: Deposit Funder,exchange deposit funder,evm-labels ethereum
+arbitrum,0x6596da8b65995d5feacff8c2936f0b7a2051b0d0,Gate.io: Deposit Funder,exchange deposit funder,evm-labels ethereum
+arbitrum,0xe4edb277e41dc89ab076a1f049f4a3efa700bce8,Orbiter Finance: Bridge,bridge,evm-labels arbitrum
+arbitrum,0x1ab4973a48dc892cd9971ece8e01dcc7688f8f23,Bitget 6,exchange,evm-labels ethereum
+arbitrum,0x03e6fa590cadcf15a38e86158e9b3d06ff3399ba,KuCoin 2,exchange,evm-labels arbitrum
+arbitrum,0xe68ee8a12c611fd043fb05d65e1548dc1383f2b9,Coinbase 3,exchange,evm-labels arbitrum
+arbitrum,0x2fc617e933a52713247ce25730f6695920b3befe,Layerswap 1,bridge,basescan
+arbitrum,0x563537412ad5d49faa7fa442b9193b8238d98c3c,Coinbase 4,exchange,evm-labels arbitrum
+arbitrum,0x3dd1d15b3c78d6acfd75a254e857cbe5b9ff0af2,Coinbase 2,exchange,evm-labels arbitrum
+arbitrum,0xa656f7d2a93a6f5878aa768f24eb38ec8c827fe2,Coinbase 5,exchange,evm-labels arbitrum
+arbitrum,0x05e3a758fdd29d28435019ac453297ea37b61b62,Coinbase 1,exchange,evm-labels arbitrum
+arbitrum,0x5e809a85aa182a9921edd10a4163745bb3e36284,Owlto Finance: Bridge 2,bridge,basescan
+arbitrum,0x406c22b8740ae955b04fd11c2061e053807e2a69,BingX 9,exchange,basescan
+arbitrum,0x0d0707963952f2fba59dd06f2b425ace40b492fe,Gate.io,exchange,evm-labels ethereum
+arbitrum,0x490b1e689ca23be864e55b46bf038e007b528208,Kraken 44,exchange,evm-labels ethereum
+arbitrum,0x47d43ac7eea761c4959b2a4318e620603be7fd4f,Coinbase: Deposit Funder 10,exchange deposit funder,evm-labels ethereum
+arbitrum,0x04d4876932c7c375efcaeb7ae0ad00591acf09f6,Coinbase: Deposit Funder 9,exchange deposit funder,evm-labels ethereum
+arbitrum,0x1553767e6ab6d26695b34366f61340b48d8b7a62,Coinbase: Deposit Funder 7,exchange deposit funder,evm-labels ethereum
+arbitrum,0x33ae106bc06effa33e6db5813b619710f2dfb5d4,Coinbase: Deposit Funder 2,exchange deposit funder,evm-labels ethereum
+arbitrum,0xd69b42d93af96cf278b1149bffb2d668d0154b7d,Coinbase: Deposit Funder 6,exchange deposit funder,evm-labels ethereum

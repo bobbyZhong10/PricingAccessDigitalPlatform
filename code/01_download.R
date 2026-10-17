@@ -1,13 +1,13 @@
 # 01_download.R: public data -> data/raw. Each section is skipped if its files exist (set FORCE_DOWNLOAD = TRUE to redo).
 # Sources (no keys): AWS Public Blockchain (s3://aws-public-blockchain: sonarx Base/Arbitrum, Ethereum/Bitcoin blocks), growthepie exports, Coinbase candles,
 # copies of the LayerZero provisional Sybil list (Internet Archive, GitHub mirrors). The Google Trends capture is in data/external (section M).
-# Raw files are aggregates computed on the fly with DuckDB; the transaction-level tables are hundreds of GB. A full download takes 1-2 hours.
+# Raw files are aggregates computed on the fly with DuckDB; the transaction-level tables are hundreds of GB. A full download takes 4-5 hours (section T alone about 3).
 # Successful (transactions) and failed (transactions_failed) tables are disjoint and are stacked.
 source(here::here("code", "00_setup.R"))
 sink(file.path(DIR_LOG, "01_download.md"), split = TRUE)
 cat("# 01 download\nRun ", format(Sys.time(), usetz = TRUE), "\n", sep = "")
 FORCE_DOWNLOAD <- FALSE
-S3_INIT <- "INSTALL httpfs; LOAD httpfs; SET s3_region='us-east-2'; SET threads TO 8; SET memory_limit='10GB'; SET preserve_insertion_order = false; SET http_retries = 10; SET http_retry_wait_ms = 3000;"
+S3_INIT <- "INSTALL httpfs; LOAD httpfs; SET s3_region='us-east-2'; SET threads TO 8; SET memory_limit='10GB'; SET preserve_insertion_order = false; SET http_retries = 10; SET http_retry_wait_ms = 3000; SET http_retry_backoff = 1; SET http_timeout = 600; SET enable_progress_bar = false;"   # a request may take 10 min (large column chunks on a slow link timed out at the default 30 s); constant 3 s between retries (the default backoff x4 slept for hours); the progress bar polled S3 file lists in a loop
 SONARX <- "s3://aws-public-blockchain/v1.1/sonarx/"
 days_main <- format(seq(PULL_START, PULL_END, by = "day"))
 
@@ -387,5 +387,78 @@ if (FORCE_DOWNLOAD || !file.exists(out)) {
   P <- data.table(day = as.IDate(as.POSIXct(j[, 1], origin = "1970-01-01", tz = "UTC")), low = j[, 2], high = j[, 3], open = j[, 4], close = j[, 5])[order(day)]
   stopifnot(!anyDuplicated(P$day)); fwrite(P, out); cat(sprintf("P: %d days of ETH/USD\n", nrow(P)))
 } else cat("P: exists, skipped\n")
+
+# ---- S. what it cost to fund a Base window entrant: internal ETH transfers received, with the fee of the funding tx (traces and transactions 03-06..21) ----
+# Section J keeps only who funded each entrant, and the transfers table (section O) holds top-level transfers only. Here: every internal ETH transfer
+# (trace with a non-empty PATH and VALUE > 0) to a Base window entrant (wave_first_out), with the initiating account, the contract that sent it, the amount
+# (ETH), the fee of its transaction (ETH) and the number of window entrants that transaction paid. The filter on the entrant's first block is applied in 02.
+out <- file.path(DIR_RAW, "val_internal_base.parquet")
+if (FORCE_DOWNLOAD || !file.exists(out)) {
+  t_start <- Sys.time(); dbf <- tempfile(fileext = ".duckdb"); con <- DBI::dbConnect(duckdb::duckdb(), dbdir = dbf); DBI::dbExecute(con, S3_INIT)
+  d <- format(seq(as.Date("2024-03-06"), as.Date("2024-03-21"), by = "day"))
+  DBI::dbExecute(con, sprintf("CREATE TABLE ent AS SELECT a FROM read_parquet('%s')", gsub("'", "''", file.path(DIR_RAW, "wave_first_out_base.parquet"))))
+  DBI::dbExecute(con, sprintf("CREATE TABLE tr AS SELECT lower(TO_ADDRESS) AS a, lower(TRANSACTION_FROM) AS init, lower(FROM_ADDRESS) AS src, TRANSACTION_HASH AS h,
+    BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord, VALUE AS v FROM read_parquet([%s]) WHERE coalesce(PATH, '') <> '' AND VALUE > 0 AND lower(TO_ADDRESS) IN (SELECT a FROM ent)",
+    paste0("'", SONARX, "base/traces/date=", d, "/*.parquet'", collapse = ", ")))
+  DBI::dbExecute(con, sprintf("CREATE TABLE fx AS SELECT TRANSACTION_HASH AS h, TRANSACTION_FEE AS tx_fee FROM read_parquet([%s]) WHERE TRANSACTION_HASH IN (SELECT DISTINCT h FROM tr)",
+    paste0("'", SONARX, "base/transactions/date=", d, "/*.parquet'", collapse = ", ")))
+  DBI::dbExecute(con, sprintf("COPY (SELECT tr.a, tr.init, tr.src, tr.ord, tr.v, fx.tx_fee, n.n_paid FROM tr LEFT JOIN fx USING (h)
+    LEFT JOIN (SELECT h, count(DISTINCT a) AS n_paid FROM tr GROUP BY 1) n USING (h)) TO '%s' (FORMAT PARQUET)", gsub("'", "''", out)))
+  DBI::dbDisconnect(con, shutdown = TRUE); unlink(dbf)
+  cat(sprintf("S: %.1f min\n", as.numeric(Sys.time() - t_start, units = "mins")))
+} else cat("S: exists, skipped\n")
+
+# ---- T. long series of new addresses, both chains, LONG_START..LONG_END (fee regimes and placebo dates, 06 section K) ----
+# A sender is new on day d if its first outgoing tx on d (successful or failed; system sender excluded) follows LONG_LOOKBACK days without one on the chain
+# (the lookback reads from LONG_START - LONG_LOOKBACK). Kept per day: new addresses by first-action group (recipient x 4-byte selector of the day's first tx,
+# ordered by block and position), groups with fewer than 10 new addresses pooled (first_to and first_sel NA); n_heavy = new addresses with >= BOT_MIN_WEEK1
+# txs that day; and the day's senders. Senders are tracked by a 64-bit hash of the address, one day at a time, in a file-backed DuckDB that keeps each
+# sender's last active day within the lookback; lookback days before LONG_START read the sender column only. About 4-40 s a day.
+# The DuckDB file (data/raw/long_state_<chain>.duckdb) is kept until the chain is done: an interrupted run resumes after the last day it completed.
+# Comparison chain LONG_CONTROL (Ethereum L1, v1.0 eth tables): one table with successful and failed txs, no system sender; its method selector is read only
+# if LONG_CONTROL_SELECTOR (otherwise first_sel is NA and groups are recipients).
+for (ch in c(CHAINS, LONG_CONTROL)) {
+  outs <- file.path(DIR_RAW, sprintf(c("long_entrants_%s.parquet", "long_senders_%s.parquet"), ch))
+  if (!FORCE_DOWNLOAD && all(file.exists(outs))) { cat("T ", ch, ": exists, skipped\n", sep = ""); next }
+  t_start <- Sys.time(); dbf <- file.path(DIR_RAW, sprintf("long_state_%s.duckdb", ch)); con <- DBI::dbConnect(duckdb::duckdb(), dbdir = dbf); DBI::dbExecute(con, S3_INIT)
+  d0 <- LONG_START - LONG_LOOKBACK
+  if ("recent" %in% DBI::dbListTables(con)) {   # resume: drop rows of a day that was not finished, continue after the last finished day
+    last <- as.Date(DBI::dbGetQuery(con, "SELECT max(day) AS d FROM recent")$d)
+    if (!is.na(last)) { d0 <- last + 1; DBI::dbExecute(con, sprintf("DELETE FROM grp WHERE day > DATE '%s'", last)); DBI::dbExecute(con, sprintf("DELETE FROM snd WHERE day > DATE '%s'", last)) }
+    cat(sprintf("T %s: resuming at %s\n", ch, d0))
+  } else {
+    DBI::dbExecute(con, "CREATE TABLE recent (h UBIGINT, day DATE)")
+    DBI::dbExecute(con, "CREATE TABLE grp (day DATE, first_to VARCHAR, first_sel VARCHAR, n BIGINT, n_heavy BIGINT)")
+    DBI::dbExecute(con, "CREATE TABLE snd (day DATE, senders BIGINT, new_senders BIGINT)")
+  }
+  for (d in format(seq(d0, LONG_END, by = "day"))) {
+    if (ch == LONG_CONTROL) {
+      src <- sprintf("read_parquet('s3://aws-public-blockchain/v1.0/eth/transactions/date=%s/*.parquet')", d)
+      if (as.Date(d) < LONG_START) {
+        DBI::dbExecute(con, sprintf("CREATE OR REPLACE TABLE ds AS SELECT DISTINCT hash(lower(from_address)) AS h FROM %s", src))
+      } else DBI::dbExecute(con, sprintf("CREATE OR REPLACE TABLE ds AS SELECT hash(lower(from_address)) AS h, arg_min(lower(to_address), block_number * 100000 + transaction_index) AS first_to,
+        arg_min(%s, block_number * 100000 + transaction_index) AS first_sel, count(*) AS n FROM %s GROUP BY 1", if (LONG_CONTROL_SELECTOR) "substr(input, 1, 10)" else "NULL::VARCHAR", src))
+    } else if (as.Date(d) < LONG_START) {   # lookback only: who sent a tx that day
+      DBI::dbExecute(con, sprintf("CREATE OR REPLACE TABLE ds AS SELECT DISTINCT hash(lower(FROM_ADDRESS)) AS h FROM read_parquet(['%s%s/transactions/date=%s/*.parquet',
+        '%s%s/transactions_failed/date=%s/*.parquet'], union_by_name = true) WHERE lower(FROM_ADDRESS) <> '%s'", SONARX, ch, d, SONARX, ch, d, SYSTEM_SENDERS[[ch]]))
+    } else DBI::dbExecute(con, sprintf("CREATE OR REPLACE TABLE ds AS SELECT h, arg_min(t, ord) AS first_to, arg_min(sel, ord) AS first_sel, count(*) AS n FROM (
+      SELECT hash(lower(FROM_ADDRESS)) AS h, lower(TO_ADDRESS) AS t, substr(INPUT, 1, 10) AS sel, BLOCK_NUMBER * 100000 + TRANSACTION_INDEX AS ord FROM read_parquet('%s%s/transactions/date=%s/*.parquet')
+      WHERE lower(FROM_ADDRESS) <> '%s' UNION ALL SELECT hash(lower(FROM_ADDRESS)), lower(TO_ADDRESS), substr(INPUT, 1, 10), BLOCK_NUMBER * 100000 + TRANSACTION_INDEX
+      FROM read_parquet('%s%s/transactions_failed/date=%s/*.parquet') WHERE lower(FROM_ADDRESS) <> '%s') GROUP BY h", SONARX, ch, d, SYSTEM_SENDERS[[ch]], SONARX, ch, d, SYSTEM_SENDERS[[ch]]))
+    if (as.Date(d) >= LONG_START) {
+      DBI::dbExecute(con, "CREATE OR REPLACE TABLE nw AS SELECT ds.* FROM ds ANTI JOIN recent USING (h)")   # recent: senders active in the previous LONG_LOOKBACK days
+      DBI::dbExecute(con, sprintf("INSERT INTO grp SELECT DATE '%s', CASE WHEN k >= 10 THEN first_to END AS ft, CASE WHEN k >= 10 THEN first_sel END AS fs, sum(k), sum(heavy) FROM
+        (SELECT first_to, first_sel, count(*) AS k, sum(CASE WHEN n >= %d THEN 1 ELSE 0 END) AS heavy FROM nw GROUP BY 1, 2) GROUP BY 2, 3", d, BOT_MIN_WEEK1))
+      DBI::dbExecute(con, sprintf("INSERT INTO snd SELECT DATE '%s', (SELECT count(*) FROM ds), (SELECT count(*) FROM nw)", d))
+    }
+    DBI::dbExecute(con, sprintf("CREATE OR REPLACE TABLE recent AS SELECT h, max(day) AS day FROM (SELECT h, day FROM recent WHERE day > DATE '%s' - INTERVAL %d DAY
+      UNION ALL SELECT h, DATE '%s' FROM ds) GROUP BY h", d, LONG_LOOKBACK, d))
+    if (format(as.Date(d), "%d") == "01") cat(sprintf("T %s: through %s, %.0f min\n", ch, d, as.numeric(Sys.time() - t_start, units = "mins")))
+  }
+  DBI::dbExecute(con, sprintf("COPY (SELECT * FROM grp ORDER BY day, n DESC) TO '%s' (FORMAT PARQUET)", gsub("'", "''", outs[1])))
+  DBI::dbExecute(con, sprintf("COPY (SELECT * FROM snd ORDER BY day) TO '%s' (FORMAT PARQUET)", gsub("'", "''", outs[2])))
+  DBI::dbDisconnect(con, shutdown = TRUE); unlink(c(dbf, paste0(dbf, ".wal")))
+  cat(sprintf("T %s: %.1f min\n", ch, as.numeric(Sys.time() - t_start, units = "mins")))
+}
 
 cat("\n## sessionInfo\n```\n"); print(sessionInfo()); cat("```\n"); sink()
