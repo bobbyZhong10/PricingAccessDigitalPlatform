@@ -90,13 +90,13 @@ for (ch in CHAINS) {
   V <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, sprintf("val_entrant_%s.parquet", ch))))
   DG <- as.data.table(nanoparquet::read_parquet(file.path(DIR_RAW, sprintf("val_degree_%s.parquet", ch))))
   W <- merge(W, V[, .(a, blk0, f_eth, f_eth_via, f_tok, sweep_to)], by = "a", all.x = TRUE)
-  # corrected funder: first ETH funder before the first outgoing tx, else first token funder before it (funder_any above can postdate entry)
+  # pre-entry funder: first ETH funder before the first outgoing tx, else first token funder before it (funder_any above can postdate entry)
   W[, `:=`(funder2 = fifelse(!is.na(f_eth), f_eth, f_tok), lz = as.integer(a %in% LZ_A))]
   W[, funder_lz := fifelse(is.na(funder2), NA_integer_, as.integer(funder2 %in% LZ_A))]
   FD2 <- W[!is.na(funder2), .N, by = .(day, funder2)]
   FD2[, base := 0][FD2[day <= PRE_END, .(b = median(c(N, rep(0L, n_pre - .N)))), by = funder2], base := i.b, on = "funder2"]
   W[, fburst2 := paste(day, funder2) %in% FD2[N >= FUNDER_BURST_MIN & N >= SPIKE_K * base, paste(day, funder2)]]
-  W[, wave_funded2 := as.integer(wave == 1 & mean(fburst2) >= 0.5), by = .(day, pair)]   # bound 2 with the corrected funder
+  W[, wave_funded2 := as.integer(wave == 1 & mean(fburst2) >= 0.5), by = .(day, pair)]   # bound 2 with the pre-entry funder
   # synchronized entry: >= SYNC_MIN other entrants whose first tx is in the same block with the same recipient x method
   W[, sync := as.integer(!is.na(first_to) & .N > SYNC_MIN), by = .(blk0, pair)]
   # Multi-identity entities: components of the graph with edges entrant - ETH funder and entrant - sweep target (01 section J). Services are dropped:

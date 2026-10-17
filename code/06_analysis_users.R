@@ -2,7 +2,7 @@
 # Classes: burst accounts (code: class3 == "campaign"), bot-like entrants ("bot") and the rest (non-burst, "genuine").
 #  A  entry and later activity around each drop: local randomization (W = 12/24/72 h), RI, marginal entrants; Base vs Arbitrum DiD
 #  B  daily entrant cohorts
-#  C  burst accounts on Base by day; the burst rule against its size-only and funder-burst bounds (original and corrected funder)
+#  C  burst accounts on Base by day; the burst rule against its size-only and funder-burst bounds (first-transfer and pre-entry funder)
 #  D  burst vs non-burst entry; decomposition of Base's change in daily txs
 #  E  response by the sender's own pre-drop fee level, net of a placebo window pair; within-sender elasticity per event
 #  F  validation of the burst construct (thresholds in 00_setup.R): V1 LayerZero list, V2 funder-entrant-sweep components and entity growth,
@@ -118,12 +118,12 @@ cat("## C. Top first recipient x method and top funders on the largest campaign 
 for (d in as.IDate(c("2024-03-15", "2024-03-16", "2024-03-20"))) { y <- X[day == d]
   print(y[, .N, by = .(first_to, first_sel)][order(-N)][1:5][, share := round(N / nrow(y), 3)][]); print(y[!is.na(funder_any), .N, by = funder_any][order(-N)][1:5][, share := round(N / nrow(y), 3)][]) }
 fwrite(WD, file.path(DIR_TAB, "campaigns_by_day_base.csv"))
-# Burst rule bounds: the main burst rule against a size-only rule and a rule that also requires bursting funders (00_setup.R), the latter with the original
-# funder (any first incoming transfer, which may postdate entry) and the corrected funder (first funder before the first outgoing tx, section F); bot-like
+# Burst rule bounds: the main burst rule against a size-only rule and a rule that also requires bursting funders (00_setup.R), the latter with the first-transfer
+# funder (any first incoming transfer, which may postdate entry) and the pre-entry funder (first funder before the first outgoing tx, section F); bot-like
 # entrants are a separate class under every rule. Pre = 03-08..12; post = 03-14 (Base) or 03-15 (Arbitrum) to 03-21. Entry ratio = post / pre entrants per day;
 # wedge = all-entrant / non-burst entry ratio.
 rules <- c(wave = "main: burst vs own pre-shock level", wave_size = sprintf("bound: size only (>= %s a day)", format(WAVE_SIZE_ALT, big.mark = ",")),
-           wave_funded = "bound: burst funded by bursting funders", wave_funded2 = "bound: burst funded by bursting funders (corrected funder)")
+           wave_funded = "bound: burst funded by bursting funders", wave_funded2 = "bound: burst funded by bursting funders (pre-entry funder)")
 RB <- list()
 for (ch in CHAINS) for (v in names(rules)) {
   Z <- E[chain == ch & !is.na(wave)][, cls := fcase(bot_wk1 == 1, "bot", get(v) == 1, "campaign", default = "genuine")]
@@ -138,7 +138,7 @@ RB <- rbindlist(RB)[, wedge := all_entry_ratio / genuine_entry_ratio]
 cat("## C. Burst rule bounds (entry ratios = post / pre entrants per day; months active of the five retention months)\n"); print(RB[, !"v"])
 fwrite(RB[v != "wave_funded2", !c("v", "all_entry_ratio", "wedge")], file.path(DIR_TAB, "campaign_rule_bounds.csv"))
 fwrite(RB[v %like% "funded", .(chain, rule = v, campaign_share_pre, campaign_share_post, genuine_entry_ratio, campaign_entry_ratio, all_entry_ratio, genuine_months_pre,
-                               genuine_months_post, campaign_months_post, wedge)], file.path(DIR_TAB, "val_bound_corrected.csv"))
+                               genuine_months_post, campaign_months_post, wedge)], file.path(DIR_TAB, "val_bound_pre_entry_funder.csv"))
 
 # ---- D. burst vs non-burst entry ----
 EW <- E[!is.na(wave)][, grp2 := fcase(class3 == "campaign", "campaign", class3 == "bot", sprintf("bot-like (>= %d txs, week 1)", BOT_MIN_WEEK1), default = "genuine")]
@@ -249,10 +249,10 @@ ggsave(file.path(DIR_FIG, "elasticity_by_fee_level.png"), g, width = 10, height 
 
 # ---- F. validation of the burst construct (thresholds in 00_setup.R) ----
 # Composition windows as in section C: pre = 03-08..12; post = 03-14..21 (Base) or 03-15..21 (Arbitrum). Classes by rule: bot-like first, then campaign.
-# Rules: main burst rule; bound 1 (size only); bound 2 with the corrected funder (first funder before the first outgoing tx).
+# Rules: main burst rule; bound 1 (size only); bound 2 with the pre-entry funder (first funder before the first outgoing tx).
 # Day-block bootstrap: BOOT_REPS draws of entry days with replacement within each period (seed SEED).
 rules2 <- c(wave = "main: burst vs own pre-shock level", wave_size = sprintf("bound 1: size only (>= %s a day)", format(WAVE_SIZE_ALT, big.mark = ",")),
-            wave_funded2 = "bound 2: burst funded by bursting funders (corrected funder)")
+            wave_funded2 = "bound 2: burst funded by bursting funders (pre-entry funder)")
 EV <- E[!is.na(wave)][, period := fcase(day <= as.IDate("2024-03-12"), "pre", day >= as.IDate(fifelse(chain == "base", "2024-03-14", "2024-03-15")), "post", default = NA_character_)][!is.na(period)]
 for (h in HUB_MIN) EV[, (paste0("clu", h)) := as.integer(get(paste0("csize", h)) >= CLUSTER_MIN)]
 EV[, `:=`(cluF = as.integer(csizeF500 >= CLUSTER_MIN), cluX = as.integer(clu500 == 1 & in_largest500 == 0))]   # sensitivity: funder edges only; largest component excluded
@@ -306,7 +306,7 @@ for (ch in CHAINS) for (h in HUB_MIN) {
 }
 EG <- rbindlist(EG)
 cat("## F. V2b address vs entity growth (main rule), by service threshold\n"); print(EG); fwrite(EG, file.path(DIR_TAB, "val_entity_growth.csv"))
-cat("## F. Corrected funder: share of window entrants with a funder before the first outgoing tx, and how the ETH funder was found\n")
+cat("## F. Pre-entry funder: share of window entrants with a funder before the first outgoing tx, and how the ETH funder was found\n")
 print(EV[, .(funder_seen = mean(funder2_seen), eth_top_level = mean(f_eth_via %in% "top-level"), eth_internal = mean(f_eth_via %in% "internal")), by = .(chain, period)])
 
 # V3 (descriptive): entrants per hour by class, 03-08..21, with the fee drops and the Dencun-related events
@@ -805,9 +805,9 @@ fwrite(FC, file.path(DIR_TAB, "four_cut_entry.csv")); fwrite(FF, file.path(DIR_T
 #   y4 = log(new addresses outside waves).
 # Shift at date t: S(t) = mean of y over t .. t + SHIFT_DAYS - 1 minus mean over t - SHIFT_DAYS .. t - 1. Placebo dates: every t at least SHIFT_DAYS days
 # from c whose windows lie inside LONG_FROM..LONG_END; percentile = share of placebo S(t) below S(c); p (one-sided) = (1 + #{S(t) >= S(c)}) / (1 + K).
-# Reading, set before the long series was downloaded: S(c) for y2 above the 95th placebo percentile on Base with the same sign on Arbitrum -> waves shift
+# Reading: S(c) for y2 above the 95th placebo percentile on Base with the same sign on Arbitrum -> waves shift
 # with the fee regime; 90th-95th -> consistent with a shift; below the 90th -> waves are not tied to the fee regime.
-# Variant (set after seeing the series): the anticipation days ANTICIP_DAYS, without waves on either Layer-2 just before the cuts, left out of the window
+# Variant: the anticipation days ANTICIP_DAYS, without waves on either Layer-2 just before the cuts, left out of the window
 # before each date. K1 and K2 use groups by recipient x method; K3 compares with Ethereum L1 in both groupings (recipient x method if LONG_CONTROL_SELECTOR, and recipient only).
 LD <- PNL$long_daily[, nonwave := new - wave_new - (heavy - wave_heavy)]; LW <- PNL$long_waves; LDm <- LD[grouping == "target x method" & chain %in% CHAINS]
 CR <- list()
@@ -1051,7 +1051,7 @@ fwrite(M5, file.path(DIR_TAB, "entrant_funding_source.csv")); fwrite(M6, file.pa
 #   all such dates; pre-cut (windows end before the cut; for May they also start after 03-19); the cents regime (windows start after 03-19, for May); the
 #   cents regime without Base's gas-target steps of 03-26 and 04-01 (event_calendar). Percentile = share of placebo S below S; p = (1 + #{placebo S >= S}) /
 #   (1 + K), floor 1 / (1 + K); disjoint_K = the largest number of placebo windows that do not overlap.
-#   Reading (ISR round 5): above the 95th percentile against both comparisons, also without the largest group -> waves rose more than at any ordinary date;
+#   Reading: above the 95th percentile against both comparisons, also without the largest group -> waves rose more than at any ordinary date;
 #   below the 90th against both -> no wave response.
 cat("## N0. Event calendar (data/external/event_calendar.csv)\n"); print(PNL$event_calendar[, .(date, time_utc, event, relevance)])
 LDN <- PNL$long_daily[grouping == "target x method"][, nonwave := new - wave_new - (heavy - wave_heavy)]; LWN <- PNL$long_waves[grouping == "target x method"]
@@ -1271,7 +1271,7 @@ fwrite(QA, file.path(DIR_TAB, "entity_accounting.csv")); fwrite(QI, file.path(DI
 # R1. Base March, equal windows; every ratio is a ratio of daily means on Base alone (not net of L1). Long series (60-day new addresses, recipient x method
 #   waves): days c-w..c-1 vs c..c+w-1, w = 6 (the days of low fees), 7, 14, 28; counted new addresses, new addresses outside waves, and the share of the added
 #   new addresses that came in waves = change in waves per day / change in new addresses per day. Window entrants (never active on Base before; days c-6..c-1
-#   vs c..c+5): all entrants, and under each rule of section C (main burst rule; size only; burst funded by bursting funders; the same with the corrected
+#   vs c..c+5): all entrants, and under each rule of section C (main burst rule; size only; burst funded by bursting funders; the same with the pre-entry
 #   funder) the classes bot-like (>= BOT_MIN_WEEK1 txs in week 1), batch (the rule's flag) and non-burst (the rest); outside_ratio = non-burst after / before,
 #   batch_share_of_added = change in batch entrants per day / change in all entrants per day.
 R1 <- list(); cc <- as.IDate(EVENTS$t0[1])
@@ -1286,7 +1286,7 @@ for (r in c("wave", "wave_size", "wave_funded", "wave_funded2")) {
   EB[, cls := fcase(bot_wk1 == 1, "bot", get(r) %in% 1, "batch", default = "nonburst")]   # classes as in section C: bot > batch > non-burst
   s <- EB[, .(all = .N / 6, batch = sum(cls == "batch") / 6, nonburst = sum(cls == "nonburst") / 6), by = post][order(post)]
   R1[[length(R1) + 1]] <- data.table(sample = "window entrants (never active on Base)", window = "6 v 6 days", rule = c(wave = "main burst rule", wave_size = "size only (>= 5,000 a day)",
-    wave_funded = "burst funded by bursting funders", wave_funded2 = "same, corrected funder")[[r]], all_before = s$all[1], all_after = s$all[2], all_ratio = s$all[2] / s$all[1],
+    wave_funded = "burst funded by bursting funders", wave_funded2 = "same, pre-entry funder")[[r]], all_before = s$all[1], all_after = s$all[2], all_ratio = s$all[2] / s$all[1],
     outside_ratio = s$nonburst[2] / s$nonburst[1], batch_share_of_added = (s$batch[2] - s$batch[1]) / (s$all[2] - s$all[1]))
 }
 R1 <- rbindlist(R1); cat("## R1. Base March headline numbers from one sample at a time (counted new accounts, entry outside batches, batch share of the added accounts)\n"); print(R1)

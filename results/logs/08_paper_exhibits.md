@@ -1,5 +1,5 @@
 # 08 paper exhibits
-Run 2026-10-17 01:47:35 UTC
+Run 2026-10-17 02:34:52 UTC
 
 ## Table 1A. Median fee per transaction around the cut (US$)
                       Period            Base      OP Mainnet        Arbitrum     Ethereum L1
@@ -48,7 +48,7 @@ Run 2026-10-17 01:47:35 UTC
  5: Window entrants (never active on Base), 6 v 6 days                       main burst rule         19,670 -> 145,230 x7.38                   x1.61                                   91%
  6: Window entrants (never active on Base), 6 v 6 days            size only (>= 5,000 a day)         19,670 -> 145,230 x7.38                   x1.90                                   86%
  7: Window entrants (never active on Base), 6 v 6 days      burst funded by bursting funders         19,670 -> 145,230 x7.38                   x1.97                                   85%
- 8: Window entrants (never active on Base), 6 v 6 days                same, corrected funder         19,670 -> 145,230 x7.38                   x1.93                                   86%
+ 8: Window entrants (never active on Base), 6 v 6 days                same, pre-entry funder         19,670 -> 145,230 x7.38                   x1.93                                   86%
  9:         Funding entities behind non-burst entrants           implied, 6 days (net of L1)                                      x1.35 [1.28, 1.41]                                      
 10:         Funding entities behind non-burst entrants           implied, 7 days (net of L1)                                      x1.41 [1.34, 1.47]                                      
 11:         Funding entities behind non-burst entrants direct count, 6 v 6 days (Base alone)          13,063 -> 18,027            x1.38 [1.27, 1.49]                                      

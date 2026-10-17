@@ -1,5 +1,5 @@
 # 06 users
-Run 2026-10-17 01:45:44 UTC
+Run 2026-10-17 02:33:24 UTC
 Entrants: base 1628756; arbitrum 1228511
 ## A. Base (Ecotone), W = 12 h each side: entrants/hour 821 -> 1016
                                   y  before      jump    ri_p n_fake marginal    m_lo   m_hi
@@ -229,11 +229,11 @@ C. Base entrants 2024-03-08..2024-03-21: 1169350; in campaign bursts 800751; fun
 1:     base                         main: burst vs own pre-shock level            0.09554             0.75116               1.759              50.8838           6.472             0.5958              0.5251              0.09223 3.6793
 2:     base                          bound: size only (>= 5,000 a day)            0.06036             0.68787               2.131              73.7571           6.472             0.5938              0.5083              0.05992 3.0373
 3:     base                    bound: burst funded by bursting funders            0.06036             0.63168               2.520              67.7332           6.472             0.5938              0.4356              0.06197 2.5687
-4:     base bound: burst funded by bursting funders (corrected funder)            0.08253             0.70308               2.075              55.1356           6.472             0.5986              0.5108              0.06861 3.1194
+4:     base bound: burst funded by bursting funders (pre-entry funder)            0.08253             0.70308               2.075              55.1356           6.472             0.5986              0.5108              0.06861 3.1194
 5: arbitrum                         main: burst vs own pre-shock level            0.17114             0.17244               1.248               1.2615           1.252             0.2413              0.2968              0.72792 1.0028
 6: arbitrum                          bound: size only (>= 5,000 a day)            0.12336             0.18014               1.169               1.8282           1.252             0.2497              0.3482              0.47584 1.0706
 7: arbitrum                    bound: burst funded by bursting funders            0.17114             0.11612               1.334               0.8495           1.252             0.2413              0.3282              0.69872 0.9388
-8: arbitrum bound: burst funded by bursting funders (corrected funder)            0.17114             0.02974               1.464               0.2176           1.252             0.2413              0.3612              0.69987 0.8551
+8: arbitrum bound: burst funded by bursting funders (pre-entry funder)            0.17114             0.02974               1.464               0.2176           1.252             0.2413              0.3612              0.69987 0.8551
 ## D. Entrants by group and chain (03-08..21)
       chain                           grp      N share
 1: arbitrum bot-like (>= 100 txs, week 1)    707 0.001
@@ -308,14 +308,14 @@ C. Base entrants 2024-03-08..2024-03-21: 1169350; in campaign bursts 800751; fun
  2:     base                           main: burst vs own pre-shock level   post    8     789716    257191  4424   0.0012523    0.03657 0.002034 0.034243   0.0153484     0.14435          0.0013803           0.02129        0.924952        0.28340
  3:     base                          bound 1: size only (>= 5,000 a day)    pre    5       6128     94956   444   0.0000000    0.07344 0.000000 0.000000   0.0000000     0.00000          0.0104439           0.02327        0.663512        0.17733
  4:     base                          bound 1: size only (>= 5,000 a day)   post    8     723174    323733  4424   0.0010565    0.02975 0.002034 0.035511   0.0135103     0.19414          0.0012831           0.01729        0.960184        0.33657
- 5:     base bound 2: burst funded by bursting funders (corrected funder)    pre    5       8379     92705   444   0.0000000    0.07523 0.000000 0.000000   0.0000000     0.00000          0.0109798           0.02355        0.717508        0.16065
- 6:     base bound 2: burst funded by bursting funders (corrected funder)   post    8     739170    307737  4424   0.0011662    0.03098 0.002034 0.037645   0.0142922     0.21323          0.0012078           0.01831        0.949584        0.32961
+ 5:     base bound 2: burst funded by bursting funders (pre-entry funder)    pre    5       8379     92705   444   0.0000000    0.07523 0.000000 0.000000   0.0000000     0.00000          0.0109798           0.02355        0.717508        0.16065
+ 6:     base bound 2: burst funded by bursting funders (pre-entry funder)   post    8     739170    307737  4424   0.0011662    0.03098 0.002034 0.037645   0.0142922     0.21323          0.0012078           0.01831        0.949584        0.32961
  7: arbitrum                           main: burst vs own pre-shock level    pre    5      30782    148974   109   0.0000000    0.01528 0.000000 0.000000   0.0000000     0.00000          0.0020806           0.02309        0.116627        0.09956
  8: arbitrum                           main: burst vs own pre-shock level   post    7      54363    260389   511   0.0011589    0.01443 0.003914 0.080298   0.0146149     0.13157          0.0015974           0.02082        0.084598        0.15163
  9: arbitrum                          bound 1: size only (>= 5,000 a day)    pre    5      22188    157568   109   0.0000000    0.01445 0.000000 0.000000   0.0000000     0.00000          0.0027949           0.02172        0.023661        0.11358
 10: arbitrum                          bound 1: size only (>= 5,000 a day)   post    7      56790    257962   511   0.0001937    0.01477 0.003914 0.013114   0.0008592     0.05951          0.0304260           0.01664        0.027769        0.16477
-11: arbitrum bound 2: burst funded by bursting funders (corrected funder)    pre    5      30782    148974   109   0.0000000    0.01528 0.000000 0.000000   0.0000000     0.00000          0.0020806           0.02309        0.116627        0.09956
-12: arbitrum bound 2: burst funded by bursting funders (corrected funder)   post    7       9376    305376   511   0.0001067    0.01251 0.003914 0.008526   0.0065232     0.01041          0.0003232           0.01942        0.007892        0.14411
+11: arbitrum bound 2: burst funded by bursting funders (pre-entry funder)    pre    5      30782    148974   109   0.0000000    0.01528 0.000000 0.000000   0.0000000     0.00000          0.0020806           0.02309        0.116627        0.09956
+12: arbitrum bound 2: burst funded by bursting funders (pre-entry funder)   post    7       9376    305376   511   0.0001067    0.01251 0.003914 0.008526   0.0065232     0.01041          0.0003232           0.01942        0.007892        0.14411
     clu500_campaign clu500_genuine clu500_diff clu500_diff_lo clu500_diff_hi clu2000_campaign clu2000_genuine cluF_campaign cluF_genuine cluX_campaign cluX_genuine sync_campaign sync_genuine
  1:         0.82186         0.1799    0.641999        0.29427        0.74610          0.84072          0.2348       0.69990      0.08123      0.437216      0.05458     0.0000000     0.036823
  2:         0.93467         0.3082    0.626450        0.47245        0.65796          0.94076          0.3649       0.91549      0.18494      0.770804      0.12620     0.6740752     0.067238
@@ -349,7 +349,7 @@ C. Base entrants 2024-03-08..2024-03-21: 1169350; in campaign bursts 800751; fun
 16: arbitrum              2000      all            35973             45038         25886.6            31045         1.252        1.199  0.04302   -0.02816    0.11150       1.0000
 17: arbitrum              2000 campaign             6156              7766          4746.8             6594         1.261        1.389 -0.09647   -1.80569    0.13661       1.0000
 18: arbitrum              2000  genuine            29795             37198         21212.2            24636         1.248        1.161  0.07232    0.04678    0.09791       1.0000
-## F. Corrected funder: share of window entrants with a funder before the first outgoing tx, and how the ETH funder was found
+## F. Pre-entry funder: share of window entrants with a funder before the first outgoing tx, and how the ETH funder was found
       chain period funder_seen eth_top_level eth_internal
 1:     base   post      0.9818        0.4894       0.4913
 2:     base    pre      0.9415        0.7367       0.1976
@@ -1738,7 +1738,7 @@ Dollar frictions per individual entrant consistent with both Base cuts (response
 5: window entrants (never active on Base)   6 v 6 days                  main burst rule      19670    145230     7.383         1.611               0.9098
 6: window entrants (never active on Base)   6 v 6 days       size only (>= 5,000 a day)      19670    145230     7.383         1.900               0.8642
 7: window entrants (never active on Base)   6 v 6 days burst funded by bursting funders      19670    145230     7.383         1.973               0.8534
-8: window entrants (never active on Base)   6 v 6 days           same, corrected funder      19670    145230     7.383         1.930               0.8625
+8: window entrants (never active on Base)   6 v 6 days           same, pre-entry funder      19670    145230     7.383         1.930               0.8625
 ## R2. Inference for the primary statistic (shift outside waves, Base minus L1, over the 6 low-fee days), 7 days, the 4- and 5-day path, and without 03-19
                                                               statistic window window_days       placebo estimate ratio placebo_K   rank_p disjoint_K
  1:                  6 v 6 days, log entry outside waves, Base minus L1  6 v 6           6 pre-cut dates   0.4521 1.572        61 0.016129          6

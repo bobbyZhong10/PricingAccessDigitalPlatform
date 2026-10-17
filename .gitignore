@@ -1,14 +1,13 @@
 # Raw downloads (about 3 GB) are rebuilt by code/01_download.R; data/panel/panel.rds is tracked
-# (no trailing slash, so a symlink to the main checkout's data/raw is ignored too)
 data/raw
 
 # Reference papers (copyrighted PDFs)
 literature/
 
-# Pre-writing notes: literature map, framing, theory, pre-analysis plans (private)
+# Private notes
 notes/
 
-# Research proposal (not published for now)
+# Research proposal (private)
 proposal/
 
 # R / RStudio
