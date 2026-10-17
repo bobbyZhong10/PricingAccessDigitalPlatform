@@ -1,5 +1,5 @@
 # 06 users
-Run 2026-10-17 02:33:24 UTC
+Run 2026-10-17 12:48:54 UTC
 Entrants: base 1628756; arbitrum 1228511
 ## A. Base (Ecotone), W = 12 h each side: entrants/hour 821 -> 1016
                                   y  before      jump    ri_p n_fake marginal    m_lo   m_hi

@@ -879,8 +879,8 @@ cat("## K3. Waves per day and new addresses by chain, before vs from 03-14\n")
 print(LD[grouping %in% GPK3, .(days = .N, new = mean(new), in_waves = mean(wave_new), wave_share = sum(wave_new) / sum(new), waves = mean(waves), outside_waves = mean(nonwave)),
          by = .(grouping, chain, period = fifelse(day < as.IDate(EVENTS$t0[1]), "before 03-14", "from 03-14"))][order(grouping, chain, -rank(period))])
 fwrite(KC, file.path(DIR_TAB, "long_control_test.csv"))
-# Figure: as the K1 figure, with Ethereum L1 as the comparison chain (no fee cut; fees at dollars); groups as in K1 when L1 call data are read, else by recipient
-LAB <- c(base = "Base", arbitrum = "Arbitrum", ethereum = "Ethereum L1 (comparison: no fee cut)"); GPF <- if ("target x method" %in% GPK3) "target x method" else "target"
+# Figure: as the K1 figure, with Ethereum L1 as the comparison chain (its fee fell far less and stayed at dollars); groups as in K1 when L1 call data are read, else by recipient
+LAB <- c(base = "Base", arbitrum = "Arbitrum", ethereum = "Ethereum L1 (comparison: fee fell far less)"); GPF <- if ("target x method" %in% GPK3) "target x method" else "target"
 FL3 <- rbind(LD[grouping == GPF, .(chain, day, v = wave_new, series = "In waves")], LD[grouping == GPF, .(chain, day, v = nonwave, series = "Outside waves")])[, chain_lab := factor(LAB[chain], LAB)]
 g <- ggplot(FL3, aes(day, v + 1, colour = series)) + geom_vline(data = CUTS[, .(d, chain_lab = factor(LAB[chain], LAB))], aes(xintercept = d), colour = COL[["ink2"]], linewidth = 0.3, linetype = "dashed") +
   geom_line(linewidth = 0.4) + facet_wrap(~ chain_lab, ncol = 1) + scale_y_log10(labels = scales::comma) + scale_colour_manual(values = c(COL[["main"]], COL[["ref"]])) +
@@ -1528,7 +1528,7 @@ g <- ggplot(HH, aes(hr)) + geom_ribbon(aes(ymin = lo, ymax = hi), fill = COL[["b
   scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Non-burst entrants per hour\n(band: same hour, 8-13 Mar)") + THEME_FIG
 FF <- FQ6[day >= cc - 1L & day <= cc + 1L, .(hr, fee_usd, chain_lab = factor(fifelse(chain == "base", "Base", "Arbitrum"), c("Base", "Arbitrum")))]
 g2 <- ggplot(FF, aes(hr, fee_usd, colour = chain_lab)) + geom_vline(xintercept = EVENTS[t0 < as.POSIXct(cc + 1L, tz = "UTC"), t0], colour = COL[["ink2"]], linewidth = 0.3, linetype = "dashed") +
-  geom_line(linewidth = 0.5) + scale_y_log10(labels = scales::dollar) + scale_colour_manual(values = c(COL[["main"]], COL[["ref"]])) +
+  geom_line(linewidth = 0.5) + scale_y_log10(breaks = c(0.001, 0.01, 0.1, 1), labels = c("$0.001", "$0.01", "$0.10", "$1")) + scale_colour_manual(values = c(COL[["main"]], COL[["ref"]])) +
   scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Median fee per tx\n(US$, log scale)", colour = NULL) + THEME_FIG
 ggsave(file.path(DIR_FIG, "cut_day_hours.png"), gridExtra::arrangeGrob(g + labs(x = NULL), g2, ncol = 1, heights = c(2, 1)), width = 9, height = 6.8, dpi = 200, bg = "white")
 # S7. First action of Base non-burst window entrants, 6 days before vs after the cut (03-08..13 vs 03-14..19), by 4-byte selector as section G: native or
