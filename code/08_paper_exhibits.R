@@ -70,7 +70,8 @@ T4 <- EC[, .(cls, `Entrants per day, before -> after` = sprintf("%s -> %s (x%.1f
              `Funding entities per day, before -> after` = sprintf("%s -> %s (x%.1f)", format(round(entities_before), big.mark = ",", trim = TRUE), format(round(entities_after), big.mark = ",", trim = TRUE), entity_ratio),
              `Share of entrants after the cut` = sprintf("%.0f%%", 100 * share_after), `Share of the added entrants` = sprintf("%.0f%%", 100 * share_of_added),
              `In a funding cluster of 20+` = sprintf("%.0f%%", 100 * in_cluster_20), `First tx in a same-block group of 10+` = sprintf("%.0f%%", 100 * same_block_group),
-             `Held by the 10 / 100 largest components` = sprintf("%.0f%% / %.0f%%", 100 * top10_share, 100 * top100_share), `Months active of Sep 2024, Dec 2024, Mar 2025 (0-3)` = sprintf("%.2f", months_active_of3),
+             `Held by the 10 / 100 largest components` = sprintf("%.0f%% / %.0f%%", 100 * top10_share, 100 * top100_share),
+             `Went to the most common first recipient` = sprintf("%.0f%%", 100 * top_recipient_share), `Months active of Sep 2024, Dec 2024, Mar 2025 (0-3)` = sprintf("%.2f", months_active_of3),
              `On the LayerZero provisional Sybil list` = sprintf("%.1f%%", 100 * layerzero_list), `Address / funder also enters Arbitrum` = sprintf("%.1f%% / %.1f%%", 100 * other_l2_address, 100 * other_l2_funder),
              `Received tokens / ETH after entry` = sprintf("%.0f%% / %.0f%%", 100 * tokens_after, 100 * eth_after))]
 T4 <- melt(T4, id.vars = "cls", variable.name = "Characteristic", value.name = "v", variable.factor = FALSE)

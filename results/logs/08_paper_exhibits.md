@@ -1,5 +1,5 @@
 # 08 paper exhibits
-Run 2026-10-17 02:34:52 UTC
+Run 2026-10-18 20:11:09 UTC
 
 ## Table 1A. Median fee per transaction around the cut (US$)
                       Period            Base      OP Mainnet        Arbitrum     Ethereum L1
@@ -62,10 +62,11 @@ Run 2026-10-17 02:34:52 UTC
  5:                         In a funding cluster of 20+                      95%                     30%              64%
  6:               First tx in a same-block group of 10+                      73%                      6%               4%
  7:             Held by the 10 / 100 largest components                52% / 88%               21% / 28%        56% / 68%
- 8: Months active of Sep 2024, Dec 2024, Mar 2025 (0-3)                     0.02                    0.18             0.28
- 9:             On the LayerZero provisional Sybil list                     0.1%                    4.1%             0.3%
-10:               Address / funder also enters Arbitrum              0.5% / 2.3%             7.5% / 5.9%      6.3% / 5.1%
-11:                   Received tokens / ETH after entry                 88% / 3%               55% / 28%        91% / 59%
+ 8:             Went to the most common first recipient                      88%                      8%              12%
+ 9: Months active of Sep 2024, Dec 2024, Mar 2025 (0-3)                     0.02                    0.18             0.28
+10:             On the LayerZero provisional Sybil list                     0.1%                    4.1%             0.3%
+11:               Address / funder also enters Arbitrum              0.5% / 2.3%             7.5% / 5.9%      6.3% / 5.1%
+12:                   Received tokens / ETH after entry                 88% / 3%               55% / 28%        91% / 59%
 
 ## Table 5. Threats to the estimate and the evidence on each
                                                                    Threat

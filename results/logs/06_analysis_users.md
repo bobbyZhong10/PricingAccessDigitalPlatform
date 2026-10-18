@@ -1,5 +1,5 @@
 # 06 users
-Run 2026-10-17 12:48:54 UTC
+Run 2026-10-18 20:11:37 UTC
 Entrants: base 1628756; arbitrum 1228511
 ## A. Base (Ecotone), W = 12 h each side: entrants/hour 821 -> 1016
                                   y  before      jump    ri_p n_fake marginal    m_lo   m_hi
@@ -1848,14 +1848,14 @@ Dollar frictions per individual entrant consistent with both Base cuts (response
 4:                                        Arbitrum's hours before its own cut track Base's
 5: same fee change in week one; counts include batch accounts (activity, not participants)
 ## R4. Base window entrants by class, 6 days before vs 6 days after the cut (03-08..13 vs 03-14..19)
-     class3 entities_before entities_after entrants_before entrants_after in_cluster_20 same_block_group months_active_of3 layerzero_list other_l2_address other_l2_funder tokens_after eth_after top10_share top100_share entrant_ratio entity_ratio
-1:      bot           49.83          168.5           94.17          450.8        0.6362          0.03993           0.28244       0.003327         0.063216         0.05074       0.9116   0.58669      0.5597       0.6813         4.788        3.381
-2: campaign          240.67         3661.2         1616.67       115852.0        0.9531          0.73372           0.01973       0.001181         0.004727         0.02262       0.8845   0.02803      0.5232       0.8834        71.661       15.213
-3:  genuine        13062.83        18026.7        17959.00        28927.5        0.3038          0.06154           0.17857       0.041085         0.075361         0.05906       0.5509   0.27977      0.2144       0.2779         1.611        1.380
-   share_after share_of_added
-1:    0.003104       0.002841
-2:    0.797712       0.909803
-3:    0.199184       0.087356
+     class3 entities_before entities_after entrants_before entrants_after in_cluster_20 same_block_group months_active_of3 layerzero_list other_l2_address other_l2_funder tokens_after eth_after top10_share top100_share top_recipient_share
+1:      bot           49.83          168.5           94.17          450.8        0.6362          0.03993           0.28244       0.003327         0.063216         0.05074       0.9116   0.58669      0.5597       0.6813             0.12126
+2: campaign          240.67         3661.2         1616.67       115852.0        0.9531          0.73372           0.01973       0.001181         0.004727         0.02262       0.8845   0.02803      0.5232       0.8834             0.88004
+3:  genuine        13062.83        18026.7        17959.00        28927.5        0.3038          0.06154           0.17857       0.041085         0.075361         0.05906       0.5509   0.27977      0.2144       0.2779             0.08295
+   entrant_ratio entity_ratio share_after share_of_added
+1:         4.788        3.381    0.003104       0.002841
+2:        71.661       15.213    0.797712       0.909803
+3:         1.611        1.380    0.199184       0.087356
 ## S1. The cut hour: RD with RI over fake hours before the cut only
                         event                                     outcome estimate      se ri_p_precut n_fake  p_floor          fakes_from            fakes_to
  1:            Base (Ecotone)                                 new senders  0.81715 0.15033     0.03960    100 0.009901 2024-02-16 12:00:00 2024-03-12 06:00:00

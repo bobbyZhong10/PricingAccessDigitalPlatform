@@ -1388,7 +1388,8 @@ R3 <- rbind(
 cat("## R3. Evidence that fails in different ways\n"); print(R3)
 # R4. Who the new accounts are, on the same 6 v 6 days (03-08..13 vs 03-14..19): Base window entrants by class (main burst rule; bot-like separate): entrants
 #   and funding entities (components, h = 500) per day before and after, ratio; share of all entrants after the cut and of the added entrants; after the cut:
-#   share in a funding cluster of >= CLUSTER_MIN, first tx in a same-block group (sync), share of the class held by its largest 10 / 100 components, months
+#   share in a funding cluster of >= CLUSTER_MIN, first tx in a same-block group (sync), share of the class held by its largest 10 / 100 components, share
+#   whose first recipient is the class's most common first recipient after the cut, months
 #   active of Sep 2024, Dec 2024, Mar 2025 (0-3), on the LayerZero provisional Sybil list, address or funder also entering Arbitrum, tokens / ETH received after entry.
 R4 <- EB[, .(entrants_before = sum(!post) / 6, entrants_after = sum(post) / 6,
              in_cluster_20 = mean(csize500[post] >= CLUSTER_MIN), same_block_group = mean(sync[post] == 1, na.rm = TRUE),
@@ -1397,6 +1398,7 @@ R4 <- EB[, .(entrants_before = sum(!post) / 6, entrants_after = sum(post) / 6,
              tokens_after = mean(tok_after[post], na.rm = TRUE), eth_after = mean(eth_after[post], na.rm = TRUE)), by = class3]
 R4 <- merge(EB[, .(e = uniqueN(cid500)), by = .(class3, post, day)][, .(entities_before = sum(e[!post]) / 6, entities_after = sum(e[post]) / 6), by = class3], R4, by = "class3")   # entities per day
 R4 <- merge(R4, EB[post == TRUE, .N, by = .(class3, cid500)][order(-N), .(top10_share = sum(head(N, 10)) / sum(N), top100_share = sum(head(N, 100)) / sum(N)), by = class3], by = "class3")
+R4 <- merge(R4, EB[post == TRUE, .(top_recipient_share = max(table(first_to)) / .N), by = class3], by = "class3")
 R4[, `:=`(entrant_ratio = entrants_after / entrants_before, entity_ratio = entities_after / entities_before, share_after = entrants_after / sum(entrants_after),
           share_of_added = (entrants_after - entrants_before) / sum(entrants_after - entrants_before))]
 cat("## R4. Base window entrants by class, 6 days before vs 6 days after the cut (03-08..13 vs 03-14..19)\n"); print(R4)
@@ -1521,15 +1523,17 @@ cat("## S6. Base minus Arbitrum in blocks of hours before Arbitrum's cut: the cu
 HH <- HP[win == "march" & as.IDate(hr) >= cc - 6L & as.IDate(hr) <= cc + 1L, .(chain, hr, nonburst, hod = hour(hr), day = as.IDate(hr))]
 HH <- merge(HH[day >= cc - 1L], HH[day < cc, .(lo = min(nonburst), hi = max(nonburst), mid = mean(nonburst)), by = .(chain, hod)], by = c("chain", "hod"))[
   , chain_lab := factor(fifelse(chain == "base", "Base (cut 14 Mar 00:00)", "Arbitrum (cut 14 Mar 15:00)"), c("Base (cut 14 Mar 00:00)", "Arbitrum (cut 14 Mar 15:00)"))]
-g <- ggplot(HH, aes(hr)) + geom_ribbon(aes(ymin = lo, ymax = hi), fill = COL[["band"]]) + geom_line(aes(y = mid), colour = COL[["ref"]], linewidth = 0.3) +
+g <- ggplot(HH, aes(hr)) + geom_ribbon(aes(ymin = lo, ymax = hi), fill = COL[["band"]]) + geom_line(aes(y = mid, colour = "Mean of the same hour, 8-13 Mar"), linewidth = 0.3) +
   geom_vline(data = EVENTS[t0 < as.POSIXct(cc + 1L, tz = "UTC"), .(t0, chain_lab = factor(fifelse(chain == "base", "Base (cut 14 Mar 00:00)", "Arbitrum (cut 14 Mar 15:00)"),
              c("Base (cut 14 Mar 00:00)", "Arbitrum (cut 14 Mar 15:00)")))], aes(xintercept = t0), colour = COL[["ink2"]], linewidth = 0.3, linetype = "dashed") +
-  geom_line(aes(y = nonburst), colour = COL[["main"]], linewidth = 0.5) + facet_wrap(~ chain_lab, ncol = 1, scales = "free_y") + scale_y_continuous(labels = scales::comma) +
-  scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Non-burst entrants per hour\n(band: same hour, 8-13 Mar)") + THEME_FIG
+  geom_line(aes(y = nonburst, colour = "Each hour, 13-15 Mar"), linewidth = 0.5) + facet_wrap(~ chain_lab, ncol = 1, scales = "free_y") + scale_y_continuous(labels = scales::comma) +
+  scale_colour_manual(values = c("Each hour, 13-15 Mar" = COL[["main"]], "Mean of the same hour, 8-13 Mar" = COL[["ref"]])) +
+  scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Non-burst entrants per hour\n(band: range of the same hour, 8-13 Mar)") + THEME_FIG
 FF <- FQ6[day >= cc - 1L & day <= cc + 1L, .(hr, fee_usd, chain_lab = factor(fifelse(chain == "base", "Base", "Arbitrum"), c("Base", "Arbitrum")))]
 g2 <- ggplot(FF, aes(hr, fee_usd, colour = chain_lab)) + geom_vline(xintercept = EVENTS[t0 < as.POSIXct(cc + 1L, tz = "UTC"), t0], colour = COL[["ink2"]], linewidth = 0.3, linetype = "dashed") +
   geom_line(linewidth = 0.5) + scale_y_log10(breaks = c(0.001, 0.01, 0.1, 1), labels = c("$0.001", "$0.01", "$0.10", "$1")) + scale_colour_manual(values = c(COL[["main"]], COL[["ref"]])) +
-  scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Median fee per tx\n(US$, log scale)", colour = NULL) + THEME_FIG
+  scale_x_datetime(date_breaks = "12 hours", date_labels = "%d %b\n%H:00") + labs(x = "Hour (UTC)", y = "Median fee per tx\n(US$, log scale)", colour = NULL) + THEME_FIG +
+  theme(legend.position = "inside", legend.position.inside = c(0.01, 0.03), legend.justification = c(0, 0), legend.background = element_rect(fill = "white", colour = NA))
 ggsave(file.path(DIR_FIG, "cut_day_hours.png"), gridExtra::arrangeGrob(g + labs(x = NULL), g2, ncol = 1, heights = c(2, 1)), width = 9, height = 6.8, dpi = 200, bg = "white")
 # S7. First action of Base non-burst window entrants, 6 days before vs after the cut (03-08..13 vs 03-14..19), by 4-byte selector as section G: native or
 #   zero-value transfer; DEX swap (SWAP_SELECTORS); mint or claim (CLAIM_MINT_SELECTORS); token transfer or approval; other contract call. Entrants and funding
