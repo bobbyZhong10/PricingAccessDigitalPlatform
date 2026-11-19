@@ -7,6 +7,9 @@ literature/
 # Private notes
 notes/
 
+# Manuscript (LaTeX source and build)
+manuscript/
+
 # Research proposal (private)
 proposal/
 
