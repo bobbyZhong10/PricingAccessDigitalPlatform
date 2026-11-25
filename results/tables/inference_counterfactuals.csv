@@ -1,0 +1,19 @@
+panel,variant,estimate,placebo_K,rank,ratio
+A. counterfactual,mean over the 6 days 2024-03-08..2024-03-13,0.45208756822853,61,1,1.57158956386628
+A. counterfactual,mean over the 12 days 2024-03-02..2024-03-13,0.512741600490048,55,1,1.66986302230045
+A. counterfactual,mean over the 18 days 2024-02-25..2024-03-13,0.449032866361269,49,1,1.56679615124158
+A. counterfactual,mean over the 24 days 2024-02-19..2024-03-13,0.446575294893763,43,1,1.56295036530738
+A. counterfactual,mean over the 30 days 2024-02-13..2024-03-13,0.465042260956096,37,1,1.59208147035052
+A. counterfactual,mean over the 6 days 2024-03-01..2024-03-06,0.599968388185403,54,1,1.82206120081924
+A. counterfactual,mean over the 12 days 2024-02-24..2024-03-06,0.446490762139111,48,1,1.56281825039172
+A. counterfactual,mean over the 24 days 2024-02-12..2024-03-06,0.471879432056945,36,1,1.60300410116778
+A. counterfactual,linear trend over the 12 days 2024-03-02..2024-03-13,0.333483122702101,55,4,1.39582148864765
+A. counterfactual,linear trend over the 21 days 2024-02-22..2024-03-13,0.527411873266701,46,1,1.69454094165093
+A. counterfactual,linear trend over the 28 days 2024-02-15..2024-03-13,0.464184321390448,39,1,1.59071614643182
+A. counterfactual,linear trend over the 42 days 2024-02-01..2024-03-13,0.471107018546174,25,1,1.60176639721338
+A. counterfactual,linear trend over the 73 days 2024-01-01..2024-03-13,0.335743455909076,0,,1.39898007869764
+B. outcome,wave threshold six times the group's baseline instead of three,0.422453984034149,61,1,1.52570101138249
+B. outcome,"entry outside waves (primary), established-action placebo origins",0.45208756822853,32,1,1.57158956386628
+B. outcome,"established first actions, daily wave rule",0.313244757629459,32,1,1.36785628332069
+B. outcome,"established first actions, no wave rule",0.447711032099612,32,6,1.56472647459394
+B. outcome,"established first actions, excluding groups with a wave in the reference period",0.22263598706793,32,8,1.24936570567833

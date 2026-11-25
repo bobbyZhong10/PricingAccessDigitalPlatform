@@ -1,0 +1,18 @@
+Panel,Counterfactual or outcome,Estimate (log),Ratio,Rank among placebo dates,In the paper
+A. counterfactual,mean over the 6 days 2024-03-08..2024-03-13,0.452,1.57,1 of 62,shown
+A. counterfactual,mean over the 12 days 2024-03-02..2024-03-13,0.513,1.67,1 of 56,note
+A. counterfactual,mean over the 18 days 2024-02-25..2024-03-13,0.449,1.57,1 of 50,note
+A. counterfactual,mean over the 24 days 2024-02-19..2024-03-13,0.447,1.56,1 of 44,note
+A. counterfactual,mean over the 30 days 2024-02-13..2024-03-13,0.465,1.59,1 of 38,shown
+A. counterfactual,mean over the 6 days 2024-03-01..2024-03-06,0.600,1.82,1 of 55,shown
+A. counterfactual,mean over the 12 days 2024-02-24..2024-03-06,0.446,1.56,1 of 49,note
+A. counterfactual,mean over the 24 days 2024-02-12..2024-03-06,0.472,1.60,1 of 37,shown
+A. counterfactual,linear trend over the 12 days 2024-03-02..2024-03-13,0.333,1.40,4 of 56,shown
+A. counterfactual,linear trend over the 21 days 2024-02-22..2024-03-13,0.527,1.69,1 of 47,note
+A. counterfactual,linear trend over the 28 days 2024-02-15..2024-03-13,0.464,1.59,1 of 40,shown
+A. counterfactual,linear trend over the 42 days 2024-02-01..2024-03-13,0.471,1.60,1 of 26,note
+A. counterfactual,linear trend over the 73 days 2024-01-01..2024-03-13,0.336,1.40,--,shown
+B. outcome,wave threshold six times the group's baseline instead of three,0.422,1.53,1 of 62,shown
+B. outcome,"established first actions, daily wave rule",0.313,1.37,1 of 33,shown
+B. outcome,"established first actions, no wave rule",0.448,1.56,6 of 33,shown
+B. outcome,"established first actions, excluding groups with a wave in the reference period",0.223,1.25,8 of 33,shown

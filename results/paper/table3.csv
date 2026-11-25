@@ -1,12 +1,12 @@
-Sample,Window or rule,Before -> after (per day),All,Outside waves or bursts,Share of the added in waves or bursts
-Long series: new addresses (no tx in 60 days),6 v 6 days,"23,387 -> 162,328",x6.94,x1.69,90%
-Long series: new addresses (no tx in 60 days),7 v 7 days,"24,239 -> 157,481",x6.50,x1.76,88%
-Long series: new addresses (no tx in 60 days),14 v 14 days,"23,687 -> 111,187",x4.69,x2.16,74%
-Long series: new addresses (no tx in 60 days),28 v 28 days,"24,625 -> 110,296",x4.48,x3.03,56%
-"Window entrants (never active on Base), 6 v 6 days",main burst rule,"19,670 -> 145,230",x7.38,x1.61,91%
-"Window entrants (never active on Base), 6 v 6 days","size only (>= 5,000 a day)","19,670 -> 145,230",x7.38,x1.90,86%
-"Window entrants (never active on Base), 6 v 6 days",burst funded by bursting funders,"19,670 -> 145,230",x7.38,x1.97,85%
-"Window entrants (never active on Base), 6 v 6 days","same, pre-entry funder","19,670 -> 145,230",x7.38,x1.93,86%
-Funding entities behind non-burst entrants,"implied, 6 days (net of L1)","","","x1.35 [1.28, 1.41]",""
-Funding entities behind non-burst entrants,"implied, 7 days (net of L1)","","","x1.41 [1.34, 1.47]",""
-Funding entities behind non-burst entrants,"direct count, 6 v 6 days (Base alone)","13,063 -> 18,027","","x1.38 [1.27, 1.49]",""
+Characteristic,Burst,Non-burst,Heavy
+"Entrants per day, before -> after","1,617 -> 115,852","17,959 -> 28,928",94 -> 451
+  Ratio,71.7,1.61,4.79
+"Funding entities per day, before -> after","241 -> 3,661","13,063 -> 18,027",50 -> 168
+  Ratio ,15.2,1.38,3.38
+Share of the added entrants,91%,9%,0.3%
+After the cut: in a funding cluster of 20 or more,95%,30%,64%
+First transaction in a same-block group of 10 or more,73%,6%,4%
+Held by the 10 / 100 largest funding entities,52% / 88%,21% / 28%,56% / 68%
+First transaction to the class's most common recipient,88%,8%,12%
+Later months active (of 3),0.02,0.18,0.28
+On the LayerZero provisional Sybil list,0.1%,4.1%,0.3%
